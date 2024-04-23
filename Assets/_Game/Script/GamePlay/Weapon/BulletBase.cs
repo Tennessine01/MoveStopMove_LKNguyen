@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBase : MonoBehaviour
+public class BulletBase : GameUnit
 {
     [SerializeField] float speed = 10;
     float damage;
@@ -18,15 +18,23 @@ public class BulletBase : MonoBehaviour
 
     public void OnDespawn()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        SimplePool.Despawn(this);
     }
 
     
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy"))
+        if(other.CompareTag("Enemy") || other.CompareTag("Wall"))
         {
             OnDespawn();
         }
     }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+    //    {
+    //        OnDespawn();
+    //    }
+    //}
 }
