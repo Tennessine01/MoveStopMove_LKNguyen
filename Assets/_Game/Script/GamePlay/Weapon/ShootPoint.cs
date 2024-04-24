@@ -5,8 +5,6 @@ using UnityEngine;
 public class ShootPoint : WeaponBase
 {
     [SerializeField] Transform bulletPoint;
-    [SerializeField] BulletBase bulletBasePrefab;
-
     public override void Shoot()
     {
         base.Shoot();

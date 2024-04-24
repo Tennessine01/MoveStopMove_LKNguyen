@@ -24,6 +24,7 @@ public class Character : MonoBehaviour
     [SerializeField] public float size;
     //Skin
 
+    
     //check death
     bool isDead = false;
 
@@ -33,7 +34,7 @@ public class Character : MonoBehaviour
         OnInit();
     }
 
-    public void OnInit()
+    public virtual void OnInit()
     {
     }
     // Update is called once per frame
@@ -52,9 +53,9 @@ public class Character : MonoBehaviour
         {
             animm.ResetTrigger(currentAnim);
             animm.SetTrigger(animName);
-            
+            currentAnim = animName;
         }
-        currentAnim = animName;
     }
 
+    
 }

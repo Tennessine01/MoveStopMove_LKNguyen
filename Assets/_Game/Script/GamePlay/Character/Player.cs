@@ -6,11 +6,12 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField] private FloatingJoystick joystick;
-
+    public CharacterAttackRange attackRange;
 
     public override void Update()
     {
         JoystickMove();
+        CheckClosestEnemy();
     }
     private void JoystickMove()
     {
@@ -37,5 +38,11 @@ public class Player : Character
         }
     }
 
+    public void CheckClosestEnemy()
+    {
+        attackRange.DetectNearCharacter();
+        //Debug.Log(attackRange.targetCharacter != null);
+        //Debug.Log(attackRange.characterList.Count);
+    }
 
 }
