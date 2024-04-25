@@ -67,6 +67,7 @@ public class CharacterAttackRange : Character
 
     private void ControlTargetMark(Character character, bool state)
     {
+        if (!owner.isPlayer) return;
         Bot bot = character as Bot;
         if (bot != null && bot.targetMark != null)
         {
@@ -94,75 +95,3 @@ public class CharacterAttackRange : Character
     }
 }
 
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-
-//public class CharacterAttackRange : Character
-//{
-//    public List<Character> characterList = new();
-//    public Character owner;
-//    public Character targetCharacter;
-//    private float minDistance;
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        //if (other.gameObject.CompareTag("Enemy"))
-//        //{
-//        //    Debug.Log("____________");
-//        //    Character character = other.GetComponent<Character>();
-//        //    if (character == null) return;
-//        //    Debug.Log("Character");
-//        //    if (character == owner) return;
-//        //    if (characterList.Contains(character)) return;
-//        //    characterList.Add(character);
-//        //}
-//        if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
-//        {
-//            Character character = other.GetComponent<Character>();
-//            if (character == null) return;
-//            if (character == owner) return;
-//            if (characterList.Contains(character)) return;
-//            characterList.Add(character);
-//        }
-//    }
-//    private void OnTriggerExit(Collider other)
-//    {
-//        if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
-//        {
-//            Character character = other.GetComponent<Character>();
-//            if (character != null)
-//            {
-//                characterList.Remove(character);
-//                //if (character == targetCharacter)
-//                //{
-//                //    DetectNearCharacter();
-//                //}
-//            }
-//        }
-
-//    }
-
-//    public void DetectNearCharacter()
-//    {
-//        targetCharacter = null;
-//        minDistance = 1000f;
-//        for (int i = 0; i < characterList.Count; i++)
-//        {
-//            float closestCharacter = Vector3.Distance(transform.position, characterList[i].transform.position);
-//            if (closestCharacter < minDistance)
-//            {
-//                minDistance = closestCharacter;
-//                targetCharacter = characterList[i];
-//                if (targetCharacter != null)
-//                {
-//                    Bot bot = targetCharacter as Bot;
-//                    if (bot != null && bot.targetMark != null)
-//                    {
-//                        bot.targetMark.enabled = true; // Enable the new target's marker
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-//}

@@ -8,12 +8,13 @@ public class WeaponBase : MonoBehaviour
     float time = 0.0f;
     void Update()
     {
-        time += Time.deltaTime;
-        if (time >= frameRate)
-        {
-            time -= frameRate;
-            Shoot();
-        }
+        //time += Time.deltaTime;
+        //if (time >= frameRate)
+        //{
+        //    time -= frameRate;
+        //    Shoot();
+        //}
+        //Shoot();
     }
     public virtual void Shoot()
     {

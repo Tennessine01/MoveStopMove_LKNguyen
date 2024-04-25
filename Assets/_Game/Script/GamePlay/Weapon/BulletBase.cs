@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletBase : GameUnit
 {
-    [SerializeField] float speed = 10;
+    [SerializeField] float speed = 8;
     float damage;
     public void Update()
     {

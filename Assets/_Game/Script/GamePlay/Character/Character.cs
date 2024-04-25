@@ -24,7 +24,9 @@ public class Character : MonoBehaviour
     [SerializeField] public float size;
     //Skin
 
-    
+    //xac dinh xem character co phai player khong
+    public bool isPlayer;
+
     //check death
     bool isDead = false;
 
