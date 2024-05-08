@@ -21,7 +21,6 @@ public class CharacterAttackRange : Character
                 _targetCharacter = value;
                 if (_targetCharacter != null)
                 {
-                    Debug.Log("----------");
                     ControlTargetMark(_targetCharacter, true);
                 }
             }

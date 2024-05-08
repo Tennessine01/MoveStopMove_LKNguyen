@@ -5,12 +5,10 @@ using UnityEngine;
 public class ShootPoint : WeaponBase
 {
     [SerializeField] Transform bulletPoint;
-    public override void Shoot()
+    public override void Shoot(BulletType bulletType)
     {
-        base.Shoot();
-
         //BulletBase b = Instantiate(bulletBasePrefab, bulletPoint.position, bulletPoint.rotation* Quaternion.Euler(90f, 180f, 0f));
-        BulletBase b = SimplePool.Spawn<BulletBase>(PoolType.Bullet_1, bulletPoint.position, bulletPoint.rotation * Quaternion.Euler(90f, 180f, 0f));
+        BulletBase b = (BulletBase)SimplePool.Spawn<GameUnit>((PoolType)bulletType, bulletPoint.position, bulletPoint.rotation * Quaternion.Euler(90f, 180f, 0f));
         b.OnInit(10);
     }
 }

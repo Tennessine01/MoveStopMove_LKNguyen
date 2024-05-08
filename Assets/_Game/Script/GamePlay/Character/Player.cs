@@ -6,8 +6,8 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField] private FloatingJoystick joystick;
-    public CharacterAttackRange attackRange;
-    public ShootPoint shootPoint;
+
+    
 
     private bool isMoving;
     public bool isAttack = false;
@@ -17,6 +17,8 @@ public class Player : Character
     {
         base.OnInit();
         isPlayer = true;
+        
+
     }
     public override void Update()
     {
@@ -43,7 +45,7 @@ public class Player : Character
             //transform.right = targetRotation * Vector3.forward;
             transform.forward = movementDirection;
 
-            ChangeAnim("Run");
+            ChangeAnim(Constant.ANIM_RUN);
         }
         if (movementDirection.magnitude < 0.1f)
         {
@@ -51,16 +53,15 @@ public class Player : Character
             rb.velocity = Vector3.zero;
             if (isAttack == false)
             {
-                ChangeAnim("Idle");
+                ChangeAnim(Constant.ANIM_IDLE);
             }
         }
     }
-    public void AttackWhenStop()
+    public override void AttackWhenStop()
     {
 
         if (attackRange.targetCharacter != null)
         {
-            //shootPoint.Shoot();
 
             //quay ve huong ke dich
             transform.forward = (attackRange.targetCharacter.transform.position - transform.position).normalized;
@@ -76,17 +77,15 @@ public class Player : Character
     }
     IEnumerator CheckAttackFalse()
     {
-        ChangeAnim("Attack");
+        ChangeAnim(Constant.ANIM_ATTACK);
         yield return new WaitForSeconds(0.4f);
-        shootPoint.Shoot();
-        yield return new WaitForSeconds(0.8f);
+        slotWeaponInHand.SetActive(false);
+        shootPoint.Shoot(weapon.bulletType);
+        yield return new WaitForSeconds(0.1f);
         isAttack = false;
+        yield return new WaitForSeconds(0.4f);
+        slotWeaponInHand.SetActive(true);
     }
-    public void CheckClosestEnemy()
-    {
-        attackRange.DetectNearCharacter();
-        //Debug.Log(attackRange.targetCharacter != null);
-        //Debug.Log(attackRange.characterList.Count);
-    }
+    
 
 }

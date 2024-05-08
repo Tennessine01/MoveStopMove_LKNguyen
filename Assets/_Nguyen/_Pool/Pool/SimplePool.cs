@@ -12,7 +12,7 @@
 ///     - simple pool with gameobject
 ///     - release game object
 ///     2019-10-09
-///     - Pool Clamp to keep the quantity within a certain range
+///     - Pool Clamp to keep the quantity within a certain radiusSphere
 ///     - Pool collect all to despawn all object comeback the pool
 ///     - Spawn with generic T
 ///     - Optimize pool
