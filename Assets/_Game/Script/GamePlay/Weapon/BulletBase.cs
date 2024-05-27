@@ -9,6 +9,7 @@ public class BulletBase : GameUnit
     private float startTime = 0f;
     private float endTime = 2f; //time to delay
     float damage;
+    public Character owner;
     public void Update()
     {
         transform.Translate(transform.forward * Time.deltaTime * speed);
@@ -17,6 +18,15 @@ public class BulletBase : GameUnit
         if (startTime >= endTime) // check time 
         {
             OnDespawn();
+        }
+        if (owner != null)
+        {
+
+            if (owner.isDespawn == true)
+            {
+                //Debug.Log("--------");
+                OnDespawn();
+            } 
         }
     }
     public void OnInit( float damage)
@@ -27,6 +37,7 @@ public class BulletBase : GameUnit
 
     public void OnDespawn()
     {
+        owner = null;
         //Destroy(gameObject);
         SimplePool.Despawn(this);
     }
@@ -36,14 +47,26 @@ public class BulletBase : GameUnit
     {
         if(other.CompareTag("Enemy") || other.CompareTag("Wall") || other.CompareTag("Player"))
         {
-            OnDespawn();
+            if (owner != null)
+            {
+                if (other != owner)
+                {
+                    other.GetComponent<Character>().OnHit(10f);
+                    OnDespawn();
+                }
+                else
+                {
+                    OnDespawn();
+                } 
+            }
+            
         }
     }
     //private void OnCollisionEnter(Collision collision)
     //{
     //    if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
     //    {
-    //        OnDespawn();
+    //        OnDead();
     //    }
     //}
 }

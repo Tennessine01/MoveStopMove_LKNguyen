@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class Bot : Character
 {
@@ -19,11 +20,27 @@ public class Bot : Character
 
     public override void OnInit()
     {
+
         base.OnInit();
         isPlayer = false;
+        isDespawn = false;
+        InstantiateWeapon(weaponID);
+        InstantiateHat(hatID);
+        InstantiatePant(pantID);
         agent = GetComponent<NavMeshAgent>();
-        ChangeState(new IdleState());
+        ChangeState(new MenuState());
 
+    }
+    public void OnDespawn()
+    {
+        isDespawn = true;
+        //Debug.Log("bbbb");
+        ChangeState(new MenuState());
+
+        if (attackRange.targetCharacter != null)
+        {
+            attackRange.characterList.Clear();
+        }
     }
 
     public override void Update()
@@ -66,5 +83,11 @@ public class Bot : Character
     public override void AttackWhenStop()
     {
         base.AttackWhenStop();
+    }
+
+    public override void OnDead()
+    {
+        isDespawn = true;
+        ChangeState(new DeathState());
     }
 }

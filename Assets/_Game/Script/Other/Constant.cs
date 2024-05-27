@@ -64,3 +64,21 @@ public enum WeaponType
     W_Uzi_2 = PoolType.W_Uzi_2,
 }
 
+public enum HatType
+{
+    None = 0,
+    HAT_Cowboy = PoolType.HAT_Cowboy ,
+    HAT_Crown = PoolType.HAT_Crown,
+    HAT_Ear = PoolType.HAT_Ear,
+    HAT_Hat = PoolType.HAT_Hat,
+    HAT_Cap = PoolType.HAT_Cap,
+    HAT_StrawHat = PoolType.HAT_StrawHat,
+    HAT_Headphone = PoolType.HAT_Headphone,
+    HAT_Horn = PoolType.HAT_Horn,
+}
+
+public enum PantType
+{
+    None = 0,
+    PANT_
+}

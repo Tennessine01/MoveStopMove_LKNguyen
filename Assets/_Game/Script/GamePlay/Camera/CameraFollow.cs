@@ -4,25 +4,37 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : Singleton<CameraFollow>
 {
     public Transform target;
     public Vector3 offset;
+    public Vector3 offsetRotation;
     public float speed = 20;
-    // Start is called before the first frame update
-    void Start()
-    {
-        OnInit();
-    }
+    //void Start()
+    //{
+    //    OnInit();
+    //}
 
-    private void OnInit()
+    public void OnInit()
     {
-        //target = player.transform;
+        transform.position = target.position + offset;
+        transform.rotation = Quaternion.Euler( offsetRotation);
+        
     }
-    // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.deltaTime * speed);
+        transform.rotation = Quaternion.Euler( offsetRotation); 
+    }
+    public void SetOffset(float x, float y, float z)
+    {
+        Vector3 offset = new Vector3 (x, y, z);
+        this.offset = offset;
+    }
+    public void SetRotation(float x, float y, float z)
+    {
+        Vector3 offsetR = new Vector3 (x, y, z);
+        this.offsetRotation = offsetR;
     }
 }
 

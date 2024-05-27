@@ -1,37 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
+    //tao level
     [SerializeField] Level[] levels;
     public Level currentLevel;
+    //tao character
+    [SerializeField] Player playerPrefab;
+    public Player player;
+    private Bot b;
+    private List<Bot> listBot = new List<Bot>(); 
+    //bat trong khi play
+    [SerializeField] FloatingJoystick joystick;
+    [SerializeField] GameObject targetIndicator;
 
+    //
+    public int BotNumber => listBot.Count;
     public void Start()
     {
-        OnLoadLevel(0);
         OnInit();
     }
 
-    //khoi tao trang thai bat dau game
+    //private void Awake()
+    //{
+    //    OnInit();
+    //}
     public void OnInit()
     {
-        //Debug.Log(currentLevel.realBot);
-        //player.OnInit();
-        for (int i = 0; i < currentLevel.realBot; i++)
+        if(listBot != null)
         {
-            //Debug.Log(i + "-----");
-            SpawnBot();
+            OnDespawn();
         }
+        OnLoadLevel(0);
+        SpawnPlayer();
+        OnMenu();
+        CameraFollow.Ins.OnInit();        
+        SpawnBot();
+        
     }
 
     //reset trang thai khi ket thuc game
     public void OnReset()
     {
-        //player.OnDespawn();
+        //player.OnDead();
         //for (int i = 0; i < bots.Count; i++)
         //{
-        //    bots[i].OnDespawn();
+        //    bots[i].OnDead();
         //}
 
         //bots.Clear();
@@ -46,20 +63,107 @@ public class LevelManager : Singleton<LevelManager>
             Destroy(currentLevel.gameObject);
         }
 
-        currentLevel = Instantiate(levels[level]);
+        currentLevel = Instantiate(levels[level],transform);
     }
 
     //-----------------------------------------------------------------------------------------
+    //
     private void SpawnBot()
     {
-        Bot b = (Bot)SimplePool.Spawn<GameUnit>(PoolType.Bot, RandomPosition(), Quaternion.identity);
-        b.centerPoint = currentLevel.centerPosition;
+        for (int i = 0; i < currentLevel.realBot; i++)
+        {
+            b = SimplePool.Spawn<Bot>(PoolType.Bot, RandomPosition(), Quaternion.identity);
+            b.OnInit();
+            b.centerPoint = currentLevel.centerPosition;
+
+            //random weapon
+            int randomWeaponID = UnityEngine.Random.Range(0, 6);
+            b.weaponID = randomWeaponID;
+
+            //random hatPrefab
+            int randomHatID = UnityEngine.Random.Range(1, 9);
+            b.hatID = randomHatID;
+
+            //random pant
+            int pantID = UnityEngine.Random.Range(1, 7);
+            b.pantID = pantID;
+
+            listBot.Add(b);
+        }
+            
+    }
+    public void SpawnPlayer()
+    {
+        player = Instantiate(playerPrefab, currentLevel.centerPosition);
+        player.startPos = currentLevel.centerPosition;
+        player.joystick = joystick;
+        CameraFollow.Ins.target = player.transform;
+
+        //Debug.Log(player.startPos.position);
+    }
+    //---------------------------------------------------------------------------
+    public void OnMenu()
+    {
+        //SetCameraMenu();
+        targetIndicator.SetActive(false);
+    }
+    public void OnPlay()
+    {
+        for (int i = 0; i < listBot.Count; i++)
+        {
+            Bot bot = listBot[i];
+            bot.ChangeState(new IdleState());
+        }
+        targetIndicator.SetActive(true);
+    }
+    //-------------------------------------------------------------------
+    public void SetCameraMenu()
+    {
+        CameraFollow.Ins.SetOffset(0, 5, -8);
+        CameraFollow.Ins.SetRotation(30f, 0, 0);
+    }
+    public void SetCameraFollow()
+    {
+        CameraFollow.Ins.SetOffset(0,22.9f,-14.7f);
+        CameraFollow.Ins.SetRotation(55, 0, 0);
+        //meraFollow.target = player.transform;
+    }
+    public void SetCameraShop()
+    {
+        CameraFollow.Ins.SetOffset(0, 3f, -8);
+        CameraFollow.Ins.SetRotation(30f, 0, 0);
     }
 
+    //--------------------------------------------------------------------------
     private Vector3 RandomPosition()
     {
         Vector3 randomPos = new Vector3();
         randomPos = currentLevel.RandomPoint();
         return randomPos;
     }
+
+    public void OnDespawn()
+    {
+        if(currentLevel != null)
+        {
+            Destroy(currentLevel);
+        }
+        DespawnPlayer();
+        if(listBot != null)
+        {
+            for (int i = 0; i < listBot.Count; i++)
+            {
+                Bot bot = listBot[i];
+                //bot.shootPoint.b.OnDespawn();
+                bot.OnDespawn();
+                SimplePool.Despawn(bot);
+            }
+        }
+        listBot.Clear();
+    }
+    public void DespawnPlayer()
+    {
+         Destroy(player);
+    }
+    
 }

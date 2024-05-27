@@ -478,6 +478,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3128862274614907247}
   - {fileID: 429179899349784692}
   m_Father: {fileID: 5191943445293120032}
   m_RootOrder: -1
@@ -950,7 +951,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 68daf889fc19ffd43805f42a37002682, type: 2}
+  - {fileID: 4874126678125670354, guid: 2f023236cc191d44fa8fe9273eeb1634, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -975,7 +976,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 7666266049737368757, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_Mesh: {fileID: 7666266049737368757, guid: 2f023236cc191d44fa8fe9273eeb1634, type: 3}
   m_Bones:
   - {fileID: 2827412065356437585}
   - {fileID: 3984196279991851331}
@@ -1037,6 +1038,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.022025019, y: -0.2036489, z: 0.06559239}
     m_Extent: {x: 0.37928572, y: 0.32483855, z: 0.38066572}
   m_DirtyAABB: 0
+--- !u!1 &3635548099230915383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3128862274614907247}
+  m_Layer: 0
+  m_Name: HatPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3128862274614907247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3635548099230915383}
+  m_LocalRotation: {x: 0.0000000014479157, y: 0.000000030864612, z: -0.0000000050349627, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6757643065827469163}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3992503280677400820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,7 +1211,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frameRate: 1
   bulletType: 0
+  owner: {fileID: 0}
   bulletPoint: {fileID: 7904188817217612918}
+  b: {fileID: 0}
 --- !u!1 &4769162788369647134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,7 +1402,7 @@ Transform:
   m_GameObject: {fileID: 5015271570252287937}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3986930873266991013}
@@ -1408,18 +1442,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 27
+  Range: 0
+  moveSpeed: 0
+  size: 0
+  pantID: 0
+  weaponID: 0
+  hatID: 0
+  hatPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 0}
   animm: {fileID: 0}
   rb: {fileID: 0}
-  moveSpeed: 0
   attackRange: {fileID: 5097658166934434469}
   shootPoint: {fileID: 0}
-  weaponID: 
-  w: {fileID: 0}
-  slotWeaponInHand: {fileID: 0}
+  weapon: {fileID: 0}
+  pant: {fileID: 0}
   isPlayer: 0
+  isDespawn: 0
+  slotWeaponInHand: {fileID: 0}
   weaponPosition: {fileID: 7904188817217612918}
+  hatPosition: {fileID: 0}
   characterList: []
   owner: {fileID: 3888783283666329266}
+  range: 0
 --- !u!54 &2227819543771675930
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1500,7 +1544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3986930873266991013
 Transform:
   m_ObjectHideFlags: 0
@@ -1518,7 +1562,7 @@ Transform:
   - {fileID: 7904188817217612918}
   - {fileID: 2735203694766184643}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3390976044417146977
 CapsuleCollider:
@@ -1556,16 +1600,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 1
+  Range: 5
+  moveSpeed: 0
+  size: 1
+  pantID: 0
+  weaponID: 0
+  hatID: 0
+  hatPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 0}
   animm: {fileID: 7956825556969989064}
   rb: {fileID: 0}
-  moveSpeed: 0
   attackRange: {fileID: 5097658166934434469}
   shootPoint: {fileID: 8431570521525928712}
-  weaponID: 5
-  w: {fileID: 0}
-  slotWeaponInHand: {fileID: 3037383980223269019}
+  weapon: {fileID: 0}
+  pant: {fileID: 6571088634801656153}
   isPlayer: 0
+  isDespawn: 0
+  slotWeaponInHand: {fileID: 3037383980223269019}
   weaponPosition: {fileID: 7303072698828991446}
+  hatPosition: {fileID: 3128862274614907247}
   targetMark: {fileID: 4809955768287039736}
   agent: {fileID: 8954847631209615012}
   radiusSphere: 20
@@ -1943,7 +1996,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  - {fileID: 5561349426305759274, guid: 2f023236cc191d44fa8fe9273eeb1634, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1968,7 +2021,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -4538140524563738714, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_Mesh: {fileID: -4538140524563738714, guid: 2f023236cc191d44fa8fe9273eeb1634, type: 3}
   m_Bones:
   - {fileID: 2827412065356437585}
   - {fileID: 3984196279991851331}

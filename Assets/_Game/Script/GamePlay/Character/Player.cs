@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField] private FloatingJoystick joystick;
+    //coin
+    public int coin;
 
-    
+    public FloatingJoystick joystick;
+    public Transform startPos;
 
     private bool isMoving;
     public bool isAttack = false;
@@ -15,10 +17,14 @@ public class Player : Character
 
     public override void OnInit()
     {
-        base.OnInit();
-        isPlayer = true;
-        
+        OnLoadData();
 
+        base.OnInit();
+        InstantiateWeapon(weaponID);
+        InstantiateHat(hatID);
+        InstantiatePant(pantID); 
+        isPlayer = true;
+        TF.position = startPos.position;
     }
     public override void Update()
     {
@@ -31,24 +37,42 @@ public class Player : Character
         
         wasMovingLastFrame = isMoving;
     }
+
+    //-------------------------------------------------------------------
+    public void OnLoadData()
+    {
+        if(UserDataManager.Ins.userData.currentWeapon == 0){
+            weaponID = 1;
+        }
+        else{
+            weaponID = UserDataManager.Ins.userData.currentWeapon;
+        }
+        hatID = UserDataManager.Ins.userData.currentHat;
+        pantID = UserDataManager.Ins.userData.currentPant;
+        coin = UserDataManager.Ins.userData.coin;
+    }
     private void JoystickMove()
     {
-        Vector3 movementDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
+        Vector3 movementDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized; //chuan hoa ve unit vector
         if (movementDirection.magnitude > 0.1f)
         {
             StopAllCoroutines();
             isMoving = true;
             //transform.position += movementDirection * Time.deltaTime * moveSpeed;
             rb.velocity = movementDirection * moveSpeed;
-            //float targetAngle = Mathf.Atan2(joystick.Horizontal, joystick.Vertical) * Mathf.Rad2Deg + 90f;
-            //Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
-            //transform.right = targetRotation * Vector3.forward;
-            transform.forward = movementDirection;
+            
+            TF.forward = movementDirection;
 
             ChangeAnim(Constant.ANIM_RUN);
         }
         if (movementDirection.magnitude < 0.1f)
         {
+            if (attackRange.targetCharacter == null)
+            {
+                slotWeaponInHand.SetActive(true);
+
+                isAttack = false;
+            }
             isMoving = false;
             rb.velocity = Vector3.zero;
             if (isAttack == false)
@@ -57,19 +81,14 @@ public class Player : Character
             }
         }
     }
-    public override void AttackWhenStop()
-    {
-
-        if (attackRange.targetCharacter != null)
-        {
-
+    public override void AttackWhenStop(){
+        if (attackRange.targetCharacter != null){
             //quay ve huong ke dich
-            transform.forward = (attackRange.targetCharacter.transform.position - transform.position).normalized;
+            TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
 
             isAttack = true;
             Attack();
         }
-
     }
     public void Attack()
     {
@@ -83,9 +102,12 @@ public class Player : Character
         shootPoint.Shoot(weapon.bulletType);
         yield return new WaitForSeconds(0.1f);
         isAttack = false;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
         slotWeaponInHand.SetActive(true);
     }
     
-
+    public void EquipWeapon(int a)
+    {
+        weaponID = a;
+    }
 }

@@ -7,6 +7,23 @@ public class CharacterAttackRange : Character
     public List<Character> characterList = new List<Character>();
     public Character owner;
     private Character _targetCharacter;
+
+    public float range ;
+
+    
+    
+    public override void Update()
+    {
+        if (targetCharacter != null)
+        {
+            if (targetCharacter.IsDead)
+            {
+                characterList.Remove(targetCharacter);
+            }
+        }
+    }
+
+    //danh cho player de mark bot gan nhat
     public Character targetCharacter
     {
         get { return _targetCharacter; }
@@ -34,16 +51,12 @@ public class CharacterAttackRange : Character
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
         {
-            //Character character = other.GetComponent<Character>();
-            //if (character != null && character != owner && !characterList.Contains(character))
-            //{
-            //    characterList.Add(character);
-            //    DetectNearCharacter();
-            //}
+            
             Character character = other.GetComponent<Character>();
             if (character == null) return;
             if (character == owner) return;
             if (characterList.Contains(character)) return;
+            if(character.isDespawn == true) return;
             characterList.Add(character);
         }
     }
@@ -79,14 +92,16 @@ public class CharacterAttackRange : Character
         float minDistance = float.MaxValue;
         Character nearestCharacter = null;
 
-
-        foreach (Character character in characterList)
+        if(characterList != null)
         {
-            float distance = Vector3.Distance(transform.position, character.transform.position);
-            if (distance < minDistance)
+            foreach (Character character in characterList)
             {
-                minDistance = distance;
-                nearestCharacter = character;
+                float distance = Vector3.Distance(transform.position, character.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestCharacter = character;
+                }
             }
         }
         targetCharacter = nearestCharacter;
