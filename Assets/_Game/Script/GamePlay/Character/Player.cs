@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : Character
 {
+    private bool IsCanUpdate => GameManager.Ins.IsState(GameState.GamePlay) || GameManager.Ins.IsState(GameState.Setting);
+
     //coin
     public int coin;
 
@@ -14,7 +16,8 @@ public class Player : Character
     private bool isMoving;
     public bool isAttack = false;
     private bool wasMovingLastFrame = false;
-
+    private Vector3 movementDirection;
+    [SerializeField] private int reviveTime;
     public override void OnInit()
     {
         OnLoadData();
@@ -22,29 +25,45 @@ public class Player : Character
         base.OnInit();
         InstantiateWeapon(weaponID);
         InstantiateHat(hatID);
-        InstantiatePant(pantID); 
+        InstantiatePant(pantID);
         isPlayer = true;
+        isDespawn = false;
         TF.position = startPos.position;
+        if (joystick != null)
+        {
+            joystick.gameObject.SetActive(true);
+        }
+        reviveTime = 1;
     }
     public override void Update()
     {
-        JoystickMove();
-        CheckClosestEnemy();
-        if (wasMovingLastFrame && !isMoving)
+        if (IsCanUpdate && !IsDead)
         {
-            AttackWhenStop();
+            if (isDespawn == true)
+            {
+                return;
+            }
+            JoystickMove();
+            CheckClosestEnemy();
+            if (wasMovingLastFrame == true && isMoving == false)
+            {
+                AttackWhenStop();
+            }
+
+            wasMovingLastFrame = isMoving;
+
         }
-        
-        wasMovingLastFrame = isMoving;
     }
 
     //-------------------------------------------------------------------
     public void OnLoadData()
     {
-        if(UserDataManager.Ins.userData.currentWeapon == 0){
-            weaponID = 1;
+        if (UserDataManager.Ins.userData.currentWeapon == 0)
+        {
+            weaponID = 0;
         }
-        else{
+        else
+        {
             weaponID = UserDataManager.Ins.userData.currentWeapon;
         }
         hatID = UserDataManager.Ins.userData.currentHat;
@@ -53,36 +72,47 @@ public class Player : Character
     }
     private void JoystickMove()
     {
-        Vector3 movementDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized; //chuan hoa ve unit vector
+
+        movementDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized; //chuan hoa ve unit vector
         if (movementDirection.magnitude > 0.1f)
         {
             StopAllCoroutines();
             isMoving = true;
+            isAttack = false;
             //transform.position += movementDirection * Time.deltaTime * moveSpeed;
             rb.velocity = movementDirection * moveSpeed;
-            
+
             TF.forward = movementDirection;
 
             ChangeAnim(Constant.ANIM_RUN);
         }
         if (movementDirection.magnitude < 0.1f)
         {
+            isMoving = false;
             if (attackRange.targetCharacter == null)
             {
                 slotWeaponInHand.SetActive(true);
 
                 isAttack = false;
             }
-            isMoving = false;
             rb.velocity = Vector3.zero;
+
             if (isAttack == false)
             {
+
                 ChangeAnim(Constant.ANIM_IDLE);
+            }
+
+            if (isDespawn == true)
+            {
+                ChangeAnim(Constant.ANIM_DEAD);
             }
         }
     }
-    public override void AttackWhenStop(){
-        if (attackRange.targetCharacter != null){
+    public override void AttackWhenStop()
+    {
+        if (attackRange.targetCharacter != null)
+        {
             //quay ve huong ke dich
             TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
 
@@ -105,9 +135,30 @@ public class Player : Character
         yield return new WaitForSeconds(0.1f);
         slotWeaponInHand.SetActive(true);
     }
-    
-    public void EquipWeapon(int a)
+    public void OnRevive()
     {
-        weaponID = a;
+        reviveTime--;
+        isDespawn = false;
+        joystick.gameObject.SetActive(true);
+        IncreaseHP(10);
     }
+    private void CheckReviveTime()
+    {
+        if (reviveTime > 0)
+        {
+            LevelManager.Ins.PlayerDie();
+        }
+        if (reviveTime == 0)
+        {
+            GameManager.Ins.ChangeState(GameState.Lose);
+        }
+    }
+    public override void OnDead()
+    {
+        base.OnDead();
+        joystick.gameObject.SetActive(false);
+        movementDirection = Vector3.zero;
+        CheckReviveTime();
+    }
+
 }

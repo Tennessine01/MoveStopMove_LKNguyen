@@ -5,7 +5,7 @@ using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum GameState { MainMenu, GamePlay, Finish, Revive, Setting }
+public enum GameState { MainMenu, GamePlay, Win, Revive,Question, Setting , Lose }
 
 public class GameManager : Singleton<GameManager>
 {
@@ -38,7 +38,6 @@ public class GameManager : Singleton<GameManager>
         ChangeState(GameState.MainMenu);
         //LevelManager.Ins.OnInit();
 
-        UIManager.Ins.OpenUI<UIMainMenu>();
     }
     public void ChangeState(GameState state)
     {
@@ -51,26 +50,57 @@ public class GameManager : Singleton<GameManager>
             case GameState.GamePlay:
                 ChangeGamePlayState();
                 break;
-            case GameState.Finish:
-                ChangeFinishState();
+            case GameState.Win:
+                ChangeWinState();
                 break;
             case GameState.Revive:
+                ChangeReviveState();
                 break;
             case GameState.Setting:
+                ChangeSettingState();
+                break;
+            case GameState.Lose:
+                ChangeLoseState();
+                break;
+            case GameState.Question:
+                ChangeQuestionState();
                 break;
             default:
                 break;
         }
     }
-
-    private void ChangeFinishState()
+    
+    private void ChangeSettingState()
+    {
+        UIManager.Ins.OpenUI<UISetting>();
+    }
+    private void ChangeWinState()
     {
     }
-
-    private void ChangeMainMenuState()
+    private void ChangeReviveState() 
     {
-        //LevelManager.Ins.OnInit();
+        LevelManager.Ins.player.OnRevive();
+        GameManager.Ins.ChangeState(GameState.GamePlay);
+    }
+    public void ChangeQuestionState()
+    {
+        UIManager.Ins.CloseUI<UISetting>();
+        UIManager.Ins.OpenUI<UIRevive>();
+    }
+    private void ChangeMainMenuState()
+    {   
+        UIManager.Ins.CloseUI<UILose>();
+        UIManager.Ins.CloseUI<UIWin>();
+        UIManager.Ins.CloseUI<UIGamePlay>();
+        UIManager.Ins.CloseUI<UISetting>();
+
+        
+        LevelManager.Ins.OnDespawn();
+        
+        LevelManager.Ins.OnInit();
         LevelManager.Ins.SetCameraMenu();
+        UIManager.Ins.OpenUI<UIMainMenu>();
+
     }
 
     private void ChangeGamePlayState()
@@ -79,8 +109,13 @@ public class GameManager : Singleton<GameManager>
         LevelManager.Ins.OnPlay();
         UIManager.Ins.OpenUI<UIGamePlay>();
     }
-
-    public static bool IsState(GameState state)
+    private void ChangeLoseState()
+    {
+        UIManager.Ins.CloseUI<UIGamePlay>();
+        UIManager.Ins.CloseUI<UISetting>();
+        UIManager.Ins.OpenUI<UILose>();
+    }
+    public bool IsState(GameState state)
     {
         return gameState == state;
     }

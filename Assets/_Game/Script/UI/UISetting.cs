@@ -11,15 +11,13 @@ public class UISetting : UICanvas
 
     public void HomeButton()
     {
-        LevelManager.Ins.OnDespawn();
-        LevelManager.Ins.OnInit();
+        //LevelManager.Ins.OnDespawn();
+        //LevelManager.Ins.OnInit();
 
         GameManager.Ins.ChangeState(GameState.MainMenu);
 
-        UIManager.Ins.OpenUI<UIMainMenu>();
         Close(0);
         UIManager.Ins.CloseUI<UIGamePlay>();
-
     }
     
 }

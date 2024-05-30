@@ -2020,7 +2020,6 @@ MonoBehaviour:
   container: {fileID: 1375390011542868478}
   playerCoinTxt: {fileID: 6304016419165798445}
   skinShopItemsList: []
-  categoryButtons: []
   buyState:
   - {fileID: 4243045291477896086}
   - {fileID: 4505486786522241834}
@@ -2028,6 +2027,12 @@ MonoBehaviour:
   priceText: {fileID: 922542819380768381}
   MONEY: 0
   ITEM_ID: 0
+  onItemBought:
+    m_PersistentCalls:
+      m_Calls: []
+  onItemEquip:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5969197015423237031
 GameObject:
   m_ObjectHideFlags: 0

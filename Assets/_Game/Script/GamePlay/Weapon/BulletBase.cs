@@ -51,7 +51,7 @@ public class BulletBase : GameUnit
             {
                 if (other != owner)
                 {
-                    other.GetComponent<Character>().OnHit(10f);
+                    Cache.GetCharacter(other).OnHit(10f);
                     OnDespawn();
                 }
                 else

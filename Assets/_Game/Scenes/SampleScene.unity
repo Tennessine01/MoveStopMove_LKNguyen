@@ -1073,7 +1073,7 @@ MonoBehaviour:
     collect: 0
   - root: {fileID: 1561179970}
     prefab: {fileID: 3888783283666329266, guid: fc6af4f195f068f48ac865cfd2b56f7b, type: 3}
-    amount: 0
+    amount: 10
     collect: 0
   - root: {fileID: 1561179970}
     prefab: {fileID: -3890962603773581775, guid: ce4081802d8f49c42beb53c7c36c9e58, type: 3}
@@ -1194,7 +1194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565346821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.878691, y: 0.14664793, z: 21.851921}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1396,7 +1396,8 @@ MonoBehaviour:
   - {fileID: 3810796761829793202, guid: 75258f292f6fd2b4fa518834e905788e, type: 3}
   - {fileID: 2975191188590109545, guid: 47a2443380299c442bce17c6bd6bc86c, type: 3}
   - {fileID: 8213229111994309128, guid: 93ecbae8cc075d044bb92b39b0e08fd3, type: 3}
-  - {fileID: 6631452772710505808, guid: 7f24a66dd54e192408a190f332989e98, type: 3}
+  - {fileID: 7535991746580882910, guid: 7f24a66dd54e192408a190f332989e98, type: 3}
+  - {fileID: 6752596986866498273, guid: e045afc78aa46484e8f585779e80633b, type: 3}
   CanvasParentTF: {fileID: 1970673865}
 --- !u!1001 &7951374863237489815
 PrefabInstance:

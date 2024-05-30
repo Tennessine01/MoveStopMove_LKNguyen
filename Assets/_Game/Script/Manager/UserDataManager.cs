@@ -31,4 +31,31 @@ public class UserDataManager : Singleton<UserDataManager>
     {
         PlayerPrefs.SetString(KEY_USER_DATA, JsonUtility.ToJson(userData));
     }
+
+    public bool IsItemUnlocked(int itemId, ShopType shopType)
+    {
+        switch (shopType)
+        {
+            case ShopType.Hat:
+                return userData.hatList.Contains(itemId);
+            case ShopType.Pant:
+                return userData.pantList.Contains(itemId);
+            default:
+                return false;
+        }
+    }
+
+    public bool IsItemEquipped(int itemId, ShopType shopType)
+    {
+        switch (shopType)
+        {
+            case ShopType.Hat:
+                return userData.currentHat == itemId;
+            case ShopType.Pant:
+                return userData.currentPant == itemId;
+            default:
+                return false;
+        }
+    }
+
 }

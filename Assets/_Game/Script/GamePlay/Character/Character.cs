@@ -50,7 +50,7 @@ public class Character : GameUnit
     [HideInInspector] public bool isPlayer;
 
     //check death
-    private float hp;
+    [SerializeField] private float hp;
     public bool IsDead => hp <= 0;
     public bool isDespawn;
 
@@ -183,17 +183,21 @@ public class Character : GameUnit
     {
         Destroy(weaponPrefab);
     }
+    public void ResetItem()
+    {
+        DestroyHat();
+        DestroyPant();
+        DestroyWeapon();
+    }
 
     //------------------------------------------------
     public void CheckClosestEnemy()
     {
         attackRange.DetectNearCharacter();
-        //Debug.Log(attackRange.targetCharacter != null);
-        //Debug.Log(attackRange.characterList.Count);
     }
     public virtual void OnDead()
     {
-
+        isDespawn = true;
     }
     public void OnHit(float damage)
     {
@@ -207,6 +211,10 @@ public class Character : GameUnit
                 OnDead();
             }
         }
+    }
+    public void IncreaseHP(int aa)
+    {
+        hp += aa;
     }
     public void ChangeAttackRagneByPercentage(float percent)
     {

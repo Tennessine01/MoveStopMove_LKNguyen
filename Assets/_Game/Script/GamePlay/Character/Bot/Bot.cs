@@ -29,13 +29,17 @@ public class Bot : Character
         InstantiatePant(pantID);
         agent = GetComponent<NavMeshAgent>();
         ChangeState(new MenuState());
+        LevelManager.Ins.WhenPlayerDie += ChangeMenuState;
+
 
     }
     public void OnDespawn()
     {
         isDespawn = true;
+        ResetItem();
         //Debug.Log("bbbb");
         ChangeState(new MenuState());
+        LevelManager.Ins.WhenPlayerDie -= ChangeMenuState;
 
         if (attackRange.targetCharacter != null)
         {
@@ -63,6 +67,15 @@ public class Bot : Character
             currentState.OnEnter(this);
         }
     }
+    private void ChangeMenuState()
+    {
+        if(isDespawn == false)
+        {
+            agent.isStopped = true;
+
+        }
+        ChangeState(new MenuState());
+    }
 
     public bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
@@ -87,7 +100,10 @@ public class Bot : Character
 
     public override void OnDead()
     {
-        isDespawn = true;
+        base.OnDead();
+        OnDespawn();
+        LevelManager.Ins.ReduceListBotNumber(this);
+        LevelManager.Ins.EnemyDied();
         ChangeState(new DeathState());
     }
 }

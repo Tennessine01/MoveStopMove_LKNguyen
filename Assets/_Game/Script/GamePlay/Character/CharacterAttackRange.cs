@@ -16,7 +16,7 @@ public class CharacterAttackRange : Character
     {
         if (targetCharacter != null)
         {
-            if (targetCharacter.IsDead)
+            if (targetCharacter.isDespawn == true)
             {
                 characterList.Remove(targetCharacter);
             }
@@ -52,7 +52,7 @@ public class CharacterAttackRange : Character
         if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
         {
             
-            Character character = other.GetComponent<Character>();
+            Character character = Cache.GetCharacter(other);
             if (character == null) return;
             if (character == owner) return;
             if (characterList.Contains(character)) return;
@@ -65,7 +65,7 @@ public class CharacterAttackRange : Character
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Character"))
         {
-            Character character = other.GetComponent<Character>();
+            Character character = Cache.GetCharacter(other);
             if (character != null)
             {
                 characterList.Remove(character);
@@ -91,12 +91,23 @@ public class CharacterAttackRange : Character
     {
         float minDistance = float.MaxValue;
         Character nearestCharacter = null;
-
-        if(characterList != null)
+        if (characterList != null)
         {
-            foreach (Character character in characterList)
+            for (int i = 0; i< characterList.Count; i++)
             {
-                float distance = Vector3.Distance(transform.position, character.transform.position);
+                Character character = characterList[i];
+
+                if (character.isDespawn == true)
+                {
+                    //characterList.RemoveAt(i);
+                    continue;
+                }
+                if (character == null)
+                {
+                    continue;
+                }
+                Debug.Log(character.name);
+                float distance = Vector3.Distance(TF.position, character.TF.position);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
@@ -104,8 +115,8 @@ public class CharacterAttackRange : Character
                 }
             }
         }
-        targetCharacter = nearestCharacter;
 
+        targetCharacter = nearestCharacter;
     }
 }
 

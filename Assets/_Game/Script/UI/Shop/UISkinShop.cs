@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 public enum ShopType{
     Hat = 0, Pant = 1, Accessory = 2, Skin = 3, Weapon = 4
@@ -17,7 +18,6 @@ public class UISkinShop : UICanvas
     [SerializeField] TextMeshProUGUI playerCoinTxt; // so tien cua User
     public List<SkinShopItem> skinShopItemsList; // list chua cac item sau khi da truyen data
 
-    [SerializeField] List<Button> categoryButtons; // list cac button cho tung muc
     [SerializeField] List<GameObject> buyState; // list cac button Buy,Select,Unequip
     private ShopType currentShopType; // trang thai shop hien tai
 
@@ -25,7 +25,12 @@ public class UISkinShop : UICanvas
 
     [HideInInspector] public int MONEY = 0; // bien chua gia cua item dang chon
     [HideInInspector] public int ITEM_ID = 0; // bien chua id cua item dang chon
-   
+
+    public UnityEvent<int, ShopType> onItemBought = new UnityEvent<int, ShopType>();
+    public UnityEvent<int, ShopType> onItemEquip = new UnityEvent<int, ShopType>();
+
+
+
     public override void Open()
     {
         base.Open();
@@ -148,6 +153,9 @@ public class UISkinShop : UICanvas
                 UserDataManager.Ins.userData.pantList.Add(ITEM_ID);
                 UserDataManager.Ins.userData.currentPant = ITEM_ID;
             }
+            onItemBought?.Invoke(ITEM_ID, currentShopType);
+            onItemEquip?.Invoke(ITEM_ID, currentShopType);
+
         }
     }
     public void UnequipItem()
@@ -164,6 +172,8 @@ public class UISkinShop : UICanvas
             LevelManager.Ins.player.DestroyPant();
             UserDataManager.Ins.userData.currentPant = 0;
         }
+        onItemEquip?.Invoke(1000, currentShopType);
+
     }
     public void SelectItem()
     {
@@ -180,7 +190,7 @@ public class UISkinShop : UICanvas
             LevelManager.Ins.player.InstantiatePant(ITEM_ID);
             UserDataManager.Ins.userData.currentPant = ITEM_ID;
         }
-
+        onItemEquip?.Invoke(ITEM_ID, currentShopType);
     }
     //chuyen trang thai cac button buy, select, unequip
     public void SetActiveBuyState(int index)
@@ -207,8 +217,7 @@ public class UISkinShop : UICanvas
         LevelManager.Ins.player.DestroyPant();
 
         GameManager.Ins.ChangeState(GameState.MainMenu);
-        UIManager.Ins.OpenUI<UIMainMenu>();
-        LevelManager.Ins.player.OnInit();
+        //LevelManager.Ins.player.OnInit();
     }
     private void DestroySkinShopItems()
     {

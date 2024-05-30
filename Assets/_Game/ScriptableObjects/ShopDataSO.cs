@@ -23,6 +23,7 @@ public class ItemData
     public Material material;
     public int id;
     public int cost;
+    public string name;
     public string description;
     public GameObject prefab;
 }

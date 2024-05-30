@@ -33,6 +33,7 @@ public class UIMainMenu : UICanvas
     public void WeaponShopButton()
     {
         Close(0);
+        LevelManager.Ins.DeactivatePlayer();    
         UIManager.Ins.OpenUI<UIWeaponShop>();
     }
 }

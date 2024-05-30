@@ -19,48 +19,56 @@ MonoBehaviour:
       material: {fileID: 0}
       id: 1
       cost: 200
+      name: 
       description: 
       prefab: {fileID: 2745967718136122951, guid: ea31abc87f6d8d24a9570e688bd60ca5, type: 3}
     - icon: {fileID: 21300000, guid: a50fa6b5fea3d264cbec440c2da1dbf8, type: 3}
       material: {fileID: 0}
       id: 2
       cost: 300
+      name: 
       description: 
       prefab: {fileID: 2336082213902999092, guid: 839bd40c219067941822cce2a4e3f254, type: 3}
     - icon: {fileID: 21300000, guid: 5dd6afb8b1bc7b947853e77fc8811be4, type: 3}
       material: {fileID: 0}
       id: 3
       cost: 400
+      name: 
       description: 
       prefab: {fileID: 5759946576965567898, guid: 5b5110036ad06514ba6d5b9df8eb6540, type: 3}
     - icon: {fileID: 21300000, guid: 16a71104cd40fbd408c2919484df4cd7, type: 3}
       material: {fileID: 0}
       id: 4
       cost: 500
+      name: 
       description: 
       prefab: {fileID: 49603093621266086, guid: 46b1453e91b013d4ba92acbe7995e0cc, type: 3}
     - icon: {fileID: 21300000, guid: 76e934370403f35428e37cc379bed4c7, type: 3}
       material: {fileID: 0}
       id: 5
       cost: 600
+      name: 
       description: 
       prefab: {fileID: 2081216509741589078, guid: f9f891bf5c6ded94c814a73adbb33fd2, type: 3}
     - icon: {fileID: 21300000, guid: 69fc10e773b5a814198a5883e168c2b7, type: 3}
       material: {fileID: 0}
       id: 6
       cost: 700
+      name: 
       description: 
       prefab: {fileID: 89409121801263736, guid: 341f1cef412e0aa4e9c7d2789a603ef3, type: 3}
     - icon: {fileID: 21300000, guid: 694f596b7929bdb409ba3630631783d9, type: 3}
       material: {fileID: 0}
       id: 7
       cost: 800
+      name: 
       description: 
       prefab: {fileID: 4738308550751441633, guid: e4c8673a65539f44bb1454945a082a81, type: 3}
     - icon: {fileID: 21300000, guid: c72f60a9ff619e54ea03f81d8477c714, type: 3}
       material: {fileID: 0}
       id: 8
       cost: 900
+      name: 
       description: 
       prefab: {fileID: 3050937094739271215, guid: f766e7c4b82b88947b96b9652eeea3a9, type: 3}
   - shopType: 4
@@ -69,36 +77,42 @@ MonoBehaviour:
       material: {fileID: 0}
       id: 0
       cost: 0
+      name: AXE
       description: 
       prefab: {fileID: 8988803541910155479, guid: b394f896b79bec8478774f83b62164b3, type: 3}
     - icon: {fileID: 21300000, guid: dd47ffa33ce48924eb157693923298bb, type: 3}
       material: {fileID: 0}
       id: 1
       cost: 200
+      name: BATTLE AXE
       description: 
       prefab: {fileID: 8451760126980370772, guid: cea37c897ad27794084a27985db1be6c, type: 3}
     - icon: {fileID: 21300000, guid: 82541a9d027d1ef459d4baf465a125ce, type: 3}
       material: {fileID: 0}
       id: 2
       cost: 300
+      name: CANDY
       description: 
       prefab: {fileID: 1187358643223279800, guid: d3e83d61654f2d64bbd01e0036699772, type: 3}
     - icon: {fileID: 21300000, guid: 724e4328a30d97c4fa51f406c3ff007d, type: 3}
       material: {fileID: 0}
       id: 3
       cost: 400
+      name: CANDY CANE
       description: 
       prefab: {fileID: 7515099777188078735, guid: 634dd0a5e351ab5449336ee5efd8eeef, type: 3}
     - icon: {fileID: 21300000, guid: 3af6351134a980440a9abb799a182e85, type: 3}
       material: {fileID: 0}
       id: 4
       cost: 500
+      name: ICE CREAM
       description: 
       prefab: {fileID: 1904895372859151958, guid: e8cfe0adca78b8d4195fde00167690a4, type: 3}
     - icon: {fileID: 21300000, guid: 5a7af5be6b42eb940ac6d08116d0fe7e, type: 3}
       material: {fileID: 0}
       id: 5
       cost: 600
+      name: SWIRLY POP
       description: 
       prefab: {fileID: 6840366512767827184, guid: 78f66318dab302543b17b7221a48e1da, type: 3}
   - shopType: 1
@@ -107,41 +121,48 @@ MonoBehaviour:
       material: {fileID: 2100000, guid: 68daf889fc19ffd43805f42a37002682, type: 2}
       id: 1
       cost: 200
+      name: 
       description: 
       prefab: {fileID: 0}
     - icon: {fileID: 21300000, guid: bf6c3011d09de5645b20958b4178cdf7, type: 3}
       material: {fileID: 2100000, guid: bb2a203a4b36d3c409f73c9db11decd2, type: 2}
       id: 2
       cost: 300
+      name: 
       description: 
       prefab: {fileID: 0}
     - icon: {fileID: 21300000, guid: be770e2a4bda55147bff7cac14cb8b34, type: 3}
       material: {fileID: 2100000, guid: 4cca6e22b0b27924599660ac0a2f824a, type: 2}
       id: 3
       cost: 400
+      name: 
       description: 
       prefab: {fileID: 0}
     - icon: {fileID: 21300000, guid: a482b056a7db15c449864b0f6737a4cb, type: 3}
       material: {fileID: 2100000, guid: 9adf9aa8597927c449fa47ae0ed706a9, type: 2}
       id: 4
       cost: 500
+      name: 
       description: 
       prefab: {fileID: 0}
     - icon: {fileID: 21300000, guid: 17737506398ad284aa00a46f0508ac61, type: 3}
       material: {fileID: 2100000, guid: cc2ec1bb1b43f3f46ae2949b21676f86, type: 2}
       id: 5
       cost: 600
+      name: 
       description: 
       prefab: {fileID: 0}
     - icon: {fileID: 21300000, guid: 25eaab120aefcd243b5c20ed406b1184, type: 3}
       material: {fileID: 2100000, guid: db5f28b36a2e9f94ea484a3d3d785ffc, type: 2}
       id: 6
       cost: 700
+      name: 
       description: 
       prefab: {fileID: 0}
     - icon: {fileID: 21300000, guid: ce130da2d9627654994c26c5c9da1967, type: 3}
       material: {fileID: 2100000, guid: 34d4ede47ebfc684598f4fece10e7a02, type: 2}
       id: 7
       cost: 800
+      name: 
       description: 
       prefab: {fileID: 0}
