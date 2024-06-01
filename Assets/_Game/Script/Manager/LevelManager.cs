@@ -113,12 +113,15 @@ public class LevelManager : Singleton<LevelManager>
         Debug.Log("---------------");
         if (player != null)
         {
+            Debug.Log("aaaaaaaaa");
             ActivatePlayer();
             player.ResetItem();
             player.OnInit();
         }
         else
         {
+            Debug.Log("bbbbbbbbb");
+
             Player character = Instantiate(playerPrefab, currentLevel.centerPosition);
             character.startPos = currentLevel.centerPosition;
             character.joystick = joystick;
@@ -170,11 +173,12 @@ public class LevelManager : Singleton<LevelManager>
     }
 
     public void OnDespawn()
+    { 
+        DespawnPlayer();
+        DespawnBot();
+    }
+    public void DespawnBot()
     {
-        if(player != null)
-        {
-            DespawnPlayer();
-        }
         if (listBot != null)
         {
             for (int i = 0; i < listBot.Count; i++)
@@ -194,6 +198,7 @@ public class LevelManager : Singleton<LevelManager>
             //Destroy(player);
             DeactivatePlayer();
             player.ResetItem();
+            player.shootPoint.DespawnBullet();
         }
     }
     public void DeactivatePlayer()
@@ -230,7 +235,7 @@ public class LevelManager : Singleton<LevelManager>
             listBot.Remove(bot);
         }
     }
-
+    
     //-------------------------------
     public event Action WhenPlayerDie;
     public void PlayerDie()

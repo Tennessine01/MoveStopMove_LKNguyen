@@ -215,6 +215,7 @@ public class UISkinShop : UICanvas
         DestroySkinShopItems();
         LevelManager.Ins.player.DestroyHat();
         LevelManager.Ins.player.DestroyPant();
+        LevelManager.Ins.player.DestroyWeapon();
 
         GameManager.Ins.ChangeState(GameState.MainMenu);
         //LevelManager.Ins.player.OnInit();

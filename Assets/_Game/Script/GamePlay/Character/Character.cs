@@ -22,10 +22,10 @@ public class Character : GameUnit
     //Skin
 
     //pant
-    [SerializeField] public int pantID;
+    [SerializeField] public int pantID = 0;
     //vu khi tren tay
-    [SerializeField] public int weaponID;
-    [SerializeField] public int hatID;
+    [SerializeField] public int weaponID = 0;
+    [SerializeField] public int hatID = 0;
     public GameObject hatPrefab;
     public GameObject weaponPrefab;
     [Space(10)] // Adds 10 pixels of space in the Inspector
@@ -148,6 +148,7 @@ public class Character : GameUnit
     }
     public void InstantiateWeapon(int weaponID)
     {
+        
         weaponPrefab = EquipemtManager.Ins.InstantiatePrefabById(weaponID, weaponPosition, ShopType.Weapon);
         if (weaponPrefab != null)
         {
@@ -173,7 +174,9 @@ public class Character : GameUnit
     }
     public void DestroyHat()
     {
+
         Destroy(hatPrefab);
+        hatID = 0;
     }
     public void DestroyPant()
     {
@@ -182,6 +185,7 @@ public class Character : GameUnit
     public void DestroyWeapon()
     {
         Destroy(weaponPrefab);
+        weaponID = 0;
     }
     public void ResetItem()
     {
@@ -212,22 +216,27 @@ public class Character : GameUnit
             }
         }
     }
+
+    public virtual void OnDespawn()
+    {
+        ResetItem();
+    }
     public void IncreaseHP(int aa)
     {
         hp += aa;
     }
-    public void ChangeAttackRagneByPercentage(float percent)
-    {
-        Range *= (percent/100 + 1);
-    }
-    public float ChangeSize(float percent)
-    {
-        return (percent / 100 + 1);
-    }
-    public void ChangeWeapon(int id)
-    {
-        weaponID = id;
-    }
+    //public void ChangeAttackRagneByPercentage(float percent)
+    //{
+    //    Range *= (percent/100 + 1);
+    //}
+    //public float ChangeSize(float percent)
+    //{
+    //    return (percent / 100 + 1);
+    //}
+    //public void ChangeWeapon(int id)
+    //{
+    //    weaponID = id;
+    //}
 
     public virtual void SetOwnerForBullet()
     {

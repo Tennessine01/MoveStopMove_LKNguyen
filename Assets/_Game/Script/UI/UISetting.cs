@@ -11,7 +11,7 @@ public class UISetting : UICanvas
 
     public void HomeButton()
     {
-        //LevelManager.Ins.OnDespawn();
+        LevelManager.Ins.OnDespawn();
         //LevelManager.Ins.OnInit();
 
         GameManager.Ins.ChangeState(GameState.MainMenu);

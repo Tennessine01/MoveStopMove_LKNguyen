@@ -10,15 +10,15 @@ public class WeaponShopItem : MonoBehaviour
     public Image ImgIcon;
     public ItemState state;
     public UIWeaponShop uiWeaponShop;
-    public ShopType shopType;
+    //public ShopType shopType;
     public int price;
 
     public int id;
     public TMP_Text weaponName;
-    public void Setup(ItemData data, ShopType type)
+    public void Setup(ItemData data)
     {
         ImgIcon.sprite = data.icon;
-        shopType = type;
+        //shopType = type;
         id = data.id;
         price = data.cost;
         weaponName.text = data.name.ToString();

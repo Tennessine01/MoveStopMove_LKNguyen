@@ -7,15 +7,9 @@ public class UIMainMenu : UICanvas
 {
     [SerializeField] TextMeshProUGUI playerCoinTxt;
 
-    protected override void OnInit()
-    {
-        base.OnInit();
-
-    }
     public override void Open()
     {
-        base.Open();
-    
+        base.Open(); 
         playerCoinTxt.SetText(UserDataManager.Ins.userData.coin.ToString());
     }
     public void PlayButton()
@@ -26,14 +20,17 @@ public class UIMainMenu : UICanvas
 
     public void SkinShopButton() 
     {
-        LevelManager.Ins.SetCameraShop();
+        GameManager.Ins.ChangeState(GameState.SkinShop);
+        //LevelManager.Ins.SetCameraShop();
         Close(0);
-        UIManager.Ins.OpenUI<UISkinShop>();
+        //UIManager.Ins.OpenUI<UISkinShop>();
     }
     public void WeaponShopButton()
     {
+        GameManager.Ins.ChangeState(GameState.WeaponShop);
+
+        //LevelManager.Ins.DeactivatePlayer();    
+        //UIManager.Ins.OpenUI<UIWeaponShop>();
         Close(0);
-        LevelManager.Ins.DeactivatePlayer();    
-        UIManager.Ins.OpenUI<UIWeaponShop>();
     }
 }

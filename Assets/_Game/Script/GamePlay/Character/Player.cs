@@ -26,6 +26,8 @@ public class Player : Character
         InstantiateWeapon(weaponID);
         InstantiateHat(hatID);
         InstantiatePant(pantID);
+        isMoving = false;
+        isAttack = false;
         isPlayer = true;
         isDespawn = false;
         TF.position = startPos.position;
@@ -58,14 +60,16 @@ public class Player : Character
     //-------------------------------------------------------------------
     public void OnLoadData()
     {
-        if (UserDataManager.Ins.userData.currentWeapon == 0)
-        {
-            weaponID = 0;
-        }
-        else
-        {
-            weaponID = UserDataManager.Ins.userData.currentWeapon;
-        }
+        //if (UserDataManager.Ins.userData.currentWeapon == 0)
+        //{
+        //    weaponID = 0;
+        //}
+        //else
+        //{
+        //    weaponID = UserDataManager.Ins.userData.currentWeapon;
+        //}
+        weaponID = UserDataManager.Ins.userData.currentWeapon;
+
         hatID = UserDataManager.Ins.userData.currentHat;
         pantID = UserDataManager.Ins.userData.currentPant;
         coin = UserDataManager.Ins.userData.coin;
@@ -159,6 +163,10 @@ public class Player : Character
         joystick.gameObject.SetActive(false);
         movementDirection = Vector3.zero;
         CheckReviveTime();
+    }
+    public override void OnDespawn() 
+    { 
+        base.OnDespawn();
     }
 
 }

@@ -437,6 +437,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   pant: {fileID: 0}
   isPlayer: 0
+  hp: 0
   isDespawn: 0
   slotWeaponInHand: {fileID: 0}
   weaponPosition: {fileID: 0}
@@ -2272,7 +2273,7 @@ Transform:
   - {fileID: 900420455576369574}
   - {fileID: 6920602254459492258}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!136 &6813184127039077417
 CapsuleCollider:
@@ -2314,8 +2315,8 @@ MonoBehaviour:
   moveSpeed: 10
   size: 1
   pantID: 0
-  weaponID: 7
-  hatID: 44
+  weaponID: 0
+  hatID: 0
   hatPrefab: {fileID: 0}
   weaponPrefab: {fileID: 0}
   animm: {fileID: 5012584790450894851}
@@ -2325,6 +2326,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   pant: {fileID: 4558768186678175347}
   isPlayer: 1
+  hp: 0
   isDespawn: 0
   slotWeaponInHand: {fileID: 5382442638087986617}
   weaponPosition: {fileID: 1135069108763547416}
@@ -2333,6 +2335,7 @@ MonoBehaviour:
   joystick: {fileID: 0}
   startPos: {fileID: 0}
   isAttack: 0
+  reviveTime: 0
 --- !u!54 &3236321527631090935
 Rigidbody:
   m_ObjectHideFlags: 0

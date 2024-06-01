@@ -22,7 +22,7 @@ public class UIWeaponShop : UICanvas
     private int ITEM_ID = 0;
 
     
-    private int currentItemIndex = 0;
+    [SerializeField] private int currentItemIndex = 0;
 
     public override void Open()
     {
@@ -47,8 +47,8 @@ public class UIWeaponShop : UICanvas
             ItemData item = items[i];
             WeaponShopItem weaponShopItem = Instantiate(weaponShopItemPrefab, container);
             weaponShopItem.gameObject.SetActive(false);
-            weaponShopItem.uiWeaponShop = this;
-            weaponShopItem.Setup(item, ShopType.Weapon);
+            //weaponShopItem.uiWeaponShop = this;
+            weaponShopItem.Setup(item);
             weaponShopItemsList.Add(weaponShopItem);
             //priceText.SetText(item.ToString());
         }
@@ -91,7 +91,7 @@ public class UIWeaponShop : UICanvas
         weaponShopItemsList[currentItemIndex].gameObject.SetActive(false);
 
         currentItemIndex++;
-        if (currentItemIndex >= weaponShopItemsList.Count)
+        if (currentItemIndex > weaponShopItemsList.Count -1)
         {
             currentItemIndex = 0;
         }
@@ -116,6 +116,7 @@ public class UIWeaponShop : UICanvas
     //---------------
     public void CheckStateOfItem(int id)
     {
+
         if (UserDataManager.Ins.userData.weaponList.Contains(id))
         {
             if (UserDataManager.Ins.userData.currentWeapon == id)
@@ -181,12 +182,15 @@ public class UIWeaponShop : UICanvas
     public void UnequipItem()
     {
         SetActiveBuyState(1);
+        LevelManager.Ins.player.DestroyWeapon();
+
         UserDataManager.Ins.userData.currentWeapon = 0;
     }
     public void SelectItem()
     {
         SetActiveBuyState(2);
-
+        LevelManager.Ins.player.DestroyWeapon();
+        LevelManager.Ins.player.InstantiateWeapon(weaponShopItemsList[currentItemIndex].id);
         UserDataManager.Ins.userData.currentWeapon = weaponShopItemsList[currentItemIndex].id;
     }
     //--------------------------------------------
@@ -209,7 +213,10 @@ public class UIWeaponShop : UICanvas
     {
         Close(0);
         DestroyWeaponShopItems();
+        LevelManager.Ins.player.DestroyHat();
+        LevelManager.Ins.player.DestroyPant();
         LevelManager.Ins.player.DestroyWeapon();
+        //LevelManager.Ins.player.ResetItem();
 
         //LevelManager.Ins.ActivatePlayer();
         //LevelManager.Ins.player.OnInit();

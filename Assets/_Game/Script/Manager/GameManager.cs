@@ -5,7 +5,7 @@ using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum GameState { MainMenu, GamePlay, Win, Revive,Question, Setting , Lose }
+public enum GameState { MainMenu, GamePlay, Win, Revive,Question, Setting , Lose , SkinShop, WeaponShop}
 
 public class GameManager : Singleton<GameManager>
 {
@@ -65,11 +65,28 @@ public class GameManager : Singleton<GameManager>
             case GameState.Question:
                 ChangeQuestionState();
                 break;
+            case GameState.SkinShop:
+                ChangeSkinShopState();
+                break;
+            case GameState.WeaponShop:
+                ChangeWeaponShopState();
+                break;
             default:
                 break;
         }
     }
-    
+    private void ChangeSkinShopState()
+    {
+        UIManager.Ins.OpenUI<UISkinShop>();
+        LevelManager.Ins.SetCameraShop();
+
+    }
+    private void ChangeWeaponShopState()
+    {
+        UIManager.Ins.OpenUI<UIWeaponShop>();
+        LevelManager.Ins.DeactivatePlayer();
+
+    }
     private void ChangeSettingState()
     {
         UIManager.Ins.OpenUI<UISetting>();
@@ -95,7 +112,7 @@ public class GameManager : Singleton<GameManager>
         UIManager.Ins.CloseUI<UISetting>();
 
         
-        LevelManager.Ins.OnDespawn();
+        //LevelManager.Ins.OnDespawn();
         
         LevelManager.Ins.OnInit();
         LevelManager.Ins.SetCameraMenu();

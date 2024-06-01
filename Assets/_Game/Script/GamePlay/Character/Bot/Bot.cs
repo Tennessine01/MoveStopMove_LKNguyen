@@ -38,6 +38,8 @@ public class Bot : Character
         isDespawn = true;
         ResetItem();
         //Debug.Log("bbbb");
+        shootPoint.DespawnBullet();
+
         ChangeState(new MenuState());
         LevelManager.Ins.WhenPlayerDie -= ChangeMenuState;
 
@@ -101,7 +103,8 @@ public class Bot : Character
     public override void OnDead()
     {
         base.OnDead();
-        OnDespawn();
+        //OnDespawn();
+        shootPoint.DespawnBullet();
         LevelManager.Ins.ReduceListBotNumber(this);
         LevelManager.Ins.EnemyDied();
         ChangeState(new DeathState());
