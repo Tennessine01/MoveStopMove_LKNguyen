@@ -59,6 +59,13 @@ public class BulletBase : GameUnit
                     OnDespawn();
                 } 
             }
+            //if(owner is Player)
+            //{
+            //    if(Cache.GetCharacter(other).isDespawn == true)
+            //    {
+
+            //    }
+            //}
             
         }
     }

@@ -12,16 +12,16 @@ public class CharacterAttackRange : Character
 
     
     
-    public override void Update()
-    {
-        if (targetCharacter != null)
-        {
-            if (targetCharacter.isDespawn == true)
-            {
-                characterList.Remove(targetCharacter);
-            }
-        }
-    }
+    //public override void Update()
+    //{
+    //    if (targetCharacter != null)
+    //    {
+    //        if (targetCharacter.isDespawn == true)
+    //        {
+    //            characterList.Remove(targetCharacter);
+    //        }
+    //    }
+    //}
 
     //danh cho player de mark bot gan nhat
     public Character targetCharacter

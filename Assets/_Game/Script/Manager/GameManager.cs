@@ -93,6 +93,9 @@ public class GameManager : Singleton<GameManager>
     }
     private void ChangeWinState()
     {
+        UIManager.Ins.OpenUI<UIWin>();
+        LevelManager.Ins.OnDespawn();
+        LevelManager.Ins.OnInit();
     }
     private void ChangeReviveState() 
     {
@@ -131,6 +134,8 @@ public class GameManager : Singleton<GameManager>
         UIManager.Ins.CloseUI<UIGamePlay>();
         UIManager.Ins.CloseUI<UISetting>();
         UIManager.Ins.OpenUI<UILose>();
+        LevelManager.Ins.OnDespawn();
+        LevelManager.Ins.OnInit();
     }
     public bool IsState(GameState state)
     {

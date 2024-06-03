@@ -199,6 +199,7 @@ public class LevelManager : Singleton<LevelManager>
             DeactivatePlayer();
             player.ResetItem();
             player.shootPoint.DespawnBullet();
+            player.OnStop();
         }
     }
     public void DeactivatePlayer()
@@ -220,19 +221,21 @@ public class LevelManager : Singleton<LevelManager>
     //------------------------------
     public event Action OnAlivePlayerNumberChanged;
 
-    public void EnemyDied()
+    public void EnemyDied(Bot bot)
     {
         OnAlivePlayerNumberChanged?.Invoke();
+        ReduceListBotNumber(bot);
     }
     public int AlivePlayerNumber()
     {
         return listBot.Count + 1;
     }
-    public void ReduceListBotNumber(Bot bot)
+    private void ReduceListBotNumber(Bot bot)
     {
-        if (bot.isDespawn == true)
+        listBot.Remove(bot);   
+        if(listBot.Count == 0)
         {
-            listBot.Remove(bot);
+            GameManager.Ins.ChangeState(GameState.Win);
         }
     }
     

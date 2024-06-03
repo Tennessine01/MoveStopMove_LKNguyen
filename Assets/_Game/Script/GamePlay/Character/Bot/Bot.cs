@@ -33,7 +33,7 @@ public class Bot : Character
 
 
     }
-    public void OnDespawn()
+    public override void OnDespawn()
     {
         isDespawn = true;
         ResetItem();
@@ -105,8 +105,8 @@ public class Bot : Character
         base.OnDead();
         //OnDespawn();
         shootPoint.DespawnBullet();
-        LevelManager.Ins.ReduceListBotNumber(this);
-        LevelManager.Ins.EnemyDied();
+        //LevelManager.Ins.ReduceListBotNumber(this);
+        LevelManager.Ins.EnemyDied(this);
         ChangeState(new DeathState());
     }
 }

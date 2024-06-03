@@ -9,7 +9,10 @@ public class UIWin : UICanvas
 
     public void MainMenuButton()
     {
-        UIManager.Ins.OpenUI<UIMainMenu>();
+        LevelManager.Ins.OnDespawn();
+
+        GameManager.Ins.ChangeState(GameState.MainMenu);
+        //UIManager.Ins.OpenUI<UIMainMenu>();
         Close(0);
     }
 }

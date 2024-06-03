@@ -31,10 +31,10 @@ public class Player : Character
         isPlayer = true;
         isDespawn = false;
         TF.position = startPos.position;
-        if (joystick != null)
-        {
-            joystick.gameObject.SetActive(true);
-        }
+        //if (joystick != null)
+        //{
+        //    joystick.gameObject.SetActive(true);
+        //}
         reviveTime = 1;
     }
     public override void Update()
@@ -112,6 +112,7 @@ public class Player : Character
                 ChangeAnim(Constant.ANIM_DEAD);
             }
         }
+        
     }
     public override void AttackWhenStop()
     {
@@ -160,9 +161,14 @@ public class Player : Character
     public override void OnDead()
     {
         base.OnDead();
-        joystick.gameObject.SetActive(false);
-        movementDirection = Vector3.zero;
+        //joystick.gameObject.SetActive(false);
+        ChangeAnim(Constant.ANIM_DEAD);
+        OnStop();
         CheckReviveTime();
+    }
+    public void OnStop()
+    {
+        rb.velocity = Vector3.zero;
     }
     public override void OnDespawn() 
     { 

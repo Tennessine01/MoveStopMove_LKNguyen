@@ -6,6 +6,8 @@ public class UIRevive : UICanvas
 {
     public void MainMenuButton()
     {
+        LevelManager.Ins.OnDespawn();
+
         GameManager.Ins.ChangeState(GameState.MainMenu);
         Close(0);
     }
