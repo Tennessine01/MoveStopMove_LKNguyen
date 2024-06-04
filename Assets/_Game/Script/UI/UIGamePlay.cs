@@ -11,7 +11,7 @@ public class UIGamePlay : UICanvas
     {
         base.Open();
         ShowAlivePlayer();
-        LevelManager.Ins.OnAlivePlayerNumberChanged += ShowAlivePlayer;
+        LevelManager.Ins.MinusNumberOfCharacterOnGround += ShowAlivePlayer;
 
     }
     public void ShowAlivePlayer()
@@ -27,7 +27,7 @@ public class UIGamePlay : UICanvas
     {
         if (LevelManager.Ins != null)
         {
-            LevelManager.Ins.OnAlivePlayerNumberChanged -= ShowAlivePlayer;
+            LevelManager.Ins.MinusNumberOfCharacterOnGround -= ShowAlivePlayer;
         }
 
         base.CloseDirectly();

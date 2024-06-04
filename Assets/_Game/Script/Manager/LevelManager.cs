@@ -89,7 +89,6 @@ public class LevelManager : Singleton<LevelManager>
         for (int i = 0; i < currentLevel.realBot; i++)
         {
             b = SimplePool.Spawn<Bot>(PoolType.Bot, RandomPosition(), Quaternion.identity);
-            b.OnInit();
             b.centerPoint = currentLevel.centerPosition;
 
             //random weapon
@@ -104,6 +103,7 @@ public class LevelManager : Singleton<LevelManager>
             int pantID = UnityEngine.Random.Range(1, 7);
             b.pantID = pantID;
 
+            b.OnInit();
             listBot.Add(b);
         }
             
@@ -116,6 +116,8 @@ public class LevelManager : Singleton<LevelManager>
             Debug.Log("aaaaaaaaa");
             ActivatePlayer();
             player.ResetItem();
+            player.startPos = currentLevel.centerPosition;
+            player.TF.forward = new Vector3(0, 0, -90);
             player.OnInit();
         }
         else
@@ -126,6 +128,7 @@ public class LevelManager : Singleton<LevelManager>
             character.startPos = currentLevel.centerPosition;
             character.joystick = joystick;
             player = character;
+            player.OnInit();
             CameraFollow.Ins.target = player.TF;
         }
 
@@ -196,10 +199,10 @@ public class LevelManager : Singleton<LevelManager>
         if (player != null)
         {
             //Destroy(player);
+            player.OnDespawn();
             DeactivatePlayer();
-            player.ResetItem();
-            player.shootPoint.DespawnBullet();
-            player.OnStop();
+            //player.OnStop();
+           
         }
     }
     public void DeactivatePlayer()
@@ -230,9 +233,11 @@ public class LevelManager : Singleton<LevelManager>
     {
         return listBot.Count + 1;
     }
+    public event Action MinusNumberOfCharacterOnGround;
     private void ReduceListBotNumber(Bot bot)
     {
         listBot.Remove(bot);   
+        MinusNumberOfCharacterOnGround?.Invoke();
         if(listBot.Count == 0)
         {
             GameManager.Ins.ChangeState(GameState.Win);

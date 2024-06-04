@@ -19,6 +19,7 @@ public class DeathState : IState<Bot>
         if (timeSpentInState >= delayToChangeState) // check time 
         {
             SimplePool.Despawn(t);
+            t.OnDespawn();
         }
     }
 

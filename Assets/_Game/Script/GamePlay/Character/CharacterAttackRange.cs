@@ -69,10 +69,10 @@ public class CharacterAttackRange : Character
             if (character != null)
             {
                 characterList.Remove(character);
-                if (character == targetCharacter)
-                {
-                    DetectNearCharacter();
-                }
+                //if (character == targetCharacter)
+                //{
+                //    DetectNearCharacter();
+                //}
             }
         }
     }

@@ -61,10 +61,10 @@ public class Character : GameUnit
 
     //vi tri de mu
     [SerializeField] public Transform hatPosition;
-    public virtual void Start()
-    {
-        OnInit();
-    }
+    //public virtual void Start()
+    //{
+    //    OnInit();
+    //}
 
     public virtual void OnInit()
     {
@@ -106,8 +106,22 @@ public class Character : GameUnit
     {
         if (attackRange.targetCharacter != null)
         {
-            //quay ve huong ke dich
-            TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
+            if (attackRange.targetCharacter.isDespawn == true)
+            {
+                Debug.Log("gggggggggggggggg");
+                attackRange.characterList.Remove(attackRange.targetCharacter);
+                attackRange.targetCharacter = null;
+                if (this is Bot bot)
+                {
+                    Debug.Log("fffffffff");
+                    bot.ChangeState(new IdleState());
+                }
+
+            }
+            else{
+                //quay ve huong ke dich
+                TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
+            }
         }
     }
     //------------------------------------------------------------------
@@ -174,8 +188,10 @@ public class Character : GameUnit
     }
     public void DestroyHat()
     {
-
-        Destroy(hatPrefab);
+        if(hatPrefab != null)
+        {
+            Destroy(hatPrefab);
+        }
         hatID = 0;
     }
     public void DestroyPant()
@@ -184,7 +200,10 @@ public class Character : GameUnit
     }
     public void DestroyWeapon()
     {
-        Destroy(weaponPrefab);
+        if (weaponPrefab != null)
+        {
+            Destroy(weaponPrefab);
+        }
         weaponID = 0;
     }
     public void ResetItem()
@@ -220,6 +239,8 @@ public class Character : GameUnit
     public virtual void OnDespawn()
     {
         ResetItem();
+        shootPoint.DespawnBullet();
+        ClearListEnemyInAttackRange();
     }
     public void IncreaseHP(int aa)
     {
@@ -241,5 +262,16 @@ public class Character : GameUnit
     public virtual void SetOwnerForBullet()
     {
         shootPoint.owner = this;
+    }
+    public void ClearListEnemyInAttackRange()
+    {
+        if(attackRange.characterList.Count > 0)
+        {
+            attackRange.characterList.Clear();
+        }
+        if(attackRange.targetCharacter != null)
+        {
+            attackRange.targetCharacter = null;
+        }
     }
 }

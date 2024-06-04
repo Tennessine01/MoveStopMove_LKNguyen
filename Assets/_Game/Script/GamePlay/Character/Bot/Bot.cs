@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class Bot : Character
 {
     [SerializeField] public Renderer targetMark;
-
+   
     private IState<Bot> currentState;
 
     public NavMeshAgent agent;
@@ -22,6 +22,11 @@ public class Bot : Character
     {
 
         base.OnInit();
+        if(attackRange.characterList != null)
+        {
+            ClearListEnemyInAttackRange();
+        }
+        //ResetItem();
         isPlayer = false;
         isDespawn = false;
         InstantiateWeapon(weaponID);
@@ -35,6 +40,7 @@ public class Bot : Character
     }
     public override void OnDespawn()
     {
+        base.OnDespawn();
         isDespawn = true;
         ResetItem();
         //Debug.Log("bbbb");
@@ -42,11 +48,6 @@ public class Bot : Character
 
         ChangeState(new MenuState());
         LevelManager.Ins.WhenPlayerDie -= ChangeMenuState;
-
-        if (attackRange.targetCharacter != null)
-        {
-            attackRange.characterList.Clear();
-        }
     }
 
     public override void Update()
@@ -104,7 +105,11 @@ public class Bot : Character
     {
         base.OnDead();
         //OnDespawn();
-        shootPoint.DespawnBullet();
+        //if (attackRange.characterList.Count > 0)
+        //{
+        //    attackRange.characterList.Clear();
+        //}
+        //shootPoint.DespawnBullet();
         //LevelManager.Ins.ReduceListBotNumber(this);
         LevelManager.Ins.EnemyDied(this);
         ChangeState(new DeathState());

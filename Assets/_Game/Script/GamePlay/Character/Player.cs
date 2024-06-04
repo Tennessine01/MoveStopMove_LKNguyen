@@ -116,10 +116,11 @@ public class Player : Character
     }
     public override void AttackWhenStop()
     {
+        base.AttackWhenStop();
         if (attackRange.targetCharacter != null)
         {
             //quay ve huong ke dich
-            TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
+            //TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
 
             isAttack = true;
             Attack();
@@ -173,6 +174,7 @@ public class Player : Character
     public override void OnDespawn() 
     { 
         base.OnDespawn();
+        OnStop();
     }
 
 }

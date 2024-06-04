@@ -10,6 +10,7 @@ public class Level : MonoBehaviour
     [SerializeField] public Transform maxPoint;
     public int realBot = 10;
     public int maxBot = 20;
+    public int maxCoin = 200;
     public Vector3 RandomPoint()
     {
         Vector3 randPoint = Random.Range(minPoint.position.x, maxPoint.position.x) * Vector3.right + Random.Range(minPoint.position.z, maxPoint.position.z) * Vector3.forward;
@@ -21,5 +22,9 @@ public class Level : MonoBehaviour
         NavMesh.SamplePosition(randPoint, out hit, float.PositiveInfinity, 1);
 
         return hit.position;
+    }
+    public int GetMaxCoin()
+    {
+        return maxCoin;
     }
 }
