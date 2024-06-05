@@ -70,7 +70,7 @@ public class Character : GameUnit
     {
         ChangeAnim(Constant.ANIM_IDLE);
         slotWeaponInHand.SetActive(true);
-        hp = 20;
+        hp = 10;
         attackRange.range = Range;
         TF.localScale = new Vector3(1, 1, 1)*size;
         //sinh vu khi

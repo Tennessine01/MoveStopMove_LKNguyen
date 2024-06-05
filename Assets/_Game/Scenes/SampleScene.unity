@@ -783,11 +783,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - {fileID: 1181771634285054912, guid: 14ca81098fd37e34797bcaeb051a12a4, type: 3}
+  - {fileID: 1181771634285054912, guid: ba3b4c0b725869245b325e8dac70195c, type: 3}
   currentLevel: {fileID: 0}
   playerPrefab: {fileID: 6452791770592890848, guid: 09c605dc0cfb7cc42b7fdcfe06110cfa, type: 3}
   player: {fileID: 0}
   joystick: {fileID: 401950469}
   targetIndicator: {fileID: 1878399762}
+  userDataManager: {fileID: 1565346822}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1180,7 @@ MonoBehaviour:
     moveSpeed: 0
     attackSpeed: 0
     size: 0
+    currentLevel: 0
     coin: 0
     weaponList: 
     hatList: 

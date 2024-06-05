@@ -18,7 +18,7 @@ public class LevelManager : Singleton<LevelManager>
     //bat trong khi play
     [SerializeField] FloatingJoystick joystick;
     [SerializeField] GameObject targetIndicator;
-
+    [SerializeField] UserDataManager userDataManager;
     //
     public int BotNumber => listBot.Count;
     //public void Start()
@@ -43,7 +43,8 @@ public class LevelManager : Singleton<LevelManager>
             }
             listBot.Clear();
         }
-        OnLoadLevel(0);
+        //Debug.Log(userDataManager.userData.currentLevel + "=======================");
+        OnLoadLevel(userDataManager.userData.currentLevel);
         SpawnPlayer();
         CameraFollow.Ins.OnInit();        
         OnMenu();
@@ -75,10 +76,10 @@ public class LevelManager : Singleton<LevelManager>
         }
         if(level != levelCount)
         {
+            Destroy(currentLevel);
             Level newLevel = Instantiate(levels[level],transform);
             currentLevel = newLevel;
             levelCount = level;
-
         }
     }
 
