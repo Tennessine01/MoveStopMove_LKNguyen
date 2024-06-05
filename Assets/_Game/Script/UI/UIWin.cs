@@ -12,8 +12,7 @@ public class UIWin : UICanvas
     {
         base.Open();
         reward.text = LevelManager.Ins.currentLevel.GetMaxCoin().ToString();
-        UserDataManager.Ins.userData.coin += LevelManager.Ins.currentLevel.GetMaxCoin() ;
-
+        LevelManager.Ins.AddCoinWhenWin();
     }
     public void MainMenuButton()
     {

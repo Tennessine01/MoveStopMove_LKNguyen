@@ -115,8 +115,17 @@ public class CharacterAttackRange : Character
                 }
             }
         }
-        
-        targetCharacter = nearestCharacter;
+        if(nearestCharacter != null)
+        {
+            if(nearestCharacter.isDespawn == true)
+            {
+                targetCharacter = null;
+            }
+            else
+            {
+                targetCharacter = nearestCharacter;
+            }
+        }
     }
 }
 

@@ -22,10 +22,9 @@ public class Bot : Character
     {
 
         base.OnInit();
-        if(attackRange.characterList != null)
-        {
-            ClearListEnemyInAttackRange();
-        }
+        
+        ClearListEnemyInAttackRange();
+    
         //ResetItem();
         isPlayer = false;
         isDespawn = false;
@@ -96,9 +95,19 @@ public class Bot : Character
         result = Vector3.zero;
         return false;
     }
-    public override void AttackWhenStop()
-    {
-        base.AttackWhenStop();
+    public override void AttackWhenStop(){
+        if (attackRange.targetCharacter != null){
+            if (attackRange.targetCharacter.isDespawn == true){
+                attackRange.characterList.Remove(attackRange.targetCharacter);
+                attackRange.targetCharacter = null;
+                //Debug.Log("fffffffff");
+                ChangeState(new IdleState());
+            }
+            else{
+                //quay ve huong ke dich
+                TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
+            }
+        }
     }
 
     public override void OnDead()

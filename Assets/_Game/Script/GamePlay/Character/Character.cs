@@ -108,15 +108,9 @@ public class Character : GameUnit
         {
             if (attackRange.targetCharacter.isDespawn == true)
             {
-                Debug.Log("gggggggggggggggg");
+                //Debug.Log("gggggggggggggggg");
                 attackRange.characterList.Remove(attackRange.targetCharacter);
                 attackRange.targetCharacter = null;
-                if (this is Bot bot)
-                {
-                    Debug.Log("fffffffff");
-                    bot.ChangeState(new IdleState());
-                }
-
             }
             else{
                 //quay ve huong ke dich
@@ -265,13 +259,11 @@ public class Character : GameUnit
     }
     public void ClearListEnemyInAttackRange()
     {
-        if(attackRange.characterList.Count > 0)
-        {
-            attackRange.characterList.Clear();
-        }
-        if(attackRange.targetCharacter != null)
-        {
-            attackRange.targetCharacter = null;
-        }
+        
+        attackRange.characterList.Clear();
+        
+        
+        attackRange.targetCharacter = null;
     }
 }
+    

@@ -110,10 +110,10 @@ public class LevelManager : Singleton<LevelManager>
     }
     public void SpawnPlayer()
     {
-        Debug.Log("---------------");
+        //Debug.Log("---------------");
         if (player != null)
         {
-            Debug.Log("aaaaaaaaa");
+            //Debug.Log("aaaaaaaaa");
             ActivatePlayer();
             player.ResetItem();
             player.startPos = currentLevel.centerPosition;
@@ -122,7 +122,7 @@ public class LevelManager : Singleton<LevelManager>
         }
         else
         {
-            Debug.Log("bbbbbbbbb");
+            //Debug.Log("bbbbbbbbb");
 
             Player character = Instantiate(playerPrefab, currentLevel.centerPosition);
             character.startPos = currentLevel.centerPosition;
@@ -229,6 +229,7 @@ public class LevelManager : Singleton<LevelManager>
         OnAlivePlayerNumberChanged?.Invoke();
         ReduceListBotNumber(bot);
     }
+    //------------------------------------
     public int AlivePlayerNumber()
     {
         return listBot.Count + 1;
@@ -251,4 +252,19 @@ public class LevelManager : Singleton<LevelManager>
         WhenPlayerDie?.Invoke();
         GameManager.Ins.ChangeState(GameState.Question);
     }
+
+    //--------------------------------
+    public void AddCoinWhenLose()
+    {
+        UserDataManager.Ins.userData.coin += (currentLevel.realBot - listBot.Count) * 10;
+    }
+    public string NumberCoinWhenLose()
+    {
+        return ((currentLevel.realBot - listBot.Count) * 10).ToString();
+    }
+    public void AddCoinWhenWin()
+    {
+        UserDataManager.Ins.userData.coin += currentLevel.GetMaxCoin();
+    }
+    
 }

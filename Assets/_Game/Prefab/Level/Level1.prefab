@@ -520,8 +520,8 @@ MonoBehaviour:
   centerPosition: {fileID: 631543000564157011}
   minPoint: {fileID: 1441474029003348211}
   maxPoint: {fileID: 841637806897784248}
-  realBot: 3
-  maxBot: 50
+  realBot: 10
+  maxBot: 20
   maxCoin: 200
 --- !u!1 &8110005164658701213
 GameObject:

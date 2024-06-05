@@ -614,7 +614,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6752596986866498273}
         m_TargetAssemblyTypeName: UIRevive, Assembly-CSharp
-        m_MethodName: MainMenuButton
+        m_MethodName: LoseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -703,4 +703,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: HOME
+  m_Text: LOSE

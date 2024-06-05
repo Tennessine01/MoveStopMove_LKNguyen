@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class UIRevive : UICanvas
 {
-    public void MainMenuButton()
+    public void LoseButton()
     {
-        LevelManager.Ins.OnDespawn();
+        //LevelManager.Ins.OnDespawn();
 
-        GameManager.Ins.ChangeState(GameState.MainMenu);
+        GameManager.Ins.ChangeState(GameState.Lose);
         Close(0);
     }
     public void ReviveButton()
