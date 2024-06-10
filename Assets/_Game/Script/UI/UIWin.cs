@@ -13,7 +13,10 @@ public class UIWin : UICanvas
         base.Open();
         reward.text = LevelManager.Ins.currentLevel.GetMaxCoin().ToString();
         LevelManager.Ins.AddCoinWhenWin();
-        UserDataManager.Ins.userData.currentLevel += 1;
+        if (UserDataManager.Ins.userData.currentLevel < LevelManager.Ins.levels.Count-1)
+        {
+            UserDataManager.Ins.userData.currentLevel += 1;
+        }
 
 
     }

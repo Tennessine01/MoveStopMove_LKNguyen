@@ -425,6 +425,8 @@ MonoBehaviour:
   Range: 0
   moveSpeed: 0
   size: 0
+  characterName: 
+  indicatorPosition: {fileID: 0}
   pantID: 0
   weaponID: 0
   hatID: 0
@@ -1864,6 +1866,37 @@ Transform:
   m_Father: {fileID: 6938018758359960675}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -0.00007265126, y: -0.00015399692, z: -0.00016678819}
+--- !u!1 &5589712685407496377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4446685158825974003}
+  m_Layer: 9
+  m_Name: Indicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4446685158825974003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5589712685407496377}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3534772806527171105}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5695255893996538054
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,8 +2305,9 @@ Transform:
   - {fileID: 7979822891407635163}
   - {fileID: 900420455576369574}
   - {fileID: 6920602254459492258}
+  - {fileID: 4446685158825974003}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!136 &6813184127039077417
 CapsuleCollider:
@@ -2314,6 +2348,8 @@ MonoBehaviour:
   Range: 6
   moveSpeed: 10
   size: 1
+  characterName: 
+  indicatorPosition: {fileID: 4446685158825974003}
   pantID: 0
   weaponID: 0
   hatID: 0

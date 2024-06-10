@@ -34,6 +34,7 @@ public class Bot : Character
         agent = GetComponent<NavMeshAgent>();
         ChangeState(new MenuState());
         LevelManager.Ins.WhenPlayerDie += ChangeMenuState;
+        targetIndicator.SetName(NameUtilities.GetRandomName());
 
 
     }
@@ -113,6 +114,7 @@ public class Bot : Character
     public override void OnDead()
     {
         base.OnDead();
+        SimplePool.Despawn(targetIndicator);
         //OnDespawn();
         //if (attackRange.characterList.Count > 0)
         //{

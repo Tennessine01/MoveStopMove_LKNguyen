@@ -21,6 +21,11 @@ public class Character : GameUnit
     [SerializeField] public float size;
     //Skin
 
+    //Name
+    public string characterName;
+
+    [SerializeField] Transform indicatorPosition;
+    protected TargetIndicator targetIndicator;
     //pant
     [SerializeField] public int pantID = 0;
     //vu khi tren tay
@@ -77,7 +82,9 @@ public class Character : GameUnit
         //InstantiateWeapon();
         SetOwnerForBullet();
         attackRange.transform.localScale = new Vector3(1, 1, 1) * attackRange.range;
-
+        //tao target indicator
+        targetIndicator = SimplePool.Spawn<TargetIndicator>(PoolType.TargetIndicator);
+        targetIndicator.SetTarget(indicatorPosition);
 
         //
     }
@@ -235,6 +242,8 @@ public class Character : GameUnit
         ResetItem();
         shootPoint.DespawnBullet();
         ClearListEnemyInAttackRange();
+        SimplePool.Despawn(targetIndicator);
+
     }
     public void IncreaseHP(int aa)
     {

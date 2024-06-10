@@ -13,16 +13,30 @@ public class Level : MonoBehaviour
     public int maxCoin = 200;
     public Vector3 RandomPoint()
     {
-        Vector3 randPoint = Random.Range(minPoint.position.x, maxPoint.position.x) * Vector3.right + Random.Range(minPoint.position.z, maxPoint.position.z) * Vector3.forward;
+        // Tao mot goc ngau nhien tu 0 den 360 do
+        float angle = Random.Range(0f, 360f);
 
+        // Tao mot ban kinh ngau nhien tu 10 don vi den ban kinh toi da cho phep trong vung minPoint den maxPoint
+        float minRadius = 10f;
+        float maxRadius = Mathf.Min(
+            Vector3.Distance(centerPosition.position, minPoint.position),
+            Vector3.Distance(centerPosition.position, maxPoint.position)
+        );
+        float radius = Random.Range(minRadius, maxRadius);
+
+        // Chuyen doi tu toa do cuc sang toa do Cartesian
+        float x = centerPosition.position.x + radius * Mathf.Cos(angle * Mathf.Deg2Rad);
+        float z = centerPosition.position.z + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
+
+        Vector3 randPoint = new Vector3(x, centerPosition.position.y, z);
+
+        // Xac dinh vi tri hop le tren NavMesh
         NavMeshHit hit;
-
-        // dung de xac dinh vi tri random hop le cho navmesh. truong hop ma random point khong thuoc phan di duoc tren navmesh
-        // sampleposition se tim diem hop le gan nhat voi diem randompoint
         NavMesh.SamplePosition(randPoint, out hit, float.PositiveInfinity, 1);
 
         return hit.position;
     }
+
     public int GetMaxCoin()
     {
         return maxCoin;

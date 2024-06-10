@@ -10,10 +10,15 @@ public class CameraFollow : Singleton<CameraFollow>
     public Vector3 offset;
     public Vector3 offsetRotation;
     public float speed = 20;
+    public Camera Camera;
     //void Start()
     //{
     //    OnInit();
     //}
+    private void Awake()
+    {
+        Camera = Camera.main;
+    }
 
     public void OnInit()
     {

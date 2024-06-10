@@ -7,7 +7,7 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     //tao level
-    [SerializeField] List<Level> levels;
+    [SerializeField] public List<Level> levels;
     public Level currentLevel;
     private int levelCount;
     //tao character
@@ -17,7 +17,7 @@ public class LevelManager : Singleton<LevelManager>
     private List<Bot> listBot = new List<Bot>(); 
     //bat trong khi play
     [SerializeField] FloatingJoystick joystick;
-    [SerializeField] GameObject targetIndicator;
+    //[SerializeField] GameObject targetIndicator;
     [SerializeField] UserDataManager userDataManager;
     //
     public int BotNumber => listBot.Count;
@@ -139,7 +139,7 @@ public class LevelManager : Singleton<LevelManager>
     public void OnMenu()
     {
         //SetCameraMenu();
-        targetIndicator.SetActive(false);
+        //targetIndicator.SetActive(false);
     }
     public void OnPlay()
     {
@@ -148,7 +148,7 @@ public class LevelManager : Singleton<LevelManager>
             Bot bot = listBot[i];
             bot.ChangeState(new IdleState());
         }
-        targetIndicator.SetActive(true);
+        //targetIndicator.SetActive(true);
     }
     //-------------------------------------------------------------------
     public void SetCameraMenu()
@@ -267,5 +267,14 @@ public class LevelManager : Singleton<LevelManager>
     {
         UserDataManager.Ins.userData.coin += currentLevel.GetMaxCoin();
     }
-    
+
+    public void SetTargetIndicatorAlpha(float alpha)
+    {
+        HashSet<GameUnit> list = SimplePool.GetAllUnitIsActive(PoolType.TargetIndicator);
+
+        foreach (GameUnit unit in list)
+        {
+            (unit as TargetIndicator).SetAlpha(alpha);
+        }
+    }
 }

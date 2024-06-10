@@ -788,7 +788,6 @@ MonoBehaviour:
   playerPrefab: {fileID: 6452791770592890848, guid: 09c605dc0cfb7cc42b7fdcfe06110cfa, type: 3}
   player: {fileID: 0}
   joystick: {fileID: 401950469}
-  targetIndicator: {fileID: 1878399762}
   userDataManager: {fileID: 1565346822}
 --- !u!1 &963194225
 GameObject:
@@ -899,6 +898,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   offsetRotation: {x: 0, y: 0, z: 0}
   speed: 20
+  Camera: {fileID: 0}
 --- !u!1 &1081744108
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,11 +1070,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Pool:
   - root: {fileID: 1561179970}
-    prefab: {fileID: 2349374154632403709, guid: 536f3d12b34f8c5438a94a418e1bbbef, type: 3}
-    amount: 10
-    collect: 0
-  - root: {fileID: 1561179970}
     prefab: {fileID: 3888783283666329266, guid: fc6af4f195f068f48ac865cfd2b56f7b, type: 3}
+    amount: 20
+    collect: 0
+  - root: {fileID: 1970673865}
+    prefab: {fileID: 6275730151720154958, guid: cde747c1f31a59e49a50ed305085dc0c, type: 3}
+    amount: 10
+    collect: 1
+  - root: {fileID: 1561179970}
+    prefab: {fileID: 2349374154632403709, guid: 536f3d12b34f8c5438a94a418e1bbbef, type: 3}
     amount: 10
     collect: 0
   - root: {fileID: 1561179970}
@@ -1145,7 +1149,11 @@ MonoBehaviour:
     prefab: {fileID: 8881510043069530006, guid: d5327ac9c4955a045ae67670d83950d0, type: 3}
     amount: 10
     collect: 0
-  Particle: []
+  Particle:
+  - root: {fileID: 1561179970}
+    particleType: 0
+    prefab: {fileID: 945632437917811246, guid: 0772c7211316c0040a69c7b04f2a3ac9, type: 3}
+    amount: 5
 --- !u!1 &1565346821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,72 +1217,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3534772806527171105, guid: 09c605dc0cfb7cc42b7fdcfe06110cfa, type: 3}
   m_PrefabInstance: {fileID: 279962856}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1878399762
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1878399763}
-  - component: {fileID: 1878399766}
-  - component: {fileID: 1878399765}
-  m_Layer: 5
-  m_Name: TargetIndicator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1878399763
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878399762}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1970673865}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1878399765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878399762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e17d99117b96b4a83c4de029a16f3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pooledObject: {fileID: 114082041123525444, guid: 09cefc679ac23c54aa919111d8f3fc40, type: 3}
-  pooledAmount: 20
-  willGrow: 1
---- !u!114 &1878399766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878399762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26f609f7b5335654696f805a84f4c189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  screenBoundOffset: 0.9
 --- !u!1 &1970673861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,7 +1313,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 401950468}
-  - {fileID: 1878399763}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

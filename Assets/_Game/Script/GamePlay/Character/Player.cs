@@ -36,6 +36,8 @@ public class Player : Character
         //    joystick.gameObject.SetActive(true);
         //}
         reviveTime = 1;
+        targetIndicator.SetName("Nguyen");
+
     }
     public override void Update()
     {
@@ -162,6 +164,8 @@ public class Player : Character
     public override void OnDead()
     {
         base.OnDead();
+        SimplePool.Despawn(targetIndicator);
+
         //joystick.gameObject.SetActive(false);
         ChangeAnim(Constant.ANIM_DEAD);
         OnStop();
@@ -174,6 +178,7 @@ public class Player : Character
     public override void OnDespawn() 
     { 
         base.OnDespawn();
+        SimplePool.Despawn(targetIndicator);
         OnStop();
     }
 

@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
 {
     //[SerializeField] UserData userData;
     //[SerializeField] CSVData csv;
-    private static GameState gameState = GameState.MainMenu;
+    private GameState gameState;
 
     // Start is called before the first frame update
     protected void Awake()
@@ -41,7 +41,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void ChangeState(GameState state)
     {
-        gameState = state;
+        this.gameState = state;
         switch (gameState)
         {
             case GameState.MainMenu:
@@ -139,7 +139,7 @@ public class GameManager : Singleton<GameManager>
     }
     public bool IsState(GameState state)
     {
-        return gameState == state;
+        return this.gameState == state;
     }
-
+    
 }

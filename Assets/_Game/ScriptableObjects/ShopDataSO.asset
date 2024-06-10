@@ -166,3 +166,35 @@ MonoBehaviour:
       name: 
       description: 
       prefab: {fileID: 0}
+  - shopType: 2
+    listItems:
+    - icon: {fileID: 0}
+      material: {fileID: 0}
+      id: 1
+      cost: 500
+      name: 
+      description: 
+      prefab: {fileID: 0}
+  - shopType: 3
+    listItems:
+    - icon: {fileID: 21300000, guid: 0363a7557b133774f99bf84dcf6fcbed, type: 3}
+      material: {fileID: 0}
+      id: 1
+      cost: 500
+      name: 
+      description: 
+      prefab: {fileID: 0}
+    - icon: {fileID: 21300000, guid: 591bf6bd34c3a3c4e9143ba55a6c7d7b, type: 3}
+      material: {fileID: 0}
+      id: 2
+      cost: 500
+      name: 
+      description: 
+      prefab: {fileID: 0}
+    - icon: {fileID: 21300000, guid: 7965f490c2ec6044d854d957fe85186e, type: 3}
+      material: {fileID: 0}
+      id: 3
+      cost: 500
+      name: 
+      description: 
+      prefab: {fileID: 0}
