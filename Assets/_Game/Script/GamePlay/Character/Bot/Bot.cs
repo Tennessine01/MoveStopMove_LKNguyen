@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 
 public class Bot : Character
 {
-    [SerializeField] public Renderer targetMark;
    
     private IState<Bot> currentState;
 
@@ -17,13 +16,14 @@ public class Bot : Character
     //instead of centerPoint you can set it as the transform of the agent if you don't care about a specific area
 
     public Level currentlevel;
+    private bool IsCanRunning => (GameManager.Ins.IsState(GameState.GamePlay) || GameManager.Ins.IsState(GameState.Revive) || GameManager.Ins.IsState(GameState.Setting));
 
     public override void OnInit()
     {
 
         base.OnInit();
         
-        ClearListEnemyInAttackRange();
+        //ClearListEnemyInAttackRange();
     
         //ResetItem();
         isPlayer = false;
@@ -33,6 +33,7 @@ public class Bot : Character
         InstantiatePant(pantID);
         agent = GetComponent<NavMeshAgent>();
         ChangeState(new MenuState());
+
         LevelManager.Ins.WhenPlayerDie += ChangeMenuState;
         targetIndicator.SetName(NameUtilities.GetRandomName());
 
@@ -41,7 +42,9 @@ public class Bot : Character
     public override void OnDespawn()
     {
         base.OnDespawn();
+        SimplePool.Despawn(this);
         isDespawn = true;
+        size = 1;
         ResetItem();
         //Debug.Log("bbbb");
         shootPoint.DespawnBullet();
@@ -52,7 +55,7 @@ public class Bot : Character
 
     public override void Update()
     {
-        if (currentState != null)
+        if (IsCanRunning && currentState != null)
         {   
             currentState.OnExecute(this);
         }
@@ -96,21 +99,29 @@ public class Bot : Character
         result = Vector3.zero;
         return false;
     }
-    public override void AttackWhenStop(){
-        if (attackRange.targetCharacter != null){
-            if (attackRange.targetCharacter.isDespawn == true){
-                attackRange.characterList.Remove(attackRange.targetCharacter);
-                attackRange.targetCharacter = null;
-                //Debug.Log("fffffffff");
-                ChangeState(new IdleState());
-            }
-            else{
-                //quay ve huong ke dich
-                TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
-            }
+    //public override void AttackWhenStop(){
+    //    if (attackRange.targetCharacter != null){
+    //        if (attackRange.targetCharacter.isDespawn == true){
+    //            attackRange.characterList.Remove(attackRange.targetCharacter);
+    //            attackRange.targetCharacter = null;
+    //            //Debug.Log("fffffffff");
+    //            ChangeState(new IdleState());
+    //        }
+    //        else{
+    //            //quay ve huong ke dich
+    //            TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
+    //        }
+    //    }
+    //}
+    public override void AddTarget(Character target)
+    {
+        base.AddTarget(target);
+
+        if (!IsDead && IsCanRunning)
+        {
+            ChangeState(new AttackState());
         }
     }
-
     public override void OnDead()
     {
         base.OnDead();

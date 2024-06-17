@@ -7,7 +7,7 @@ public enum ShopType{
     Hat = 0, Pant = 1, Accessory = 2, Skin = 3, Weapon = 4
 }
 public enum EquipState{
-    Buy = 0, Select = 1, Unequip = 2
+    Buy = 0, Select = 1, Unequip = 2, NotBuy = 3
 }
 public class UISkinShop : UICanvas
 {
@@ -21,7 +21,7 @@ public class UISkinShop : UICanvas
     [SerializeField] List<GameObject> buyState; // list cac button Buy,Select,Unequip
     private ShopType currentShopType; // trang thai shop hien tai
 
-    [SerializeField] private  TMP_Text priceText; // so tien  cua item
+    [SerializeField] private  TMP_Text[] priceText; // so tien  cua item
 
     [HideInInspector] public int MONEY = 0; // bien chua gia cua item dang chon
     [HideInInspector] public int ITEM_ID = 0; // bien chua id cua item dang chon
@@ -83,7 +83,8 @@ public class UISkinShop : UICanvas
     }
     public void SetPriceText(int price)
     {
-        priceText.text = price.ToString();
+        priceText[0].text = price.ToString();
+        priceText[1].text = price.ToString();
     }
     //------------ de chuyen trang thai mua, select hay unequip cho item ----------
     public void CheckStatecOfChoosenItem(int id, ShopType type)
@@ -100,6 +101,10 @@ public class UISkinShop : UICanvas
                         break;
                     }
                 }
+                if(UserDataManager.Ins.userData.coin < MONEY)
+                {
+                    ChangeButtonBuyState (EquipState.NotBuy);
+                }
                 else ChangeButtonBuyState(EquipState.Buy);
                 break;
             case (ShopType.Pant):
@@ -112,6 +117,10 @@ public class UISkinShop : UICanvas
                         ChangeButtonBuyState(EquipState.Select);
                         break;
                     }
+                }
+                if (UserDataManager.Ins.userData.coin < MONEY)
+                {
+                    ChangeButtonBuyState(EquipState.NotBuy);
                 }
                 else ChangeButtonBuyState(EquipState.Buy);
                 break;
@@ -132,12 +141,15 @@ public class UISkinShop : UICanvas
             case (EquipState.Unequip):
                 SetActiveBuyState(2);
                 break;
+            case (EquipState.NotBuy): 
+                SetActiveBuyState(3);
+                break;
         }
     }
     //--------------------------- cac button de lua chon -----------------------------------------------
     public void BuyItem()
     {
-        if(UserDataManager.Ins.userData.coin > MONEY)
+        if(UserDataManager.Ins.userData.coin >= MONEY)
         {
             UserDataManager.Ins.userData.coin -= MONEY;
             playerCoinTxt.SetText(UserDataManager.Ins.userData.coin.ToString());
@@ -157,6 +169,10 @@ public class UISkinShop : UICanvas
             onItemEquip?.Invoke(ITEM_ID, currentShopType);
 
         }
+    }
+    public void CantNotBuy()
+    {
+        SetActiveBuyState(3);
     }
     public void UnequipItem()
     {

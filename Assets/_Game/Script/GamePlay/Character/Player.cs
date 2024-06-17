@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 
 public class Player : Character
@@ -14,7 +16,7 @@ public class Player : Character
     public Transform startPos;
 
     private bool isMoving;
-    public bool isAttack = false;
+    public bool isAttack = true;
     private bool wasMovingLastFrame = false;
     private Vector3 movementDirection;
     [SerializeField] private int reviveTime;
@@ -27,7 +29,7 @@ public class Player : Character
         InstantiateHat(hatID);
         InstantiatePant(pantID);
         isMoving = false;
-        isAttack = false;
+        isAttack = true;
         isPlayer = true;
         isDespawn = false;
         TF.position = startPos.position;
@@ -48,14 +50,7 @@ public class Player : Character
                 return;
             }
             JoystickMove();
-            CheckClosestEnemy();
-            if (wasMovingLastFrame == true && isMoving == false)
-            {
-                AttackWhenStop();
-            }
-
-            wasMovingLastFrame = isMoving;
-
+            //CheckClosestEnemy();
         }
     }
 
@@ -84,7 +79,7 @@ public class Player : Character
         {
             StopAllCoroutines();
             isMoving = true;
-            isAttack = false;
+            isAttack = true;    
             //transform.position += movementDirection * Time.deltaTime * moveSpeed;
             rb.velocity = movementDirection * moveSpeed;
 
@@ -95,19 +90,17 @@ public class Player : Character
         if (movementDirection.magnitude < 0.1f)
         {
             isMoving = false;
-            if (attackRange.targetCharacter == null)
-            {
-                slotWeaponInHand.SetActive(true);
+            //if (target == null)
+            //{
+            //    slotWeaponInHand.SetActive(true);
 
-                isAttack = false;
-            }
+            //    isAttack = false;
+            //}
             rb.velocity = Vector3.zero;
 
-            if (isAttack == false)
-            {
-
-                ChangeAnim(Constant.ANIM_IDLE);
-            }
+           
+            ChangeAnim(Constant.ANIM_IDLE);
+            OnAttack();
 
             if (isDespawn == true)
             {
@@ -116,16 +109,43 @@ public class Player : Character
         }
         
     }
-    public override void AttackWhenStop()
-    {
-        base.AttackWhenStop();
-        if (attackRange.targetCharacter != null)
-        {
-            //quay ve huong ke dich
-            //TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
+    //public override void AttackWhenStop()
+    //{
+    //    base.AttackWhenStop();
+    //    if (attackRange.targetCharacter != null)
+    //    {
+    //        //quay ve huong ke dich
+    //        //TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
 
-            isAttack = true;
+    //        isAttack = true;
+    //        Attack();
+    //    }
+    //}
+    public override void AddTarget(Character target)
+    {
+        base.AddTarget(target);
+
+        if (!target.IsDead && !IsDead)
+        {
+            target.SetTargetMark(true);
+            if (isMoving == false && isAttack == true)
+            {
+                OnAttack();
+            }
+        }
+    }
+    public override void RemoveTarget(Character target)
+    {
+        base.RemoveTarget(target);
+        target.SetTargetMark(false);
+    }
+    public override void OnAttack()
+    {
+        base.OnAttack();
+        if (target != null && isMoving == false && isAttack == true && !target.IsDead)
+        {
             Attack();
+            isAttack = false;
         }
     }
     public void Attack()
@@ -134,10 +154,11 @@ public class Player : Character
     }
     IEnumerator CheckAttackFalse()
     {
+        //Debug.Log("----");
         ChangeAnim(Constant.ANIM_ATTACK);
         yield return new WaitForSeconds(0.4f);
         slotWeaponInHand.SetActive(false);
-        shootPoint.Shoot(weapon.bulletType);
+        shootPoint.Shoot(weapon.bulletType, size);
         yield return new WaitForSeconds(0.1f);
         isAttack = false;
         yield return new WaitForSeconds(0.1f);
@@ -145,10 +166,13 @@ public class Player : Character
     }
     public void OnRevive()
     {
+        InstantiateTargetIndicator();
+        targetIndicator.SetName("Nguyen");
         reviveTime--;
         isDespawn = false;
         joystick.gameObject.SetActive(true);
         IncreaseHP(10);
+        SetScore(Score);
     }
     private void CheckReviveTime()
     {
@@ -158,6 +182,7 @@ public class Player : Character
         }
         if (reviveTime == 0)
         {
+            ChangeAnim(Constant.ANIM_DEAD);
             GameManager.Ins.ChangeState(GameState.Lose);
         }
     }

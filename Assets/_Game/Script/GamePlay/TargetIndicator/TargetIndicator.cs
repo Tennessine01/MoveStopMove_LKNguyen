@@ -26,6 +26,8 @@ public class TargetIndicator : GameUnit
     Vector2 viewPointInCameraX = new Vector2(0.075f, 0.925f);
     Vector2 viewPointInCameraY = new Vector2(0.05f, 0.95f);
 
+
+
     Camera Camera => CameraFollow.Ins.Camera;
 
     private bool IsInCamera => viewPoint.x > viewPointInCameraX.x && viewPoint.x < viewPointInCameraX.y && viewPoint.y > viewPointInCameraY.x && viewPoint.y < viewPointInCameraY.y;
@@ -49,7 +51,7 @@ public class TargetIndicator : GameUnit
     private void OnInit()
     {
         SetScore(0);
-        SetColor(new Color(Random.value, Random.value, Random.value, 1));
+        SetColor(new Color(Random.value, Random.value, Random.value,1));
         SetAlpha(GameManager.Ins.IsState(GameState.GamePlay) ? 1 : 0);
     }
 

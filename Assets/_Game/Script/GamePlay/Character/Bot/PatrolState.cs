@@ -23,10 +23,10 @@ public class PatrolState : IState<Bot>
             }
             
         }
-        if (t.attackRange.characterList.Count > 0)
-        {
-            t.ChangeState(new AttackState());
-        }
+        //if (t.attackRange.characterList.Count > 0)
+        //{
+        //    t.ChangeState(new AttackState());
+        //}
 
     }
 

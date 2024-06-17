@@ -12,7 +12,7 @@ public class UIWeaponShop : UICanvas
     [SerializeField] ShopDataSO weaponShopData; // data cua cac item lay tu SO 
     [SerializeField] WeaponShopItem weaponShopItemPrefab; // prefab item 
     [SerializeField] Transform container; // vi tri chua cac item sau khi sinh ra ( trong UI SHOP )
-    [SerializeField] private TMP_Text priceText; // so tien  cua item
+    [SerializeField] private TMP_Text[] priceText; // so tien  cua item
 
     [SerializeField] List<GameObject> buyState; // list cac button Buy,Select,Unequip
 
@@ -128,6 +128,10 @@ public class UIWeaponShop : UICanvas
                 ChangeButtonBuyState(EquipState.Select);
             }
         }
+        if (UserDataManager.Ins.userData.coin < weaponShopItemsList[currentItemIndex].price)
+        {
+            ChangeButtonBuyState(EquipState.NotBuy);
+        }
         else ChangeButtonBuyState(EquipState.Buy);
     }
 
@@ -144,6 +148,9 @@ public class UIWeaponShop : UICanvas
                 break;
             case (EquipState.Unequip):
                 SetActiveBuyState(2);
+                break;
+            case (EquipState.NotBuy):
+                SetActiveBuyState(3);
                 break;
         }
     }
@@ -167,7 +174,7 @@ public class UIWeaponShop : UICanvas
     //------------------------------------------------------
     public void BuyItem()
     {
-        if (UserDataManager.Ins.userData.coin > weaponShopItemsList[currentItemIndex].price)
+        if (UserDataManager.Ins.userData.coin >= weaponShopItemsList[currentItemIndex].price)
         {
             UserDataManager.Ins.userData.coin -= weaponShopItemsList[currentItemIndex].price;
             playerCoinTxt.SetText(UserDataManager.Ins.userData.coin.ToString());
@@ -193,6 +200,10 @@ public class UIWeaponShop : UICanvas
         LevelManager.Ins.player.InstantiateWeapon(weaponShopItemsList[currentItemIndex].id);
         UserDataManager.Ins.userData.currentWeapon = weaponShopItemsList[currentItemIndex].id;
     }
+    public void CantNotBuy()
+    {
+        SetActiveBuyState(3);
+    }
     //--------------------------------------------
     private void DestroyWeaponShopItems()
     {
@@ -206,7 +217,8 @@ public class UIWeaponShop : UICanvas
 
     public void SetPriceText(int price)
     {
-        priceText.text = price.ToString();
+        priceText[0].text = price.ToString();
+        priceText[1].text = price.ToString();
     }
     //-------------thoat ui----------------------------------------
     public void BackButton()

@@ -319,7 +319,7 @@ namespace UnityEditor.AI
                 GUILayout.EndHorizontal();
             }
 
-            // Show progress for the selected targets
+            // Show progress for the selected targetsList
             for (int i = s_BakeOperations.Count - 1; i >= 0; --i)
             {
                 if (!targets.Contains(s_BakeOperations[i].surface))

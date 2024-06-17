@@ -10,6 +10,10 @@ public class Constant
     public static string ANIM_DEAD = "Dead";
     public static string ANIM_DANCEWIN = "Dance_Win";
     public static string ANIM_CHARSKIN = "Dance_CharSkin";
+    public const string TAG_CHARACTER = "Character";
+    public const string TAG_WALL = "Wall";
+
+
 
 
 }

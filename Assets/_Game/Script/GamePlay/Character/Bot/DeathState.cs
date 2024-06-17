@@ -10,17 +10,18 @@ public class DeathState : IState<Bot>
     {
         t.agent.isStopped = true;
         t.ChangeAnim(Constant.ANIM_DEAD);
+        t.Invoke(nameof(t.OnDespawn), 1.5f);
     }
 
     public void OnExecute(Bot t)
     {
-        timeSpentInState += Time.deltaTime; // update time each frame
+        //timeSpentInState += Time.deltaTime; // update time each frame
 
-        if (timeSpentInState >= delayToChangeState) // check time 
-        {
-            SimplePool.Despawn(t);
-            t.OnDespawn();
-        }
+        //if (timeSpentInState >= delayToChangeState) // check time 
+        //{
+        //    SimplePool.Despawn(t);
+        //    t.OnDespawn();
+        //}
     }
 
     public void OnExit(Bot t)

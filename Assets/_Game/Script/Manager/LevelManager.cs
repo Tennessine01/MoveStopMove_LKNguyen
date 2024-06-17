@@ -20,6 +20,7 @@ public class LevelManager : Singleton<LevelManager>
     //[SerializeField] GameObject targetIndicator;
     [SerializeField] UserDataManager userDataManager;
     //
+    private int numberOfCharacter = 0;
     public int BotNumber => listBot.Count;
     //public void Start()
     //{
@@ -48,7 +49,7 @@ public class LevelManager : Singleton<LevelManager>
         SpawnPlayer();
         CameraFollow.Ins.OnInit();        
         OnMenu();
-        SpawnBot();
+        SpawnInitalBot();
         
     }
 
@@ -72,6 +73,7 @@ public class LevelManager : Singleton<LevelManager>
         {
             Level newLevel = Instantiate(levels[level], transform);
             currentLevel = newLevel;
+            numberOfCharacter = newLevel.maxBot;
             levelCount = level;
         }
         if(level != levelCount)
@@ -79,35 +81,40 @@ public class LevelManager : Singleton<LevelManager>
             Destroy(currentLevel);
             Level newLevel = Instantiate(levels[level],transform);
             currentLevel = newLevel;
+            numberOfCharacter = newLevel.maxBot;
             levelCount = level;
         }
     }
 
     //-----------------------------------------------------------------------------------------
     //
-    private void SpawnBot()
+    private void SpawnInitalBot()
     {
         for (int i = 0; i < currentLevel.realBot; i++)
         {
-            b = SimplePool.Spawn<Bot>(PoolType.Bot, RandomPosition(), Quaternion.identity);
-            b.centerPoint = currentLevel.centerPosition;
+            SpawnBot();
+        }    
+    }
+    private void SpawnBot()
+    {
+        b = SimplePool.Spawn<Bot>(PoolType.Bot, RandomPosition(), Quaternion.identity);
+        b.centerPoint = currentLevel.centerPosition;
+        //random weapon
+        int randomWeaponID = UnityEngine.Random.Range(0, 6);
+        b.weaponID = randomWeaponID;
+        //random hatPrefab
+        int randomHatID = UnityEngine.Random.Range(1, 9);
+        b.hatID = randomHatID;
+        //random pant
+        int pantID = UnityEngine.Random.Range(1, 7);
+        b.pantID = pantID;
 
-            //random weapon
-            int randomWeaponID = UnityEngine.Random.Range(0, 6);
-            b.weaponID = randomWeaponID;
-
-            //random hatPrefab
-            int randomHatID = UnityEngine.Random.Range(1, 9);
-            b.hatID = randomHatID;
-
-            //random pant
-            int pantID = UnityEngine.Random.Range(1, 7);
-            b.pantID = pantID;
-
-            b.OnInit();
-            listBot.Add(b);
+        b.OnInit();
+        listBot.Add(b);
+        if (GameManager.Ins.IsState(GameState.GamePlay))
+        {
+            b.ChangeState(new IdleState());
         }
-            
     }
     public void SpawnPlayer()
     {
@@ -176,8 +183,10 @@ public class LevelManager : Singleton<LevelManager>
         return randomPos;
     }
 
+    public event Action OnDespawnLevel;
     public void OnDespawn()
     { 
+        OnDespawnLevel?.Invoke();
         DespawnPlayer();
         DespawnBot();
     }
@@ -229,15 +238,20 @@ public class LevelManager : Singleton<LevelManager>
     {
         OnAlivePlayerNumberChanged?.Invoke();
         ReduceListBotNumber(bot);
+        if (numberOfCharacter > listBot.Count)
+        {
+            SpawnBot();
+        }
     }
     //------------------------------------
     public int AlivePlayerNumber()
     {
-        return listBot.Count + 1;
+        return numberOfCharacter + 1;
     }
     public event Action MinusNumberOfCharacterOnGround;
     private void ReduceListBotNumber(Bot bot)
     {
+        numberOfCharacter -= 1;
         listBot.Remove(bot);   
         MinusNumberOfCharacterOnGround?.Invoke();
         if(listBot.Count == 0)

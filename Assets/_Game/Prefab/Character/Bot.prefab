@@ -1441,32 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d359ccc86cced0418857ef45ed074a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 27
-  Range: 0
-  moveSpeed: 0
-  size: 0
-  characterName: 
-  indicatorPosition: {fileID: 0}
-  pantID: 0
-  weaponID: 0
-  hatID: 0
-  hatPrefab: {fileID: 0}
-  weaponPrefab: {fileID: 0}
-  animm: {fileID: 0}
-  rb: {fileID: 0}
-  attackRange: {fileID: 5097658166934434469}
-  shootPoint: {fileID: 0}
-  weapon: {fileID: 0}
-  pant: {fileID: 0}
-  isPlayer: 0
-  hp: 0
-  isDespawn: 0
-  slotWeaponInHand: {fileID: 0}
-  weaponPosition: {fileID: 7904188817217612918}
-  hatPosition: {fileID: 0}
-  characterList: []
   owner: {fileID: 3888783283666329266}
-  range: 0
 --- !u!54 &2227819543771675930
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1542,7 +1517,7 @@ GameObject:
   - component: {fileID: 5508756466275771742}
   m_Layer: 9
   m_Name: Bot
-  m_TagString: Enemy
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1606,6 +1581,7 @@ MonoBehaviour:
   Range: 5
   moveSpeed: 0
   size: 1
+  targetMark: {fileID: 8780808995612078891}
   characterName: 
   indicatorPosition: {fileID: 5742972353133163900}
   pantID: 0
@@ -1625,7 +1601,6 @@ MonoBehaviour:
   slotWeaponInHand: {fileID: 3037383980223269019}
   weaponPosition: {fileID: 7303072698828991446}
   hatPosition: {fileID: 3128862274614907247}
-  targetMark: {fileID: 4809955768287039736}
   agent: {fileID: 8954847631209615012}
   radiusSphere: 20
   centerPoint: {fileID: 0}

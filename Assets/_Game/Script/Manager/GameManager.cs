@@ -134,8 +134,8 @@ public class GameManager : Singleton<GameManager>
         UIManager.Ins.CloseUI<UIGamePlay>();
         UIManager.Ins.CloseUI<UISetting>();
         UIManager.Ins.OpenUI<UILose>();
-        LevelManager.Ins.OnDespawn();
-        LevelManager.Ins.OnInit();
+        //LevelManager.Ins.OnDespawn();
+        //LevelManager.Ins.OnInit();
     }
     public bool IsState(GameState state)
     {

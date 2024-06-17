@@ -22,7 +22,7 @@ public class WeaponBase : MonoBehaviour
     //    //}
     //    //Shoot();
     //}
-    public virtual void Shoot(BulletType bulletType)
+    public virtual void Shoot(BulletType bulletType, float size)
     {
 
     }

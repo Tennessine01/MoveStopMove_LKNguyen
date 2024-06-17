@@ -19,20 +19,21 @@ public class BulletBase : GameUnit
         {
             OnDespawn();
         }
-        if (owner != null)
-        {
+        //if (owner != null)
+        //{
 
-            if (owner.isDespawn == true)
-            {
-                //Debug.Log("--------");
-                OnDespawn();
-            } 
-        }
+        //    if (owner.isDespawn == true)
+        //    {
+        //        //Debug.Log("--------");
+        //        OnDespawn();
+        //    } 
+        //}
     }
     public void OnInit( float damage)
     {
         startTime = 0f;
         this.damage = damage;
+        LevelManager.Ins.OnDespawnLevel += OnDespawn;
     }
 
     public void OnDespawn()
@@ -40,18 +41,24 @@ public class BulletBase : GameUnit
         owner = null;
         //Destroy(gameObject);
         SimplePool.Despawn(this);
+        LevelManager.Ins.OnDespawnLevel -= OnDespawn;
     }
 
-    
+
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy") || other.CompareTag("Wall") || other.CompareTag("Player"))
+        if(other.CompareTag(Constant.TAG_CHARACTER) || other.CompareTag(Constant.TAG_WALL))
         {
             if (owner != null)
             {
                 if (other != owner)
                 {
-                    Cache.GetCharacter(other).OnHit(10f);
+                    Character character = Cache.GetCharacter(other);
+                    if (character.isDespawn == false)
+                    {
+                        character.OnHit(10f);
+                        owner.AddScore(1);
+                    }
                     OnDespawn();
                 }
                 else
@@ -59,6 +66,7 @@ public class BulletBase : GameUnit
                     OnDespawn();
                 } 
             }
+            else { OnDespawn(); }
             //if(owner is Player)
             //{
             //    if(Cache.GetCharacter(other).isDespawn == true)

@@ -6,11 +6,13 @@ using UnityEngine;
 public class UIMainMenu : UICanvas
 {
     [SerializeField] TextMeshProUGUI playerCoinTxt;
+    [SerializeField] TMP_Text zone;
 
     public override void Open()
     {
         base.Open(); 
         playerCoinTxt.SetText(UserDataManager.Ins.userData.coin.ToString());
+        zone.SetText((UserDataManager.Ins.userData.currentLevel + 1).ToString());
     }
     public void PlayButton()
     {

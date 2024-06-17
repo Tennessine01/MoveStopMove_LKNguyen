@@ -15,13 +15,13 @@ public class AttackState : IState<Bot>
     public void OnExecute(Bot t)
     {
         timeSpentInState += Time.deltaTime; // update time each frame
-        t.CheckClosestEnemy();
-        t.AttackWhenStop();
+        //t.CheckClosestEnemy();
+        t.OnAttack();
         //t.ChangeState(new  IdleState());
         if (timeSpentInState >= delayToChangeState) // check time 
         {
             t.slotWeaponInHand.SetActive(false);
-            t.shootPoint.Shoot(t.weapon.bulletType);
+            t.shootPoint.Shoot(t.weapon.bulletType, t.size);
             t.ChangeState(new IdleState());
         }     
     }

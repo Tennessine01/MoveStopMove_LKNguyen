@@ -8,12 +8,13 @@ public class ShootPoint : WeaponBase
     [SerializeField] Transform bulletPoint;
     public BulletBase b;
     private List<BulletBase> listbullet = new();
-    public override void Shoot(BulletType bulletType)
+    public override void Shoot(BulletType bulletType, float size)
     {
         //BulletBase b = Instantiate(bulletBasePrefab, bulletPoint.position, bulletPoint.rotation* Quaternion.Euler(90f, 180f, 0f));
         b = (BulletBase)SimplePool.Spawn<GameUnit>((PoolType)bulletType, bulletPoint.position, bulletPoint.rotation * Quaternion.Euler(90f, 180f, 0f));
         b.OnInit(10);
         b.owner = owner;
+        b.TF.localScale = size*Vector3.one*40;
         listbullet.Add(b);
     }
     public void DespawnBullet()
