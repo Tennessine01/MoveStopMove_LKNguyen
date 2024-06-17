@@ -5,26 +5,31 @@ using UnityEngine;
 
 public class UIMainMenu : UICanvas
 {
+    private const string ANIM_OPEN = "OpenMenu";
+    private const string ANIM_CLOSE = "CloseMenu";
     [SerializeField] TextMeshProUGUI playerCoinTxt;
     [SerializeField] TMP_Text zone;
-
+    [SerializeField] Animation anim;
     public override void Open()
     {
         base.Open(); 
         playerCoinTxt.SetText(UserDataManager.Ins.userData.coin.ToString());
         zone.SetText((UserDataManager.Ins.userData.currentLevel + 1).ToString());
+        anim.Play(ANIM_OPEN);
     }
     public void PlayButton()
     {
         GameManager.Ins.ChangeState(GameState.GamePlay);
-        Close(0);
+        anim.Play(ANIM_CLOSE);
+        Close(0.5f);
     }
 
     public void SkinShopButton() 
     {
         GameManager.Ins.ChangeState(GameState.SkinShop);
         //LevelManager.Ins.SetCameraShop();
-        Close(0);
+        anim.Play(ANIM_CLOSE);
+        Close(0.5f);
         //UIManager.Ins.OpenUI<UISkinShop>();
     }
     public void WeaponShopButton()
@@ -33,6 +38,7 @@ public class UIMainMenu : UICanvas
 
         //LevelManager.Ins.DeactivatePlayer();    
         //UIManager.Ins.OpenUI<UIWeaponShop>();
-        Close(0);
+        Close(0.5f);
+        anim.Play(ANIM_CLOSE);
     }
 }
