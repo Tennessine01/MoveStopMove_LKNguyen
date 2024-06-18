@@ -36,7 +36,7 @@ public class Bot : Character
 
         LevelManager.Ins.WhenPlayerDie += ChangeMenuState;
         targetIndicator.SetName(NameUtilities.GetRandomName());
-
+        characterName = targetIndicator.GetName();
 
     }
     public override void OnDespawn()

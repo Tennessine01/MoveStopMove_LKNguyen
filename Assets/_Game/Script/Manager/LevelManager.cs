@@ -22,6 +22,9 @@ public class LevelManager : Singleton<LevelManager>
     //
     private int numberOfCharacter = 0;
     public int BotNumber => listBot.Count;
+
+    public string currentKiller;
+    public string currentVictim;
     //public void Start()
     //{
     //    OnInit();
@@ -259,7 +262,11 @@ public class LevelManager : Singleton<LevelManager>
             GameManager.Ins.ChangeState(GameState.Win);
         }
     }
-    
+    public void SetNameKillerAndVictim(string killer, string victim)
+    {
+        currentKiller = killer;
+        currentVictim = victim;
+    }    
     //-------------------------------
     public event Action WhenPlayerDie;
     public void PlayerDie()
@@ -291,4 +298,9 @@ public class LevelManager : Singleton<LevelManager>
             (unit as TargetIndicator).SetAlpha(alpha);
         }
     }
+
+    //public void OnCharacterDead(string killer, string victim)
+    //{
+    //    UIManager.Ins.GetUI<UIGamePlay>().OnShowTagName(killer, victim);
+    //}
 }

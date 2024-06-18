@@ -70,7 +70,10 @@ public class TargetIndicator : GameUnit
     {
         nameTxt.SetText(name);
     }
-
+    public string GetName()
+    {
+        return nameTxt.text;
+    }
     private void SetColor(Color color)
     {
         iconImg.color = color;
