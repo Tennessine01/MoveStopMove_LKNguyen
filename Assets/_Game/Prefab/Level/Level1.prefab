@@ -521,7 +521,7 @@ MonoBehaviour:
   minPoint: {fileID: 1441474029003348211}
   maxPoint: {fileID: 841637806897784248}
   realBot: 10
-  maxBot: 50
+  maxBot: 10
   maxCoin: 200
 --- !u!1 &8110005164658701213
 GameObject:

@@ -77,23 +77,23 @@ public class GameManager : Singleton<GameManager>
     }
     private void ChangeSkinShopState()
     {
-        UIManager.Ins.OpenUI<UISkinShop>();
+        UIManager.Ins.OpenUI<SkinShop>();
         LevelManager.Ins.SetCameraShop();
 
     }
     private void ChangeWeaponShopState()
     {
-        UIManager.Ins.OpenUI<UIWeaponShop>();
+        UIManager.Ins.OpenUI<WeaponShop>();
         LevelManager.Ins.DeactivatePlayer();
 
     }
     private void ChangeSettingState()
     {
-        UIManager.Ins.OpenUI<UISetting>();
+        UIManager.Ins.OpenUI<Setting>();
     }
     private void ChangeWinState()
     {
-        UIManager.Ins.OpenUI<UIWin>();
+        UIManager.Ins.OpenUI<Win>();
         LevelManager.Ins.OnDespawn();
         LevelManager.Ins.OnInit();
     }
@@ -104,22 +104,22 @@ public class GameManager : Singleton<GameManager>
     }
     public void ChangeQuestionState()
     {
-        UIManager.Ins.CloseUI<UISetting>();
-        UIManager.Ins.OpenUI<UIRevive>();
+        UIManager.Ins.CloseUI<Setting>();
+        UIManager.Ins.OpenUI<Revive>();
     }
     private void ChangeMainMenuState()
     {   
-        UIManager.Ins.CloseUI<UILose>();
-        UIManager.Ins.CloseUI<UIWin>();
-        UIManager.Ins.CloseUI<UIGamePlay>();
-        UIManager.Ins.CloseUI<UISetting>();
+        UIManager.Ins.CloseUI<Lose>();
+        UIManager.Ins.CloseUI<Win>();
+        UIManager.Ins.CloseUI<GamePlay>();
+        UIManager.Ins.CloseUI<Setting>();
 
         
         //LevelManager.Ins.OnDespawn();
         
         LevelManager.Ins.OnInit();
         LevelManager.Ins.SetCameraMenu();
-        UIManager.Ins.OpenUI<UIMainMenu>();
+        UIManager.Ins.OpenUI<MainMenuHome>();
 
     }
 
@@ -127,13 +127,13 @@ public class GameManager : Singleton<GameManager>
     {
         LevelManager.Ins.SetCameraFollow();
         LevelManager.Ins.OnPlay();
-        UIManager.Ins.OpenUI<UIGamePlay>();
+        UIManager.Ins.OpenUI<GamePlay>();
     }
     private void ChangeLoseState()
     {
-        UIManager.Ins.CloseUI<UIGamePlay>();
-        UIManager.Ins.CloseUI<UISetting>();
-        UIManager.Ins.OpenUI<UILose>();
+        UIManager.Ins.CloseUI<GamePlay>();
+        UIManager.Ins.CloseUI<Setting>();
+        UIManager.Ins.OpenUI<Lose>();
         //LevelManager.Ins.OnDespawn();
         //LevelManager.Ins.OnInit();
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIRevive : UICanvas
+public class Revive : UICanvas
 {
     public void LoseButton()
     {

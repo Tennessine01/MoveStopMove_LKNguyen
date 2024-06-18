@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIWeaponShop : UICanvas
+public class WeaponShop : UICanvas
 {
     [SerializeField] TextMeshProUGUI playerCoinTxt; // so tien cua User
 
@@ -233,7 +233,7 @@ public class UIWeaponShop : UICanvas
         //LevelManager.Ins.ActivatePlayer();
         //LevelManager.Ins.player.OnInit();
         GameManager.Ins.ChangeState(GameState.MainMenu);
-        //UIManager.Ins.OpenUI<UIMainMenu>();
+        //UIManager.Ins.OpenUI<MainMenuHome>();
         //LevelManager.Ins.SpawnPlayer();
 
     }

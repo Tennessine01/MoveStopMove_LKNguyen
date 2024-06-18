@@ -14,7 +14,7 @@ public class SkinShopItem : MonoBehaviour
     [SerializeField] public GameObject equippedIcon;
     public Image ImgIcon;
     public ItemState state;
-    public UISkinShop uiskinshop;
+    public SkinShop uiskinshop;
     public ShopType shopType;
     public int price;
     

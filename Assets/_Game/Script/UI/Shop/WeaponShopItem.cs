@@ -9,7 +9,7 @@ public class WeaponShopItem : MonoBehaviour
 {
     public Image ImgIcon;
     public ItemState state;
-    public UIWeaponShop uiWeaponShop;
+    public WeaponShop uiWeaponShop;
     //public ShopType shopType;
     public int price;
 

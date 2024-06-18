@@ -303,6 +303,6 @@ public class LevelManager : Singleton<LevelManager>
 
     //public void OnCharacterDead(string killer, string victim)
     //{
-    //    UIManager.Ins.GetUI<UIGamePlay>().OnShowTagName(killer, victim);
+    //    UIManager.Ins.GetUI<GamePlay>().OnShowTagName(killer, victim);
     //}
 }

@@ -68,6 +68,7 @@ public class Character : GameUnit
     public GameObject slotWeaponInHand;
     //vi tri de vu khi tren tay
     [SerializeField] public Transform weaponPosition;
+    [SerializeField] public Transform shieldPosition;
 
     //vi tri de mu
     [SerializeField] public Transform hatPosition;

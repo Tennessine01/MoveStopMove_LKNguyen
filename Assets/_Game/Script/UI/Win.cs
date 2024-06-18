@@ -4,25 +4,28 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UILose : UICanvas
+public class Win : UICanvas
 {
-    public TMP_Text ranking;
     public TMP_Text reward;
-
 
     public override void Open()
     {
         base.Open();
-        LevelManager.Ins.player.ChangeAnim(Constant.ANIM_DEAD);
-        ranking.text ="#"+ LevelManager.Ins.AlivePlayerNumber().ToString();
-        reward.text = LevelManager.Ins.NumberCoinWhenLose();
-        LevelManager.Ins.AddCoinWhenLose();
+        reward.text = LevelManager.Ins.currentLevel.GetMaxCoin().ToString();
+        LevelManager.Ins.AddCoinWhenWin();
+        if (UserDataManager.Ins.userData.currentLevel < LevelManager.Ins.levels.Count-1)
+        {
+            UserDataManager.Ins.userData.currentLevel += 1;
+        }
+
 
     }
     public void MainMenuButton()
     {
         LevelManager.Ins.OnDespawn();
+
         GameManager.Ins.ChangeState(GameState.MainMenu);
+        //UIManager.Ins.OpenUI<MainMenuHome>();
         Close(0);
     }
 }

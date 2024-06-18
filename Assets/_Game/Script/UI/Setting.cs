@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UISetting : UICanvas
+public class Setting : UICanvas
 {
     public void ContinueButton()
     {
@@ -17,7 +17,7 @@ public class UISetting : UICanvas
         GameManager.Ins.ChangeState(GameState.MainMenu);
 
         Close(0);
-        UIManager.Ins.CloseUI<UIGamePlay>();
+        UIManager.Ins.CloseUI<GamePlay>();
     }
     
 }

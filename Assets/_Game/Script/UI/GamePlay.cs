@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using static UnityEditor.Progress;
 
-public class UIGamePlay : UICanvas
+public class GamePlay : UICanvas
 {
     [SerializeField] public TextMeshProUGUI aliveNumber;
     [SerializeField] public Transform container;

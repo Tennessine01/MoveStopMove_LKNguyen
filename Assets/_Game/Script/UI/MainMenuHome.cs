@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIMainMenu : UICanvas
+public class MainMenuHome : UICanvas
 {
     private const string ANIM_OPEN = "OpenMenu";
     private const string ANIM_CLOSE = "CloseMenu";
@@ -30,14 +30,14 @@ public class UIMainMenu : UICanvas
         //LevelManager.Ins.SetCameraShop();
         anim.Play(ANIM_CLOSE);
         Close(0.5f);
-        //UIManager.Ins.OpenUI<UISkinShop>();
+        //UIManager.Ins.OpenUI<SkinShop>();
     }
     public void WeaponShopButton()
     {
         GameManager.Ins.ChangeState(GameState.WeaponShop);
 
         //LevelManager.Ins.DeactivatePlayer();    
-        //UIManager.Ins.OpenUI<UIWeaponShop>();
+        //UIManager.Ins.OpenUI<WeaponShop>();
         Close(0.5f);
         anim.Play(ANIM_CLOSE);
     }

@@ -9,7 +9,7 @@ public enum ShopType{
 public enum EquipState{
     Buy = 0, Select = 1, Unequip = 2, NotBuy = 3
 }
-public class UISkinShop : UICanvas
+public class SkinShop : UICanvas
 {
     [SerializeField] ShopDataSO skinShopData; // data cua cac item lay tu SO 
     [SerializeField] SkinShopItem skinShopItemPrefab; // prefab item 
