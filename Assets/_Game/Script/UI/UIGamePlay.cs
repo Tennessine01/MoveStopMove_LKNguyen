@@ -51,7 +51,7 @@ public class UIGamePlay : UICanvas
         foreach (var item in tagNameItemList)
         {
             item.OnDespawn();
-            SimplePool.Despawn(item);
+            //SimplePool.Despawn(item);
         }
         base.CloseDirectly();
     }

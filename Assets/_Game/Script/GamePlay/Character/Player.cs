@@ -38,7 +38,8 @@ public class Player : Character
         //    joystick.gameObject.SetActive(true);
         //}
         reviveTime = 1;
-        targetIndicator.SetName("Nguyen");
+        characterName = "Nguyen";
+        targetIndicator.SetName(characterName);
 
     }
     public override void Update()

@@ -38,7 +38,6 @@ public class TagNameItem : GameUnit
         SimplePool.Despawn(this);
 
     }
-
     public void SetNameWhenKill(string killer, string victim)
     {
         this.killerName.text = killer;
@@ -47,5 +46,6 @@ public class TagNameItem : GameUnit
     public void OnDespawn()
     {
         StopCoroutine(CoSelfDestroy());
+        SimplePool.Despawn(this);
     }
 }

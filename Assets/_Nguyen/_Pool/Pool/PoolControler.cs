@@ -196,6 +196,8 @@ public enum PoolType
     HAT_Headphone = 48,
     HAT_Horn = 49,
 
+    TargetIndicator = 50,
+    TagName = 51
 }
 
 
