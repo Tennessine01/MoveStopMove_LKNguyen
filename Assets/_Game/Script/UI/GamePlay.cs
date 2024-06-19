@@ -27,7 +27,7 @@ public class GamePlay : UICanvas
         TagNameItem tagNameItem = SimplePool.Spawn<TagNameItem>(PoolType.TagName, container.position, Quaternion.identity);
         tagNameItem.transform.SetParent(container);
         tagNameItem.SetNameWhenKill(LevelManager.Ins.currentKiller, LevelManager.Ins.currentVictim);
-        tagNameItem.OnInit();
+        //tagNameItem.OnInit();
         tagNameItemList.Add(tagNameItem);
     }
     public void ShowAlivePlayer()

@@ -9,7 +9,8 @@ public class AttackState : IState<Bot>
     public void OnEnter(Bot t)
     {
         t.agent.isStopped = true;
-        t.ChangeAnim(Constant.ANIM_ATTACK);
+        //t.ChangeAnim(Constant.ANIM_ATTACK);
+        //t.OnAttack();
     }
 
     public void OnExecute(Bot t)

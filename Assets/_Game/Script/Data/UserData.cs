@@ -21,8 +21,13 @@ public class UserData
     public List<int> weaponList = new();
     public List<int> hatList = new();
     public List<int> pantList = new();
+    public List<int> accessoryList = new();
+    public List<int> skinList = new();
+
     public int currentWeapon;
     public int currentHat;
     public int currentPant;
+    public int currentAccessory;
+    public int currentSkin;
 
 }

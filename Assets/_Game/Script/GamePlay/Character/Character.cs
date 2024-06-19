@@ -14,17 +14,17 @@ public class Character : GameUnit
     [Header("Character Attributes")]
 
     ////Range
-    [SerializeField] public float Range = 6f;
+    public float Range = 6f;
     //Movespeed
-    [SerializeField] public float moveSpeed;
+    public float moveSpeed;
     ////AttackSpeed
     //[SerializeField] public float speed;
     ////Size
-    [SerializeField] public float size = 1;
+    public float size = 1;
     private int score;
     public int Score => score;
     //Skin
-    [SerializeField] public GameObject targetMark;
+    public GameObject targetMark;
 
     //Name
     public string characterName;
@@ -32,10 +32,10 @@ public class Character : GameUnit
     [SerializeField] Transform indicatorPosition;
     protected TargetIndicator targetIndicator;
     //pant
-    [SerializeField] public int pantID = 0;
+    public int pantID = 0;
     //vu khi tren tay
-    [SerializeField] public int weaponID = 0;
-    [SerializeField] public int hatID = 0;
+    public int weaponID = 0;
+    public int hatID = 0;
     public GameObject hatPrefab;
     public GameObject weaponPrefab;
     [Space(10)] // Adds 10 pixels of space in the Inspector
@@ -43,11 +43,11 @@ public class Character : GameUnit
 
     [Header("Other Attributes")]
     //Anim
-    [SerializeField] public Animator animm;
+    public Animator animm;
     private string currentAnim = null;
 
     //Rigidbody
-    [SerializeField] public Rigidbody rb;
+    public Rigidbody rb;
     public CharacterAttackRange attackRange;
     public ShootPoint shootPoint;
     [HideInInspector]public WeaponBase weapon; //dung de chua prefab loai vu khi dang cam tren tay
@@ -64,14 +64,15 @@ public class Character : GameUnit
     public bool IsDead => hp <= 0;
     public bool isDespawn;
 
-    //object chua vu khi
+    //object chua vu khi dung de bat tat trang thai khi dang nem
     public GameObject slotWeaponInHand;
-    //vi tri de vu khi tren tay
-    [SerializeField] public Transform weaponPosition;
-    [SerializeField] public Transform shieldPosition;
+    //vi tri de vu khi tren tay phai
+    public Transform weaponPosition;
+    //vi tri de khien ten tay trai
+    public Transform shieldPosition;
 
     //vi tri de mu
-    [SerializeField] public Transform hatPosition;
+    public Transform hatPosition;
     //public virtual void Start()
     //{
     //    OnInit();
@@ -104,7 +105,6 @@ public class Character : GameUnit
         targetIndicator = SimplePool.Spawn<TargetIndicator>(PoolType.TargetIndicator);
         targetIndicator.SetTarget(indicatorPosition);
     }
-    // Update is called once per frame
     public virtual void Update()
     {
 
@@ -313,7 +313,7 @@ public class Character : GameUnit
         targetsList.Clear();
         shootPoint.DespawnBullet();
         //ClearListEnemyInAttackRange();
-        SimplePool.Despawn(targetIndicator);
+        //SimplePool.Despawn(targetIndicator);
 
     }
     public void IncreaseHP(int aa)

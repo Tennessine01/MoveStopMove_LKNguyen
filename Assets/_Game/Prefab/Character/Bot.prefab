@@ -1600,7 +1600,10 @@ MonoBehaviour:
   isDespawn: 0
   slotWeaponInHand: {fileID: 3037383980223269019}
   weaponPosition: {fileID: 7303072698828991446}
+  shieldPosition: {fileID: 0}
   hatPosition: {fileID: 3128862274614907247}
+  targetsList: []
+  target: {fileID: 0}
   agent: {fileID: 8954847631209615012}
   radiusSphere: 20
   centerPoint: {fileID: 0}

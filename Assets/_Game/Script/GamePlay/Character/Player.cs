@@ -80,7 +80,9 @@ public class Player : Character
         {
             StopAllCoroutines();
             isMoving = true;
-            isAttack = true;    
+            isAttack = true;
+            slotWeaponInHand.SetActive(true);
+
             //transform.position += movementDirection * Time.deltaTime * moveSpeed;
             rb.velocity = movementDirection * moveSpeed;
 
@@ -146,22 +148,30 @@ public class Player : Character
         if (target != null && isMoving == false && isAttack == true && !target.IsDead)
         {
             Attack();
-            isAttack = false;
+            //isAttack = false;
         }
     }
     public void Attack()
     {
-        StartCoroutine(CheckAttackFalse());
+        if (isAttack == true)
+        {
+            StartCoroutine(CheckAttackFalse());
+        }
     }
     IEnumerator CheckAttackFalse()
     {
+        isAttack = false;
         //Debug.Log("----");
         ChangeAnim(Constant.ANIM_ATTACK);
         yield return new WaitForSeconds(0.4f);
         slotWeaponInHand.SetActive(false);
+        Debug.Log("shoottttt");
         shootPoint.Shoot(weapon.bulletType, size);
-        yield return new WaitForSeconds(0.1f);
         isAttack = false;
+        Debug.Log(isAttack);
+
+        //yield return new WaitForSeconds(0.1f);
+        //isAttack = false;
         yield return new WaitForSeconds(0.1f);
         slotWeaponInHand.SetActive(true);
     }
@@ -190,7 +200,7 @@ public class Player : Character
     public override void OnDead()
     {
         base.OnDead();
-        SimplePool.Despawn(targetIndicator);
+        //SimplePool.Despawn(targetIndicator);
 
         //joystick.gameObject.SetActive(false);
         ChangeAnim(Constant.ANIM_DEAD);

@@ -28,7 +28,7 @@ public class CameraFollow : Singleton<CameraFollow>
     }
     void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.deltaTime * speed);
+        transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.fixedDeltaTime * speed);
         transform.rotation = Quaternion.Euler( offsetRotation); 
     }
     public void SetOffset(float x, float y, float z)

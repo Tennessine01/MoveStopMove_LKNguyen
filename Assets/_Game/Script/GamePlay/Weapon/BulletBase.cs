@@ -59,30 +59,22 @@ public class BulletBase : GameUnit
                         LevelManager.Ins.SetNameKillerAndVictim(owner.characterName, character.characterName);
                         character.OnHit(10f);
                         owner.AddScore(1);
+                        OnDespawn();
                     }
-                    OnDespawn();
+                    else
+                    {
+                        OnDespawn();
+                    }
                 }
                 else
                 {
                     OnDespawn();
                 } 
             }
-            else { OnDespawn(); }
-            //if(owner is Player)
-            //{
-            //    if(Cache.GetCharacter(other).isDespawn == true)
-            //    {
-
-            //    }
-            //}
-            
+            else { 
+                OnDespawn(); 
+            }    
         }
     }
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
-    //    {
-    //        OnDead();
-    //    }
-    //}
+    
 }

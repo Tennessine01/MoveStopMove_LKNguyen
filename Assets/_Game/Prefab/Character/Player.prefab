@@ -2282,7 +2282,7 @@ Transform:
   - {fileID: 6920602254459492258}
   - {fileID: 4446685158825974003}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!136 &6813184127039077417
 CapsuleCollider:
@@ -2342,7 +2342,7 @@ MonoBehaviour:
   isDespawn: 0
   slotWeaponInHand: {fileID: 5382442638087986617}
   weaponPosition: {fileID: 1135069108763547416}
-  shieldPosition: {fileID: 0}
+  shieldPosition: {fileID: 4980716861804024641}
   hatPosition: {fileID: 8836089726055607946}
   targetsList: []
   target: {fileID: 0}

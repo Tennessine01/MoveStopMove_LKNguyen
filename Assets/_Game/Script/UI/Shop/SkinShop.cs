@@ -124,6 +124,26 @@ public class SkinShop : UICanvas
                 }
                 else ChangeButtonBuyState(EquipState.Buy);
                 break;
+            case (ShopType.Accessory):
+                if (UserDataManager.Ins.userData.accessoryList.Contains(id))
+                {
+                    if (UserDataManager.Ins.userData.currentSkin == id)
+                    {
+                        ChangeButtonBuyState(EquipState.Unequip);
+                        break;
+                    }
+                    else
+                    {
+                        ChangeButtonBuyState(EquipState.Select);
+                        break;
+                    }
+                }
+                if (UserDataManager.Ins.userData.coin < MONEY)
+                {
+                    ChangeButtonBuyState(EquipState.NotBuy);
+                }
+                else ChangeButtonBuyState(EquipState.Buy);
+                break;
 
         }
     }
@@ -165,6 +185,7 @@ public class SkinShop : UICanvas
                 UserDataManager.Ins.userData.pantList.Add(ITEM_ID);
                 UserDataManager.Ins.userData.currentPant = ITEM_ID;
             }
+            //de bat tat icon equiped hoac lock
             onItemBought?.Invoke(ITEM_ID, currentShopType);
             onItemEquip?.Invoke(ITEM_ID, currentShopType);
 

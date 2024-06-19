@@ -1260,9 +1260,13 @@ MonoBehaviour:
     weaponList: 
     hatList: 
     pantList: 
+    accessoryList: 
+    skinList: 
     currentWeapon: 0
     currentHat: 0
     currentPant: 0
+    currentAccessory: 0
+    currentSkin: 0
   player: {fileID: 0}
 --- !u!4 &1565346823
 Transform:

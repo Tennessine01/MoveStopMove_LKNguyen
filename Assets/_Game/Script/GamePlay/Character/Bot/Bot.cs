@@ -22,16 +22,15 @@ public class Bot : Character
     {
 
         base.OnInit();
-        
+
         //ClearListEnemyInAttackRange();
-    
+        InstantiateTargetIndicator();
         //ResetItem();
         isPlayer = false;
         isDespawn = false;
         InstantiateWeapon(weaponID);
         InstantiateHat(hatID);
         InstantiatePant(pantID);
-        agent = GetComponent<NavMeshAgent>();
         ChangeState(new MenuState());
 
         LevelManager.Ins.WhenPlayerDie += ChangeMenuState;
@@ -43,6 +42,7 @@ public class Bot : Character
     {
         base.OnDespawn();
         SimplePool.Despawn(this);
+        SimplePool.Despawn(targetIndicator);
         isDespawn = true;
         size = 1;
         ResetItem();
@@ -99,20 +99,7 @@ public class Bot : Character
         result = Vector3.zero;
         return false;
     }
-    //public override void AttackWhenStop(){
-    //    if (attackRange.targetCharacter != null){
-    //        if (attackRange.targetCharacter.isDespawn == true){
-    //            attackRange.characterList.Remove(attackRange.targetCharacter);
-    //            attackRange.targetCharacter = null;
-    //            //Debug.Log("fffffffff");
-    //            ChangeState(new IdleState());
-    //        }
-    //        else{
-    //            //quay ve huong ke dich
-    //            TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
-    //        }
-    //    }
-    //}
+    
     public override void AddTarget(Character target)
     {
         base.AddTarget(target);
@@ -121,6 +108,10 @@ public class Bot : Character
         {
             ChangeState(new AttackState());
         }
+    }
+    public override void OnAttack()
+    {
+        base.OnAttack(); 
     }
     public override void OnDead()
     {

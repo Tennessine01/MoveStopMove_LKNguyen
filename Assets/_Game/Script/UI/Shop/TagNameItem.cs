@@ -15,6 +15,10 @@ public class TagNameItem : GameUnit
     //    StartCoroutine(CoSelfDestroy());
     //}
 
+    public void OnEnable()
+    {
+        OnInit();
+    }
     public void OnInit()
     {
         StartCoroutine(CoSelfDestroy());

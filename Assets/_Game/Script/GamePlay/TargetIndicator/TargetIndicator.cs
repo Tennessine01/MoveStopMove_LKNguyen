@@ -15,13 +15,14 @@ public class TargetIndicator : GameUnit
 
     [SerializeField] CanvasGroup canvasGroup;
 
+    //muc tieu gan cai indicator nay
     Transform target;
     Vector3 screenHalf = new Vector2(Screen.width, Screen.height) / 2;
 
     Vector3 viewPoint;
 
     Vector2 viewPointX = new Vector2(0.075f, 0.925f);
-    Vector2 viewPointY = new Vector2(0.05f, 0.85f);
+    Vector2 viewPointY = new Vector2(0.05f, 0.90f);
 
     Vector2 viewPointInCameraX = new Vector2(0.075f, 0.925f);
     Vector2 viewPointInCameraY = new Vector2(0.05f, 0.95f);
@@ -34,6 +35,7 @@ public class TargetIndicator : GameUnit
 
     private void LateUpdate()
     {
+        //dung de chuyen doi toa do tu world space (cua game) sang viewport (camera hien thi tren man hinh)
         viewPoint = Camera.WorldToViewportPoint(target.position);
         direct.gameObject.SetActive(!IsInCamera);
         nameTxt.gameObject.SetActive(IsInCamera);

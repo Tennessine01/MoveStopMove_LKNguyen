@@ -7,7 +7,7 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     //tao level
-    [SerializeField] public List<Level> levels;
+    public List<Level> levels;
     public Level currentLevel;
     private int levelCount;
     //tao character

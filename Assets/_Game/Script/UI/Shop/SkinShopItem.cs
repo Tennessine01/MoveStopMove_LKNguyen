@@ -10,8 +10,8 @@ public enum ItemState { Buy = 0, Bought = 1 , Equipped = 2, Selecting = 3 }
 
 public class SkinShopItem : MonoBehaviour
 {
-    [SerializeField] public GameObject lockIcon;
-    [SerializeField] public GameObject equippedIcon;
+    public GameObject lockIcon;
+    public GameObject equippedIcon;
     public Image ImgIcon;
     public ItemState state;
     public SkinShop uiskinshop;
@@ -53,7 +53,7 @@ public class SkinShopItem : MonoBehaviour
     public void ChooseItem()
     {
         LevelManager.Ins.player.DestroyHat();
-        //LevelManager.Ins.player.DestroyPant();
+        LevelManager.Ins.player.DestroyPant();
 
         LevelManager.Ins.player.InstantiateItem(id, shopType);
         
