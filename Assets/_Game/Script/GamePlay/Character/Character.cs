@@ -35,6 +35,7 @@ public class Character : GameUnit
     public int pantID = 0;
     //vu khi tren tay
     public int weaponID = 0;
+    public int shieldID = 0;
     public int hatID = 0;
     public GameObject hatPrefab;
     public GameObject weaponPrefab;
@@ -82,6 +83,9 @@ public class Character : GameUnit
     //vi tri cua muc tieu
     private Vector3 targetPoint;
 
+    //
+    public List<GameObject> listShields = new List<GameObject>();
+
     public virtual void OnInit()
     {
         ChangeAnim(Constant.ANIM_IDLE);
@@ -97,10 +101,10 @@ public class Character : GameUnit
         SetOwnerForBullet();
         attackRange.transform.localScale = new Vector3(1, 1, 1) * Range;
         //tao target indicator
-        InstantiateTargetIndicator();
+        //InstantiateTargetIndicator();
         //
     }
-    public void InstantiateTargetIndicator()
+    public virtual void InstantiateTargetIndicator()
     {
         targetIndicator = SimplePool.Spawn<TargetIndicator>(PoolType.TargetIndicator);
         targetIndicator.SetTarget(indicatorPosition);
@@ -169,8 +173,27 @@ public class Character : GameUnit
             case ShopType.Pant:
                 InstantiatePant(id);
                 break;
+            case ShopType.Accessory:
+                ActiveShield(id); 
+                break;
             default:
                 break;
+        }
+
+    }
+    public void ActiveShield(int id)
+    {
+        DeActiveShield();
+        if(id > 0)
+        {
+            listShields[id-1].SetActive(true);
+        }
+    }
+    public void DeActiveShield()
+    {
+        foreach (GameObject shield in listShields)
+        {
+            shield.SetActive(false);
         }
     }
     //----------------------------------------------------------------
@@ -313,7 +336,7 @@ public class Character : GameUnit
         targetsList.Clear();
         shootPoint.DespawnBullet();
         //ClearListEnemyInAttackRange();
-        //SimplePool.Despawn(targetIndicator);
+        SimplePool.Despawn(targetIndicator);
 
     }
     public void IncreaseHP(int aa)

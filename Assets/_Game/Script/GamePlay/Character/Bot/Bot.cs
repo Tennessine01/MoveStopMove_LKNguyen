@@ -38,11 +38,15 @@ public class Bot : Character
         targetIndicator.SetName(characterName);
 
     }
+    public override void InstantiateTargetIndicator()
+    {
+        base.InstantiateTargetIndicator(); 
+    }
     public override void OnDespawn()
     {
         base.OnDespawn();
-        SimplePool.Despawn(this);
         SimplePool.Despawn(targetIndicator);
+        SimplePool.Despawn(this);
         isDespawn = true;
         size = 1;
         ResetItem();
@@ -116,7 +120,7 @@ public class Bot : Character
     public override void OnDead()
     {
         base.OnDead();
-        SimplePool.Despawn(targetIndicator);
+        SimplePool.Despawn(this.targetIndicator);
         //OnDespawn();
         //if (attackRange.characterList.Count > 0)
         //{

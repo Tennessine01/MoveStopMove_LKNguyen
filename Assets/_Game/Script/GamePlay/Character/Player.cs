@@ -28,6 +28,7 @@ public class Player : Character
         InstantiateWeapon(weaponID);
         InstantiateHat(hatID);
         InstantiatePant(pantID);
+        ActiveShield(shieldID);
         isMoving = false;
         isAttack = true;
         isPlayer = true;
@@ -37,6 +38,7 @@ public class Player : Character
         //{
         //    joystick.gameObject.SetActive(true);
         //}
+        InstantiateTargetIndicator();
         reviveTime = 1;
         characterName = "Nguyen";
         targetIndicator.SetName(characterName);
@@ -67,7 +69,7 @@ public class Player : Character
         //    weaponID = UserDataManager.Ins.userData.currentWeapon;
         //}
         weaponID = UserDataManager.Ins.userData.currentWeapon;
-
+        shieldID = UserDataManager.Ins.userData.currentAccessory;
         hatID = UserDataManager.Ins.userData.currentHat;
         pantID = UserDataManager.Ins.userData.currentPant;
         coin = UserDataManager.Ins.userData.coin;
@@ -165,10 +167,10 @@ public class Player : Character
         ChangeAnim(Constant.ANIM_ATTACK);
         yield return new WaitForSeconds(0.4f);
         slotWeaponInHand.SetActive(false);
-        Debug.Log("shoottttt");
+        //Debug.Log("shoottttt");
         shootPoint.Shoot(weapon.bulletType, size);
         isAttack = false;
-        Debug.Log(isAttack);
+        //Debug.Log(isAttack);
 
         //yield return new WaitForSeconds(0.1f);
         //isAttack = false;
@@ -218,4 +220,5 @@ public class Player : Character
         OnStop();
     }
 
+    
 }

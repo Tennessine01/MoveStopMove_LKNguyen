@@ -113,6 +113,7 @@ public class LevelManager : Singleton<LevelManager>
         b.pantID = pantID;
 
         b.OnInit();
+        //b.InstantiateTargetIndicator();
         listBot.Add(b);
         if (GameManager.Ins.IsState(GameState.GamePlay))
         {

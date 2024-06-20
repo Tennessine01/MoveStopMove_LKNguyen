@@ -32,6 +32,7 @@ public class UserDataManager : Singleton<UserDataManager>
         PlayerPrefs.SetString(KEY_USER_DATA, JsonUtility.ToJson(userData));
     }
 
+    //kiem tra item da unlock hay chua
     public bool IsItemUnlocked(int itemId, ShopType shopType)
     {
         switch (shopType)
@@ -40,6 +41,10 @@ public class UserDataManager : Singleton<UserDataManager>
                 return userData.hatList.Contains(itemId);
             case ShopType.Pant:
                 return userData.pantList.Contains(itemId);
+            case ShopType.Accessory:
+                return userData.accessoryList.Contains(itemId);
+            case ShopType.Skin:
+                return userData.skinList.Contains(itemId);
             default:
                 return false;
         }
@@ -53,6 +58,10 @@ public class UserDataManager : Singleton<UserDataManager>
                 return userData.currentHat == itemId;
             case ShopType.Pant:
                 return userData.currentPant == itemId;
+            case ShopType.Accessory:
+                return userData.currentAccessory == itemId;
+            case ShopType.Skin:
+                return userData.currentSkin == itemId;
             default:
                 return false;
         }

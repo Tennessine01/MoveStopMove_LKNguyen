@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BulletBase : GameUnit
 {
-    [SerializeField] float speed = 5;
+    float speed = 8f;
     private float startTime = 0f;
     private float endTime = 2f; //time to delay
     float damage;

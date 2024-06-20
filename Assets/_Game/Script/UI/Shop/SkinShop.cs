@@ -44,7 +44,8 @@ public class SkinShop : UICanvas
     }
     private List<ItemData> GetListItemsByShopType(ShopType shopType)
     {
-        foreach ( var category in skinShopData.shopCategories)
+        List<ShopCategoryItem> listShopCategories = skinShopData.shopCategories;
+        foreach ( ShopCategoryItem category in listShopCategories)
         {
             if (category.shopType == shopType)
             {
@@ -67,10 +68,10 @@ public class SkinShop : UICanvas
         DestroySkinShopItems();
 
         // lay danh sach item dua tren loai shop
-        var items = GetListItemsByShopType(shopType);
+        List<ItemData> items = GetListItemsByShopType(shopType);
 
         // tao cac item moi
-        foreach (var item in items)
+        foreach (ItemData item in items)
         {
             SkinShopItem skinShopItem = Instantiate(skinShopItemPrefab, container);
             /// ------- tai sao prefab lai bi thay doi --------------------------------------------------------------------
@@ -185,6 +186,11 @@ public class SkinShop : UICanvas
                 UserDataManager.Ins.userData.pantList.Add(ITEM_ID);
                 UserDataManager.Ins.userData.currentPant = ITEM_ID;
             }
+            if (currentShopType == ShopType.Accessory)
+            {
+                UserDataManager.Ins.userData.accessoryList.Add(ITEM_ID);
+                UserDataManager.Ins.userData.currentAccessory = ITEM_ID;
+            }
             //de bat tat icon equiped hoac lock
             onItemBought?.Invoke(ITEM_ID, currentShopType);
             onItemEquip?.Invoke(ITEM_ID, currentShopType);
@@ -209,6 +215,11 @@ public class SkinShop : UICanvas
             LevelManager.Ins.player.DestroyPant();
             UserDataManager.Ins.userData.currentPant = 0;
         }
+        if (currentShopType == ShopType.Accessory)
+        {
+            LevelManager.Ins.player.DeActiveShield();
+            UserDataManager.Ins.userData.currentAccessory = 0;
+        }
         onItemEquip?.Invoke(1000, currentShopType);
 
     }
@@ -226,6 +237,12 @@ public class SkinShop : UICanvas
             LevelManager.Ins.player.DestroyPant();
             LevelManager.Ins.player.InstantiatePant(ITEM_ID);
             UserDataManager.Ins.userData.currentPant = ITEM_ID;
+        }
+        if (currentShopType == ShopType.Accessory)
+        {
+            LevelManager.Ins.player.DeActiveShield();
+            LevelManager.Ins.player.ActiveShield(ITEM_ID);
+            UserDataManager.Ins.userData.currentAccessory = ITEM_ID;
         }
         onItemEquip?.Invoke(ITEM_ID, currentShopType);
     }
@@ -253,6 +270,7 @@ public class SkinShop : UICanvas
         LevelManager.Ins.player.DestroyHat();
         LevelManager.Ins.player.DestroyPant();
         LevelManager.Ins.player.DestroyWeapon();
+        LevelManager.Ins.player.DeActiveShield();
 
         GameManager.Ins.ChangeState(GameState.MainMenu);
         //LevelManager.Ins.player.OnInit();

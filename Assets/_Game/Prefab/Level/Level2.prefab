@@ -523,7 +523,7 @@ MonoBehaviour:
   centerPosition: {fileID: 631543000564157011}
   minPoint: {fileID: 1441474029003348211}
   maxPoint: {fileID: 841637806897784248}
-  realBot: 20
+  realBot: 10
   maxBot: 100
   maxCoin: 200
 --- !u!1 &8110005164658701213
