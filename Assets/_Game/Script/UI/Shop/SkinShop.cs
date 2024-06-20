@@ -13,6 +13,8 @@ public class SkinShop : UICanvas
 {
     [SerializeField] ShopDataSO skinShopData; // data cua cac item lay tu SO 
     [SerializeField] SkinShopItem skinShopItemPrefab; // prefab item 
+    public SkinShopItem currentSkinShopItem = null; // current item 
+
     [SerializeField] Transform container; // vi tri chua cac item sau khi sinh ra ( trong UI SHOP )
 
     [SerializeField] TextMeshProUGUI playerCoinTxt; // so tien cua User
@@ -35,7 +37,7 @@ public class SkinShop : UICanvas
     {
         base.Open();
         LevelManager.Ins.SetCameraShop();
-
+        LevelManager.Ins.player.ChangeAnim(Constant.ANIM_CHARSKIN);
         playerCoinTxt.SetText(UserDataManager.Ins.userData.coin.ToString());
 
         // mac dinh mo muc hat
@@ -271,6 +273,7 @@ public class SkinShop : UICanvas
         LevelManager.Ins.player.DestroyPant();
         LevelManager.Ins.player.DestroyWeapon();
         LevelManager.Ins.player.DeActiveShield();
+        LevelManager.Ins.player.ChangeAnim(Constant.ANIM_IDLE);
 
         GameManager.Ins.ChangeState(GameState.MainMenu);
         //LevelManager.Ins.player.OnInit();

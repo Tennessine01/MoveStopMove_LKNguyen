@@ -12,6 +12,7 @@ public class SkinShopItem : MonoBehaviour
 {
     public GameObject lockIcon;
     public GameObject equippedIcon;
+    public GameObject chooseIcon;
     public Image ImgIcon;
     public ItemState state;
     public SkinShop uiskinshop;
@@ -56,12 +57,24 @@ public class SkinShopItem : MonoBehaviour
         LevelManager.Ins.player.DestroyPant();
 
         LevelManager.Ins.player.InstantiateItem(id, shopType);
-        
+
         uiskinshop.MONEY = price;
         uiskinshop.ITEM_ID = id;
         uiskinshop.SetPriceText(uiskinshop.MONEY);
-    }
+        // close curent
+        if (uiskinshop.currentSkinShopItem != null && uiskinshop.currentSkinShopItem != this)
+        {
+            uiskinshop.currentSkinShopItem.DeSelectItem();
+        }
 
+        chooseIcon.SetActive(true);
+        uiskinshop.currentSkinShopItem = this;
+        // open
+    }
+    private void DeSelectItem()
+    {
+        chooseIcon.SetActive(false);
+    }
     public void CheckItem()
     {
         uiskinshop.CheckStatecOfChoosenItem(id, shopType);

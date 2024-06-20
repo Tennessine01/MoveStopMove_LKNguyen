@@ -100,6 +100,7 @@ public class Character : GameUnit
         //InstantiateWeapon();
         SetOwnerForBullet();
         attackRange.transform.localScale = new Vector3(1, 1, 1) * Range;
+        targetsList.Clear();
         //tao target indicator
         //InstantiateTargetIndicator();
         //
@@ -313,7 +314,7 @@ public class Character : GameUnit
     public virtual void OnDead()
     {
         isDespawn = true;
-        targetsList.Clear();
+
         target = null;
     }
     public void OnHit(float damage)
