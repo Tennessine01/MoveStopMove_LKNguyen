@@ -128,7 +128,7 @@ public class SkinShop : UICanvas
             case (ShopType.Accessory):
                 if (UserDataManager.Ins.userData.accessoryList.Contains(id))
                 {
-                    if (UserDataManager.Ins.userData.currentSkin == id)
+                    if (UserDataManager.Ins.userData.currentAccessory == id)
                     {
                         ChangeButtonBuyState(EquipState.Unequip);
                         break;
