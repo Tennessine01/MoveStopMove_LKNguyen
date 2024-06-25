@@ -43,8 +43,6 @@ public class UserDataManager : Singleton<UserDataManager>
                 return userData.pantList.Contains(itemId);
             case ShopType.Accessory:
                 return userData.accessoryList.Contains(itemId);
-            case ShopType.Skin:
-                return userData.skinList.Contains(itemId);
             default:
                 return false;
         }
@@ -60,8 +58,6 @@ public class UserDataManager : Singleton<UserDataManager>
                 return userData.currentPant == itemId;
             case ShopType.Accessory:
                 return userData.currentAccessory == itemId;
-            case ShopType.Skin:
-                return userData.currentSkin == itemId;
             default:
                 return false;
         }

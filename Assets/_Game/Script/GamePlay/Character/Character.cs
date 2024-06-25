@@ -85,6 +85,8 @@ public class Character : GameUnit
 
     //
     public List<GameObject> listShields = new List<GameObject>();
+    // them skin vao nhan vat
+    //private Dictionary<int , List<GameObject>> listSkin = new();
 
     public virtual void OnInit()
     {
@@ -122,7 +124,7 @@ public class Character : GameUnit
         targetsList.Add(target);
     }
 
-    //xoas muc tieu
+    
     public virtual void RemoveTarget(Character target)
     {
         targetsList.Remove(target);
@@ -143,23 +145,6 @@ public class Character : GameUnit
             currentAnim = animName;
         }
     }
-  
-    //public virtual void AttackWhenStop()
-    //{
-    //    if (attackRange.targetCharacter != null)
-    //    {
-    //        if (attackRange.targetCharacter.isDespawn == true)
-    //        {
-    //            //Debug.Log("gggggggggggggggg");
-    //            attackRange.characterList.Remove(attackRange.targetCharacter);
-    //            attackRange.targetCharacter = null;
-    //        }
-    //        else{
-    //            //quay ve huong ke dich
-    //            TF.forward = (attackRange.targetCharacter.TF.position - TF.position).normalized;
-    //        }
-    //    }
-    //}
     //------------------------------------------------------------------
     public void InstantiateItem(int id, ShopType type)
     {
@@ -182,6 +167,7 @@ public class Character : GameUnit
         }
 
     }
+    //---------------------------------------------------------------
     public void ActiveShield(int id)
     {
         DeActiveShield();
@@ -198,26 +184,25 @@ public class Character : GameUnit
         }
     }
     //----------------------------------------------------------------
-    public void DestroyItem(int id, ShopType type)
-    {
-        switch (type)
-        {
-            case ShopType.Hat:
-                DestroyHat();
-                break;
-            case ShopType.Pant:
-                DestroyHat();
-                break;
-            case ShopType.Weapon:
-                DestroyWeapon();
-                break;
-            default:
-                break;
-        }
-    }
+    //public void DestroyItem(int id, ShopType type)
+    //{
+    //    switch (type)
+    //    {
+    //        case ShopType.Hat:
+    //            DestroyHat();
+    //            break;
+    //        case ShopType.Pant:
+    //            DestroyHat();
+    //            break;
+    //        case ShopType.Weapon:
+    //            DestroyWeapon();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
     public void InstantiateWeapon(int weaponID)
     {
-        
         weaponPrefab = EquipemtManager.Ins.InstantiatePrefabById(weaponID, weaponPosition, ShopType.Weapon);
         if (weaponPrefab != null)
         {
@@ -299,7 +284,7 @@ public class Character : GameUnit
             // lookat de doi tuong chi xoay theo truc y thay vi xoay ca y,z
             TF.LookAt(targetPoint + (TF.position.y - targetPoint.y) * Vector3.up);
             //TF.forward = (targetPoint - TF.position).normalized;
-            ChangeAnim(Constant.ANIM_ATTACK);
+            //ChangeAnim(Constant.ANIM_ATTACK);
         }
 
     }
@@ -344,31 +329,11 @@ public class Character : GameUnit
     {
         hp += aa;
     }
-    //public void ChangeAttackRagneByPercentage(float percent)
-    //{
-    //    Range *= (percent/100 + 1);
-    //}
-    //public float ChangeSize(float percent)
-    //{
-    //    return (percent / 100 + 1);
-    //}
-    //public void ChangeWeapon(int id)
-    //{
-    //    weaponID = id;
-    //}
 
     public virtual void SetOwnerForBullet()
     {
         shootPoint.owner = this;
     }
-    //public void ClearListEnemyInAttackRange()
-    //{
-        
-    //    attackRange.characterList.Clear();
-        
-        
-    //    attackRange.targetCharacter = null;
-    //}
 
     //-----------------------------------------tang kich thuoc ---------------
     public void AddScore(int value )

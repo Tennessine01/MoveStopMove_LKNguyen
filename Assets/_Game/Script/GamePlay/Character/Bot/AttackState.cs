@@ -5,11 +5,11 @@ using UnityEngine;
 public class AttackState : IState<Bot>
 {
     private float timeSpentInState = 0f;
-    private float delayToChangeState = 0.4f; //time to delay
+    private float delayToChangeState = 0.45f; //time to delay
     public void OnEnter(Bot t)
     {
         t.agent.isStopped = true;
-        //t.ChangeAnim(Constant.ANIM_ATTACK);
+        t.ChangeAnim(Constant.ANIM_ATTACK);
         //t.OnAttack();
     }
 

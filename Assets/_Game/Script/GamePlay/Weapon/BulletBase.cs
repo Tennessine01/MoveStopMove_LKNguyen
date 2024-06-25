@@ -54,7 +54,9 @@ public class BulletBase : GameUnit
                 if (other != owner)
                 {
                     Character character = Cache.GetCharacter(other);
-                    if (character.isDespawn == false)
+                    if (character == null) return;
+
+                    if (character != null && character.isDespawn == false)
                     {
                         LevelManager.Ins.SetNameKillerAndVictim(owner.characterName, character.characterName);
                         character.OnHit(10f);

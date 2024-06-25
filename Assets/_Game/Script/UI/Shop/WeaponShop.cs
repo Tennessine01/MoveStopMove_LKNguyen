@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WeaponShop : UICanvas
 {
@@ -16,69 +13,98 @@ public class WeaponShop : UICanvas
 
     [SerializeField] List<GameObject> buyState; // list cac button Buy,Select,Unequip
 
-    public List<WeaponShopItem> weaponShopItemsList; // list chua cac item sau khi da truyen data
+    public List<WeaponShopItem> weaponShopItemsList = new List<WeaponShopItem>(); // list chua cac item sau khi da truyen data
 
-    private int MONEY = 0;
-    private int ITEM_ID = 0;
-
-    
     [SerializeField] private int currentItemIndex = 0;
-
+    private bool isInitialized = false;
     public override void Open()
     {
         base.Open();
         playerCoinTxt.SetText(UserDataManager.Ins.userData.coin.ToString());
-        LoadWeaponData();
-        
+
+        if (!isInitialized)
+        {
+            InitializeShop();
+            isInitialized = true;
+        }
+        else
+        {
+            ActivateWeaponShopItems();
+        }
+
+        if (weaponShopItemsList.Count > 0)
+        {
+            currentItemIndex = 0;
+            ShowCurrentItem();
+        }
     }
 
-    public void LoadWeaponData()
+    private void InitializeShop()
     {
-
-        // xoa cac item hien tai
-        DestroyWeaponShopItems();
-
-        // lay danh sach item dua tren loai shop
         List<ItemData> items = GetListWeaponItems();
 
-        // tao cac item moi
         for (int i = 1; i < items.Count; i++)
         {
             ItemData item = items[i];
             WeaponShopItem weaponShopItem = Instantiate(weaponShopItemPrefab, container);
             weaponShopItem.gameObject.SetActive(false);
-            //weaponShopItem.uiWeaponShop = this;
             weaponShopItem.Setup(item);
             weaponShopItemsList.Add(weaponShopItem);
-            //priceText.SetText(item.ToString());
-        }
-
-        if (weaponShopItemsList.Count > 0)
-        {
-            currentItemIndex = 1;
-            weaponShopItemsList[currentItemIndex].gameObject.SetActive(true);
-            CheckStateOfItem(weaponShopItemsList[currentItemIndex].id);
-            SetPriceText(weaponShopItemsList[currentItemIndex].price);
-
         }
     }
+    private void ActivateWeaponShopItems()
+    {
+        foreach (WeaponShopItem item in weaponShopItemsList)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
+
+    //public void LoadWeaponData()
+    //{
+
+    //    // xoa cac item hien tai
+    //    DestroyWeaponShopItems();
+
+    //    // lay danh sach item dua tren loai shop
+    //    List<ItemData> items = GetListWeaponItems();
+
+    //    // tao cac item moi
+    //    for (int i = 1; i < items.Count; i++)
+    //    {
+    //        ItemData item = items[i];
+    //        WeaponShopItem weaponShopItem = Instantiate(weaponShopItemPrefab, container);
+    //        weaponShopItem.gameObject.SetActive(false);
+    //        //weaponShopItem.uiWeaponShop = this;
+    //        weaponShopItem.Setup(item);
+    //        weaponShopItemsList.Add(weaponShopItem);
+    //        //priceText.SetText(item.ToString());
+    //    }
+
+    //    if (weaponShopItemsList.Count > 0)
+    //    {
+    //        currentItemIndex = 1;
+    //        weaponShopItemsList[currentItemIndex].gameObject.SetActive(true);
+    //        CheckStateOfItem(weaponShopItemsList[currentItemIndex].id);
+    //        SetPriceText(weaponShopItemsList[currentItemIndex].price);
+
+    //    }
+    //}
     public void ShowPreviousItem()
     {
         if (weaponShopItemsList.Count == 0)
         {
             return;
         }
-        weaponShopItemsList[currentItemIndex].gameObject.SetActive(false);
 
+        weaponShopItemsList[currentItemIndex].gameObject.SetActive(false);
         currentItemIndex--;
+
         if (currentItemIndex < 0)
         {
             currentItemIndex = weaponShopItemsList.Count - 1;
         }
-        weaponShopItemsList[currentItemIndex].gameObject.SetActive(true);
-        CheckStateOfItem(weaponShopItemsList[currentItemIndex].id);
-        SetPriceText(weaponShopItemsList[currentItemIndex].price);
-
+        ShowCurrentItem();
     }
 
     public void ShowNextItem()
@@ -89,17 +115,20 @@ public class WeaponShop : UICanvas
         }
 
         weaponShopItemsList[currentItemIndex].gameObject.SetActive(false);
-
         currentItemIndex++;
-        if (currentItemIndex > weaponShopItemsList.Count -1)
+
+        if (currentItemIndex >= weaponShopItemsList.Count)
         {
             currentItemIndex = 0;
         }
+        ShowCurrentItem();
+    }
+    private void ShowCurrentItem()
+    {
         weaponShopItemsList[currentItemIndex].gameObject.SetActive(true);
         CheckStateOfItem(weaponShopItemsList[currentItemIndex].id);
         SetPriceText(weaponShopItemsList[currentItemIndex].price);
     }
-
 
     private List<ItemData> GetListWeaponItems()
     {
@@ -113,7 +142,7 @@ public class WeaponShop : UICanvas
         }
         return null;
     }
-    //---------------
+    //--------------------------------------------------------------
     public void CheckStateOfItem(int id)
     {
 
@@ -122,21 +151,23 @@ public class WeaponShop : UICanvas
             if (UserDataManager.Ins.userData.currentWeapon == id)
             {
                 ChangeButtonBuyState(EquipState.Unequip);
+                return;
             }
             else
             {
                 ChangeButtonBuyState(EquipState.Select);
+                return;
             }
         }
-        if (UserDataManager.Ins.userData.coin < weaponShopItemsList[currentItemIndex].price)
+        else if (UserDataManager.Ins.userData.coin < weaponShopItemsList[currentItemIndex].price)
         {
-            ChangeButtonBuyState(EquipState.NotBuy);
+            ChangeButtonBuyState(EquipState.CanNotBuy);
         }
         else ChangeButtonBuyState(EquipState.Buy);
     }
 
     //------------------ tu trang thai da chon, bat tat cac button tuong ung -----------
-    public void ChangeButtonBuyState(EquipState state)
+    private void ChangeButtonBuyState(EquipState state)
     {
         switch (state)
         {
@@ -149,7 +180,7 @@ public class WeaponShop : UICanvas
             case (EquipState.Unequip):
                 SetActiveBuyState(2);
                 break;
-            case (EquipState.NotBuy):
+            case (EquipState.CanNotBuy):
                 SetActiveBuyState(3);
                 break;
         }
@@ -207,11 +238,13 @@ public class WeaponShop : UICanvas
     //--------------------------------------------
     private void DestroyWeaponShopItems()
     {
-        foreach (var item in weaponShopItemsList)
+        foreach (WeaponShopItem item in weaponShopItemsList)
         {
-            Destroy(item.gameObject);
+            //Destroy(item.gameObject);
+            item.gameObject.SetActive(false);
+
         }
-        weaponShopItemsList.Clear();
+        //weaponShopItemsList.Clear();
     }
     
 
@@ -228,13 +261,8 @@ public class WeaponShop : UICanvas
         LevelManager.Ins.player.DestroyHat();
         LevelManager.Ins.player.DestroyPant();
         LevelManager.Ins.player.DestroyWeapon();
-        //LevelManager.Ins.player.ResetItem();
-
-        //LevelManager.Ins.ActivatePlayer();
-        //LevelManager.Ins.player.OnInit();
         GameManager.Ins.ChangeState(GameState.MainMenu);
-        //UIManager.Ins.OpenUI<MainMenuHome>();
-        //LevelManager.Ins.SpawnPlayer();
+        
 
     }
 }

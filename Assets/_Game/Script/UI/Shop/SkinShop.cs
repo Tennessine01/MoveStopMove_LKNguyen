@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 public enum ShopType{
-    Hat = 0, Pant = 1, Accessory = 2, Skin = 3, Weapon = 4
+    Hat = 0, Pant = 1, Accessory = 2, Weapon = 3
 }
 public enum EquipState{
-    Buy = 0, Select = 1, Unequip = 2, NotBuy = 3
+    Buy = 0, Select = 1, Unequip = 2, CanNotBuy = 3
 }
 public class SkinShop : UICanvas
 {
@@ -31,7 +31,7 @@ public class SkinShop : UICanvas
     public UnityEvent<int, ShopType> onItemBought = new UnityEvent<int, ShopType>();
     public UnityEvent<int, ShopType> onItemEquip = new UnityEvent<int, ShopType>();
 
-
+    private bool isInitialized = false;
 
     public override void Open()
     {
@@ -40,9 +40,40 @@ public class SkinShop : UICanvas
         LevelManager.Ins.player.ChangeAnim(Constant.ANIM_CHARSKIN);
         playerCoinTxt.SetText(UserDataManager.Ins.userData.coin.ToString());
 
-        // mac dinh mo muc hat
+        if (!isInitialized)
+        {
+            InitializeShop();
+            isInitialized = true;
+        }
+        else
+        {
+            ActivateSkinShopItems();
+        }
+
+        // Mặc định mở mục Hat
         ChangeShopType(ShopType.Hat);
-        //priceText.text = "";
+    }
+    private void InitializeShop()
+    {
+        foreach (ShopType shopType in System.Enum.GetValues(typeof(ShopType)))
+        {
+            List<ItemData> items = GetListItemsByShopType(shopType);
+            foreach (ItemData item in items)
+            {
+                SkinShopItem skinShopItem = Instantiate(skinShopItemPrefab, container);
+                skinShopItem.uiskinshop = this;
+                skinShopItem.Setup(item, shopType);
+                skinShopItem.gameObject.SetActive(false); // Deactivate items initially
+                skinShopItemsList.Add(skinShopItem);
+            }
+        }
+    }
+    private void ActivateSkinShopItems()
+    {
+        foreach (var item in skinShopItemsList)
+        {
+            item.gameObject.SetActive(true);
+        }
     }
     private List<ItemData> GetListItemsByShopType(ShopType shopType)
     {
@@ -106,7 +137,7 @@ public class SkinShop : UICanvas
                 }
                 if(UserDataManager.Ins.userData.coin < MONEY)
                 {
-                    ChangeButtonBuyState (EquipState.NotBuy);
+                    ChangeButtonBuyState (EquipState.CanNotBuy);
                 }
                 else ChangeButtonBuyState(EquipState.Buy);
                 break;
@@ -123,7 +154,7 @@ public class SkinShop : UICanvas
                 }
                 if (UserDataManager.Ins.userData.coin < MONEY)
                 {
-                    ChangeButtonBuyState(EquipState.NotBuy);
+                    ChangeButtonBuyState(EquipState.CanNotBuy);
                 }
                 else ChangeButtonBuyState(EquipState.Buy);
                 break;
@@ -143,7 +174,7 @@ public class SkinShop : UICanvas
                 }
                 if (UserDataManager.Ins.userData.coin < MONEY)
                 {
-                    ChangeButtonBuyState(EquipState.NotBuy);
+                    ChangeButtonBuyState(EquipState.CanNotBuy);
                 }
                 else ChangeButtonBuyState(EquipState.Buy);
                 break;
@@ -164,7 +195,7 @@ public class SkinShop : UICanvas
             case (EquipState.Unequip):
                 SetActiveBuyState(2);
                 break;
-            case (EquipState.NotBuy): 
+            case (EquipState.CanNotBuy): 
                 SetActiveBuyState(3);
                 break;
         }
@@ -274,7 +305,6 @@ public class SkinShop : UICanvas
         LevelManager.Ins.player.DestroyWeapon();
         LevelManager.Ins.player.DeActiveShield();
         LevelManager.Ins.player.ChangeAnim(Constant.ANIM_IDLE);
-
         GameManager.Ins.ChangeState(GameState.MainMenu);
         //LevelManager.Ins.player.OnInit();
     }
@@ -282,9 +312,11 @@ public class SkinShop : UICanvas
     {
         foreach (var item in skinShopItemsList)
         {
-            Destroy(item.gameObject);
+            //Destroy(item.gameObject);
+            item.gameObject.SetActive(false);
+
         }
-        skinShopItemsList.Clear();
+        //skinShopItemsList.Clear();
     }
 }
 

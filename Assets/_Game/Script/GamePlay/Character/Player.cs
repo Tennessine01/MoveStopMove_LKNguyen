@@ -147,6 +147,10 @@ public class Player : Character
     public override void OnAttack()
     {
         base.OnAttack();
+        if (target != null && !target.IsDead)
+        {
+            ChangeAnim(Constant.ANIM_ATTACK);
+        }
         if (target != null && isMoving == false && isAttack == true && !target.IsDead)
         {
             Attack();
@@ -164,7 +168,8 @@ public class Player : Character
     {
         isAttack = false;
         //Debug.Log("----");
-        ChangeAnim(Constant.ANIM_ATTACK);
+        // 
+        //ChangeAnim(Constant.ANIM_ATTACK);
         yield return new WaitForSeconds(0.4f);
         slotWeaponInHand.SetActive(false);
         //Debug.Log("shoottttt");
@@ -177,6 +182,7 @@ public class Player : Character
         yield return new WaitForSeconds(0.1f);
         slotWeaponInHand.SetActive(true);
     }
+    
     public void OnRevive()
     {
         InstantiateTargetIndicator();
