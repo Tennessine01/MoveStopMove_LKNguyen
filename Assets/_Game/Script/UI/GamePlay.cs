@@ -48,7 +48,7 @@ public class GamePlay : UICanvas
 
         }
         LevelManager.Ins.SetTargetIndicatorAlpha(0);
-        foreach (var item in tagNameItemList)
+        foreach (TagNameItem item in tagNameItemList)
         {
             item.OnDespawn();
             //SimplePool.Despawn(item);

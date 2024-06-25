@@ -63,17 +63,15 @@ public class BulletBase : GameUnit
                         owner.AddScore(1);
                         OnDespawn();
                     }
-                    else
-                    {
+                    else{
                         OnDespawn();
                     }
                 }
-                else
-                {
+                else{
                     OnDespawn();
                 } 
             }
-            else { 
+            else{ 
                 OnDespawn(); 
             }    
         }

@@ -85,6 +85,10 @@ public class Character : GameUnit
 
     //
     public List<GameObject> listShields = new List<GameObject>();
+    public List<GameObject> listHats = new List<GameObject>();
+    public List<Material> listPants = new List<Material>();
+
+
     // them skin vao nhan vat
     //private Dictionary<int , List<GameObject>> listSkin = new();
 
@@ -146,7 +150,7 @@ public class Character : GameUnit
         }
     }
     //------------------------------------------------------------------
-    public void InstantiateItem(int id, ShopType type)
+    public virtual void InstantiateItem(int id, ShopType type)
     {
         switch (type)
         {
@@ -159,48 +163,15 @@ public class Character : GameUnit
             case ShopType.Pant:
                 InstantiatePant(id);
                 break;
-            case ShopType.Accessory:
-                ActiveShield(id); 
-                break;
             default:
                 break;
         }
 
     }
     //---------------------------------------------------------------
-    public void ActiveShield(int id)
-    {
-        DeActiveShield();
-        if(id > 0)
-        {
-            listShields[id-1].SetActive(true);
-        }
-    }
-    public void DeActiveShield()
-    {
-        foreach (GameObject shield in listShields)
-        {
-            shield.SetActive(false);
-        }
-    }
+    
     //----------------------------------------------------------------
-    //public void DestroyItem(int id, ShopType type)
-    //{
-    //    switch (type)
-    //    {
-    //        case ShopType.Hat:
-    //            DestroyHat();
-    //            break;
-    //        case ShopType.Pant:
-    //            DestroyHat();
-    //            break;
-    //        case ShopType.Weapon:
-    //            DestroyWeapon();
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
+    
     public void InstantiateWeapon(int weaponID)
     {
         weaponPrefab = EquipemtManager.Ins.InstantiatePrefabById(weaponID, weaponPosition, ShopType.Weapon);
@@ -292,10 +263,7 @@ public class Character : GameUnit
     {
         targetMark.SetActive(active);
     }
-    //public void CheckClosestEnemy()
-    //{
-    //    attackRange.DetectNearCharacter();
-    //}
+    
     public virtual void OnDead()
     {
         isDespawn = true;

@@ -211,8 +211,7 @@ public class WeaponShop : UICanvas
             playerCoinTxt.SetText(UserDataManager.Ins.userData.coin.ToString());
 
             SetActiveBuyState(2);
-            
-            
+    
             UserDataManager.Ins.userData.weaponList.Add(weaponShopItemsList[currentItemIndex].id);
             UserDataManager.Ins.userData.currentWeapon = weaponShopItemsList[currentItemIndex].id;
         }

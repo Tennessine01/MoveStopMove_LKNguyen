@@ -13,7 +13,6 @@ public class MenuState : IState<Bot>
     {
        
     }
-
     public void OnExit(Bot t)
     {
 

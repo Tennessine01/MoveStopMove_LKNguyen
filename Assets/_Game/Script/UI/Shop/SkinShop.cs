@@ -70,7 +70,7 @@ public class SkinShop : UICanvas
     }
     private void ActivateSkinShopItems()
     {
-        foreach (var item in skinShopItemsList)
+        foreach (SkinShopItem item in skinShopItemsList)
         {
             item.gameObject.SetActive(true);
         }
@@ -240,7 +240,7 @@ public class SkinShop : UICanvas
         
         if (currentShopType == ShopType.Hat)
         {
-            LevelManager.Ins.player.DestroyHat();
+            LevelManager.Ins.player.DeActiveHats();
             UserDataManager.Ins.userData.currentHat = 0;
         }
         if (currentShopType == ShopType.Pant)
@@ -261,7 +261,7 @@ public class SkinShop : UICanvas
         SetActiveBuyState(2);
         if (currentShopType == ShopType.Hat)
         {
-            LevelManager.Ins.player.DestroyHat();
+            LevelManager.Ins.player.DeActiveHats();
             LevelManager.Ins.player.InstantiateHat(ITEM_ID);
             UserDataManager.Ins.userData.currentHat = ITEM_ID;
         }
@@ -300,7 +300,7 @@ public class SkinShop : UICanvas
     {
         Close(0);
         DestroySkinShopItems();
-        LevelManager.Ins.player.DestroyHat();
+        LevelManager.Ins.player.DeActiveHats();
         LevelManager.Ins.player.DestroyPant();
         LevelManager.Ins.player.DestroyWeapon();
         LevelManager.Ins.player.DeActiveShield();
@@ -310,7 +310,7 @@ public class SkinShop : UICanvas
     }
     private void DestroySkinShopItems()
     {
-        foreach (var item in skinShopItemsList)
+        foreach (SkinShopItem item in skinShopItemsList)
         {
             //Destroy(item.gameObject);
             item.gameObject.SetActive(false);

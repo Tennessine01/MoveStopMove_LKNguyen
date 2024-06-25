@@ -22,14 +22,14 @@ public class EquipemtManager : Singleton<EquipemtManager>
 
     private GameObject GetPrefabById(int id, ShopType shopType)
     {
-        foreach (var category in shopData.shopCategories)
+        foreach (ShopCategoryItem category in shopData.shopCategories)
         {
             if (category.shopType == shopType)
             {
-                var listItem = category.listItems;
+                List<ItemData> listItem = category.listItems;
                 for (int j = 0; j < listItem.Count; j++)
                 {
-                    var item = listItem[j];
+                    ItemData item = listItem[j];
                     if (item.id == id)
                     {
                         return item.prefab;
@@ -43,14 +43,14 @@ public class EquipemtManager : Singleton<EquipemtManager>
 
     public Material GetMaterialByID(int id, ShopType shopType)
     {
-        foreach (var category in shopData.shopCategories)
+        foreach (ShopCategoryItem category in shopData.shopCategories)
         {
             if (category.shopType == shopType)
             {
-                var listItem = category.listItems;
+                List<ItemData> listItem = category.listItems;
                 for (int j = 0; j < listItem.Count; j++)
                 {
-                    var item = listItem[j];
+                    ItemData item = listItem[j];
                     if (item.id == id)
                     {
                         return item.material;

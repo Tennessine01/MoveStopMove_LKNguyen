@@ -26,7 +26,7 @@ public class Player : Character
 
         base.OnInit();
         InstantiateWeapon(weaponID);
-        InstantiateHat(hatID);
+        ActiveHats(hatID);
         InstantiatePant(pantID);
         ActiveShield(shieldID);
         isMoving = false;
@@ -226,5 +226,55 @@ public class Player : Character
         OnStop();
     }
 
-    
+    public override void InstantiateItem(int id, ShopType type)
+    {
+        switch (type)
+        {
+            case ShopType.Hat:
+                ActiveHats(id);
+                break;
+            case ShopType.Weapon:
+                InstantiateWeapon(id);
+                break;
+            case ShopType.Pant:
+                InstantiatePant(id);
+                break;
+            case ShopType.Accessory:
+                ActiveShield(id);
+                break;
+            default:
+                break;
+        }
+    }
+    public void ActiveShield(int id)
+    {
+        DeActiveShield();
+        if (id > 0)
+        {
+            listShields[id - 1].SetActive(true);
+        }
+    }
+    public void DeActiveShield()
+    {
+        foreach (GameObject shield in listShields)
+        {
+            shield.SetActive(false);
+        }
+    }
+
+    public void ActiveHats(int id)
+    {
+        DeActiveHats();
+        if (id > 0)
+        {
+            listHats[id - 1].SetActive(true);
+        }
+    }
+    public void DeActiveHats()
+    {
+        foreach (GameObject shield in listHats)
+        {
+            shield.SetActive(false);
+        }
+    }
 }
