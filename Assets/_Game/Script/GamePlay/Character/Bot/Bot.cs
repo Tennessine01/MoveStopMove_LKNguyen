@@ -51,7 +51,7 @@ public class Bot : Character
         size = 1;
         ResetItem();
         //Debug.Log("bbbb");
-        shootPoint.DespawnBullet();
+        //shootPoint.DespawnBullet();
 
         ChangeState(new MenuState());
         LevelManager.Ins.WhenPlayerDie -= ChangeMenuState;

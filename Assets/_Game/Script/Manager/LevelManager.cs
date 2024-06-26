@@ -193,7 +193,7 @@ public class LevelManager : Singleton<LevelManager>
         OnDespawnLevel?.Invoke();
 
         DespawnPlayer();
-        SimplePool.CollectAll();
+        //SimplePool.CollectAll();
         //DespawnBot();
     }
     public void DespawnBot()

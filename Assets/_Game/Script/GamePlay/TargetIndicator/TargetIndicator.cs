@@ -14,6 +14,7 @@ public class TargetIndicator : GameUnit
     [SerializeField] TextMeshProUGUI scoreTxt;
 
     [SerializeField] CanvasGroup canvasGroup;
+    [SerializeField] private int score;
 
     //muc tieu gan cai indicator nay
     Transform target;
@@ -55,6 +56,7 @@ public class TargetIndicator : GameUnit
         SetScore(0);
         SetColor(new Color(Random.value, Random.value, Random.value,1));
         SetAlpha(GameManager.Ins.IsState(GameState.GamePlay) ? 1 : 0);
+        LevelManager.Ins.OnDespawnLevel += OnDespawn;
     }
 
     public void SetTarget(Transform target)
@@ -65,7 +67,8 @@ public class TargetIndicator : GameUnit
 
     public void SetScore(int score)
     {
-        scoreTxt.SetText(score.ToString());
+        this.score = score; 
+        scoreTxt.SetText(this.score.ToString());
     }
 
     public void SetName(string name)
@@ -86,5 +89,11 @@ public class TargetIndicator : GameUnit
     public void SetAlpha(float alpha)
     {
         canvasGroup.alpha = alpha;
+    }
+
+    public void OnDespawn()
+    {
+        LevelManager.Ins.OnDespawnLevel -= OnDespawn;
+        SimplePool.Despawn(this);
     }
 }

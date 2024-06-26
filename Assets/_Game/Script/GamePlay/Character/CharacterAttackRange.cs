@@ -66,11 +66,8 @@ public class CharacterAttackRange : MonoBehaviour
     {
         if (other.CompareTag(Constant.TAG_CHARACTER))
         {
-            if (other.CompareTag(Constant.TAG_CHARACTER))
-            {
-                Character character = Cache.GetCharacter(other);
-                owner.RemoveTarget(character);
-            }
+            Character character = Cache.GetCharacter(other);
+            owner.RemoveTarget(character);
         }
     }
 

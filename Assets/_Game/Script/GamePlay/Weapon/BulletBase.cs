@@ -35,13 +35,21 @@ public class BulletBase : GameUnit
         this.damage = damage;
         LevelManager.Ins.OnDespawnLevel += OnDespawn;
     }
+    public void SetOwnerForBullet(Character character)
+    {
+        if(character is Player)
+        {
+            Debug.Log("ffffffffffffff");
+        }
+        this.owner = character;
+    }
 
     public void OnDespawn()
     {
         owner = null;
         //Destroy(gameObject);
-        SimplePool.Despawn(this);
         LevelManager.Ins.OnDespawnLevel -= OnDespawn;
+        SimplePool.Despawn(this);
     }
 
 
@@ -49,15 +57,23 @@ public class BulletBase : GameUnit
     {
         if(other.CompareTag(Constant.TAG_CHARACTER) || other.CompareTag(Constant.TAG_WALL))
         {
-            if (owner != null)
+            if (owner == null) return;
+            if (owner != null) 
             {
                 if (other != owner)
                 {
                     Character character = Cache.GetCharacter(other);
-                    if (character == null) return;
-
+                    if (character == null)
+                    {
+                        Debug.Log("null me no roi");
+                        return;
+                    }
                     if (character != null && character.isDespawn == false)
                     {
+                        if (owner is Player)
+                        {
+                            Debug.Log("ddddddddddddd");
+                        }
                         LevelManager.Ins.SetNameKillerAndVictim(owner.characterName, character.characterName);
                         character.OnHit(10f);
                         owner.AddScore(1);

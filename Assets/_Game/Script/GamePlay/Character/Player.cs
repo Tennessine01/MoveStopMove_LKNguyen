@@ -34,10 +34,6 @@ public class Player : Character
         isPlayer = true;
         isDespawn = false;
         TF.position = startPos.position;
-        //if (joystick != null)
-        //{
-        //    joystick.gameObject.SetActive(true);
-        //}
         InstantiateTargetIndicator();
         reviveTime = 1;
         characterName = "Nguyen";
@@ -56,7 +52,15 @@ public class Player : Character
             //CheckClosestEnemy();
         }
     }
-
+    public override void SetOwnerForBullet()
+    {
+        //Debug.Log("fffffff");
+        shootPoint.SetOwner(this);
+    }
+    public override void SetScore(int score)
+    {
+        base.SetScore(score);
+    }
     //-------------------------------------------------------------------
     public void OnLoadData()
     {
@@ -185,13 +189,13 @@ public class Player : Character
     
     public void OnRevive()
     {
-        InstantiateTargetIndicator();
+        //InstantiateTargetIndicator();
         targetIndicator.SetName("Nguyen");
         reviveTime--;
         isDespawn = false;
         joystick.gameObject.SetActive(true);
         IncreaseHP(10);
-        SetScore(Score);
+        SetScore(score);
     }
     private void CheckReviveTime()
     {
@@ -205,6 +209,7 @@ public class Player : Character
             GameManager.Ins.ChangeState(GameState.Lose);
         }
     }
+    
     public override void OnDead()
     {
         base.OnDead();

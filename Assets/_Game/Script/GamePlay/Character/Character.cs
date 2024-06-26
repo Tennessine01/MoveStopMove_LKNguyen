@@ -21,7 +21,7 @@ public class Character : GameUnit
     //[SerializeField] public float speed;
     ////Size
     public float size = 1;
-    private int score;
+    public int score;
     public int Score => score;
     //Skin
     public GameObject targetMark;
@@ -30,7 +30,7 @@ public class Character : GameUnit
     public string characterName;
 
     [SerializeField] Transform indicatorPosition;
-    protected TargetIndicator targetIndicator;
+    protected TargetIndicator targetIndicator  = null;
     //pant
     public int pantID = 0;
     //vu khi tren tay
@@ -74,10 +74,6 @@ public class Character : GameUnit
 
     //vi tri de mu
     public Transform hatPosition;
-    //public virtual void Start()
-    //{
-    //    OnInit();
-    //}
     public List<Character> targetsList = new List<Character>();
     public Character target;
     //vi tri cua muc tieu
@@ -86,11 +82,7 @@ public class Character : GameUnit
     //
     public List<GameObject> listShields = new List<GameObject>();
     public List<GameObject> listHats = new List<GameObject>();
-    public List<Material> listPants = new List<Material>();
 
-
-    // them skin vao nhan vat
-    //private Dictionary<int , List<GameObject>> listSkin = new();
 
     public virtual void OnInit()
     {
@@ -101,11 +93,11 @@ public class Character : GameUnit
         size = 1;
         score = 0;
         //attackRange.range = Range;
-        TF.localScale = new Vector3(1, 1, 1)*size;
+        TF.localScale = Vector3.one*size;
         //sinh vu khi
         //InstantiateWeapon();
         SetOwnerForBullet();
-        attackRange.transform.localScale = new Vector3(1, 1, 1) * Range;
+        attackRange.transform.localScale = Vector3.one * Range;
         targetsList.Clear();
         //tao target indicator
         //InstantiateTargetIndicator();
@@ -113,6 +105,10 @@ public class Character : GameUnit
     }
     public virtual void InstantiateTargetIndicator()
     {
+        if(this is Player)
+        {
+            //Debug.Log("aaaaaaaaaa");
+        }
         targetIndicator = SimplePool.Spawn<TargetIndicator>(PoolType.TargetIndicator);
         targetIndicator.SetTarget(indicatorPosition);
     }
@@ -288,9 +284,10 @@ public class Character : GameUnit
     {
         ResetItem();
         targetsList.Clear();
-        shootPoint.DespawnBullet();
+        //shootPoint.DespawnBullet();
         //ClearListEnemyInAttackRange();
         SimplePool.Despawn(targetIndicator);
+        //targetIndicator = null;
 
     }
     public void IncreaseHP(int aa)
@@ -300,17 +297,19 @@ public class Character : GameUnit
 
     public virtual void SetOwnerForBullet()
     {
-        shootPoint.owner = this;
+        shootPoint.SetOwner(this);
     }
 
     //-----------------------------------------tang kich thuoc ---------------
-    public void AddScore(int value )
+    public virtual void AddScore(int value )
     {
         SetScore(score + value);
     }
-    public void SetScore(int score)
+    public virtual void SetScore(int score)
     {
-        this.score = score > 0 ? score : 0;
+        //this.score = score > 0 ? score : 0;
+        this.score = score ;
+
         targetIndicator.SetScore(this.score);
         SetSize(1 + this.score * 0.1f);
     }

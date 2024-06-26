@@ -17,6 +17,9 @@ public class GamePlay : UICanvas
         ShowAlivePlayer();
         LevelManager.Ins.SetTargetIndicatorAlpha(1);
 
+        LevelManager.Ins.MinusNumberOfCharacterOnGround -= ShowAlivePlayer;
+        LevelManager.Ins.OnAlivePlayerNumberChanged -= ShowTagNameWhenKill;
+
         LevelManager.Ins.MinusNumberOfCharacterOnGround += ShowAlivePlayer;
         LevelManager.Ins.OnAlivePlayerNumberChanged += ShowTagNameWhenKill;
 
@@ -45,7 +48,6 @@ public class GamePlay : UICanvas
         {
             LevelManager.Ins.MinusNumberOfCharacterOnGround -= ShowAlivePlayer;
             LevelManager.Ins.OnAlivePlayerNumberChanged -= ShowTagNameWhenKill;
-
         }
         LevelManager.Ins.SetTargetIndicatorAlpha(0);
         foreach (TagNameItem item in tagNameItemList)
@@ -56,8 +58,4 @@ public class GamePlay : UICanvas
         base.CloseDirectly();
     }
 
-    //internal void OnShowTagName(string killer, string victim)
-    //{
-    //    throw new NotImplementedException();
-    //}
 }
