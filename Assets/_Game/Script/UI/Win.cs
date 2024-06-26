@@ -17,8 +17,6 @@ public class Win : UICanvas
         {
             UserDataManager.Ins.userData.currentLevel += 1;
         }
-
-
     }
     public void MainMenuButton()
     {

@@ -37,10 +37,6 @@ public class BulletBase : GameUnit
     }
     public void SetOwnerForBullet(Character character)
     {
-        if(character is Player)
-        {
-            Debug.Log("ffffffffffffff");
-        }
         this.owner = character;
     }
 
@@ -65,15 +61,10 @@ public class BulletBase : GameUnit
                     Character character = Cache.GetCharacter(other);
                     if (character == null)
                     {
-                        Debug.Log("null me no roi");
                         return;
                     }
                     if (character != null && character.isDespawn == false)
                     {
-                        if (owner is Player)
-                        {
-                            Debug.Log("ddddddddddddd");
-                        }
                         LevelManager.Ins.SetNameKillerAndVictim(owner.characterName, character.characterName);
                         character.OnHit(10f);
                         owner.AddScore(1);

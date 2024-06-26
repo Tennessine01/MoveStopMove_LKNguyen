@@ -190,12 +190,12 @@ public class Player : Character
     public void OnRevive()
     {
         //InstantiateTargetIndicator();
-        targetIndicator.SetName("Nguyen");
+        //targetIndicator.SetName("Nguyen");
         reviveTime--;
         isDespawn = false;
         joystick.gameObject.SetActive(true);
         IncreaseHP(10);
-        SetScore(score);
+        //SetScore(score);
     }
     private void CheckReviveTime()
     {
@@ -223,6 +223,7 @@ public class Player : Character
     public void OnStop()
     {
         rb.velocity = Vector3.zero;
+        ChangeAnim(Constant.ANIM_IDLE);
     }
     public override void OnDespawn() 
     { 

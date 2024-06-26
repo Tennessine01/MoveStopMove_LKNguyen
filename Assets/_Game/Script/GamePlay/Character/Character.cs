@@ -109,6 +109,7 @@ public class Character : GameUnit
         {
             //Debug.Log("aaaaaaaaaa");
         }
+
         targetIndicator = SimplePool.Spawn<TargetIndicator>(PoolType.TargetIndicator);
         targetIndicator.SetTarget(indicatorPosition);
     }

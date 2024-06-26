@@ -126,11 +126,11 @@ public class LevelManager : Singleton<LevelManager>
         if (player != null)
         {
             //Debug.Log("aaaaaaaaa");
-            ActivatePlayer();
             player.ResetItem();
             player.startPos = currentLevel.centerPosition;
             player.TF.forward = new Vector3(0, 0, -90);
-            player.OnInit();
+            ActivatePlayer();
+            //player.OnInit();
         }
         else
         {

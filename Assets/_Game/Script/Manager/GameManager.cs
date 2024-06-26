@@ -91,8 +91,9 @@ public class GameManager : Singleton<GameManager>
     private void ChangeWinState()
     {
         UIManager.Ins.OpenUI<Win>();
-        LevelManager.Ins.OnDespawn();
-        LevelManager.Ins.OnInit();
+        LevelManager.Ins.player.OnStop();
+        //LevelManager.Ins.OnDespawn();
+        //LevelManager.Ins.OnInit();
     }
     private void ChangeReviveState() 
     {
