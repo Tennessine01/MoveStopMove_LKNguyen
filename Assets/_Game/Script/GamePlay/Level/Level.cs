@@ -10,7 +10,7 @@ public class Level : MonoBehaviour
     [SerializeField] public Transform maxPoint;
     public int realBot = 10;
     public int maxBot = 20;
-    public int maxCoin = 200;
+    //public int maxCoin = 200;
     public Vector3 RandomPoint()
     {
         // Tao mot goc ngau nhien tu 0 den 360 do
@@ -37,8 +37,8 @@ public class Level : MonoBehaviour
         return hit.position;
     }
 
-    public int GetMaxCoin()
-    {
-        return maxCoin;
-    }
+    //public int GetMaxCoin()
+    //{
+    //    return maxCoin;
+    //}
 }

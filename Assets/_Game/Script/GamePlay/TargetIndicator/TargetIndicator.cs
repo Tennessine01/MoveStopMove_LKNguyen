@@ -94,6 +94,7 @@ public class TargetIndicator : GameUnit
     public void OnDespawn()
     {
         LevelManager.Ins.OnDespawnLevel -= OnDespawn;
+        SetAlpha(0);
         SimplePool.Despawn(this);
     }
 }

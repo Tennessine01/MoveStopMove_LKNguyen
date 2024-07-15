@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 
 public class Player : Character
@@ -85,7 +84,7 @@ public class Player : Character
         if (movementDirection.magnitude > 0.1f)
         {
             StopAllCoroutines();
-            isMoving = true;
+            isMoving = true;    
             isAttack = true;
             slotWeaponInHand.SetActive(true);
 

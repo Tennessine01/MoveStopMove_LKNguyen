@@ -90,6 +90,9 @@ public class GameManager : Singleton<GameManager>
     }
     private void ChangeWinState()
     {
+        UIManager.Ins.CloseUI<GamePlay>();
+        UIManager.Ins.CloseUI<Setting>();
+        UIManager.Ins.CloseUI<Lose>();
         UIManager.Ins.OpenUI<Win>();
         LevelManager.Ins.player.OnStop();
         //LevelManager.Ins.OnDespawn();
@@ -137,7 +140,7 @@ public class GameManager : Singleton<GameManager>
     }
     public bool IsState(GameState state)
     {
-        return this.gameState == state;
+        return gameState == state;
     }
     
 }

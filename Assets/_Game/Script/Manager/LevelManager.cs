@@ -36,17 +36,18 @@ public class LevelManager : Singleton<LevelManager>
     //}
     public void OnInit()
     {
-        if(listBot != null)
-        {
-            for (int i = 0; i < listBot.Count; i++)
-            {
-                Bot bot = listBot[i];
-                //bot.shootPoint.b.OnDespawn();
-                bot.OnDespawn();
-                SimplePool.Despawn(bot);
-            }
-            listBot.Clear();
-        }
+        //if(listBot != null)
+        //{
+        //    for (int i = 0; i < listBot.Count; i++)
+        //    {
+        //        Bot bot = listBot[i];
+        //        //bot.shootPoint.b.OnDespawn();
+        //        bot.OnDespawn();
+        //        SimplePool.Despawn(bot);
+        //    }
+        //    listBot.Clear();
+        //}
+
         //Debug.Log(userDataManager.userData.currentLevel + "=======================");
         OnLoadLevel(userDataManager.userData.currentLevel);
         SpawnPlayer();
@@ -77,6 +78,7 @@ public class LevelManager : Singleton<LevelManager>
             Level newLevel = Instantiate(levels[level], transform);
             currentLevel = newLevel;
             numberOfCharacter = newLevel.maxBot;
+            Debug.Log("aaaa");
             levelCount = level;
         }
         if(level != levelCount)
@@ -86,6 +88,10 @@ public class LevelManager : Singleton<LevelManager>
             currentLevel = newLevel;
             numberOfCharacter = newLevel.maxBot;
             levelCount = level;
+        }
+        else
+        {
+            numberOfCharacter = currentLevel.maxBot;
         }
     }
 
@@ -154,7 +160,7 @@ public class LevelManager : Singleton<LevelManager>
     }
     public void OnPlay()
     {
-        for (int i = 0; i < listBot.Count; i++)
+        for (int i = 0; i < BotNumber; i++)
         {
             Bot bot = listBot[i];
             bot.ChangeState(new IdleState());
@@ -196,20 +202,20 @@ public class LevelManager : Singleton<LevelManager>
         //SimplePool.CollectAll();
         //DespawnBot();
     }
-    public void DespawnBot()
-    {
-        if (listBot != null)
-        {
-            for (int i = 0; i < listBot.Count; i++)
-            {
-                Bot bot = listBot[i];
-                //bot.shootPoint.b.OnDespawn();
-                bot.OnDespawn();
-                SimplePool.Despawn(bot);
-            }
-            listBot.Clear();
-        }
-    }
+    //public void DespawnBot()
+    //{
+    //    if (listBot != null)
+    //    {
+    //        for (int i = 0; i < listBot.Count; i++)
+    //        {
+    //            Bot bot = listBot[i];
+    //            //bot.shootPoint.b.OnDespawn();
+    //            bot.OnDespawn();
+    //            SimplePool.Despawn(bot);
+    //        }
+    //        listBot.Clear();
+    //    }
+    //}
     public void DespawnPlayer()
     {
         if (player != null)
@@ -244,7 +250,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         OnAlivePlayerNumberChanged?.Invoke();
         ReduceListBotNumber(bot);
-        if (numberOfCharacter > listBot.Count)
+        if (numberOfCharacter > BotNumber)
         {
             SpawnBot();
         }
@@ -281,15 +287,15 @@ public class LevelManager : Singleton<LevelManager>
     //--------------------------------
     public void AddCoinWhenLose()
     {
-        UserDataManager.Ins.userData.coin += (currentLevel.realBot - listBot.Count) * 10;
+        UserDataManager.Ins.userData.coin += (currentLevel.maxBot - numberOfCharacter) * 10;
     }
     public string NumberCoinWhenLose()
     {
-        return ((currentLevel.realBot - listBot.Count) * 10).ToString();
+        return ((currentLevel.maxBot - numberOfCharacter) * 10).ToString();
     }
     public void AddCoinWhenWin()
     {
-        UserDataManager.Ins.userData.coin += currentLevel.GetMaxCoin();
+        UserDataManager.Ins.userData.coin += currentLevel.maxBot*10;
     }
 
     public void SetTargetIndicatorAlpha(float alpha)

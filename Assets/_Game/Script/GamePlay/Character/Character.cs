@@ -30,7 +30,7 @@ public class Character : GameUnit
     public string characterName;
 
     [SerializeField] Transform indicatorPosition;
-    protected TargetIndicator targetIndicator  = null;
+    [SerializeField] protected TargetIndicator targetIndicator  = null;
     //pant
     public int pantID = 0;
     //vu khi tren tay
@@ -105,10 +105,6 @@ public class Character : GameUnit
     }
     public virtual void InstantiateTargetIndicator()
     {
-        if(this is Player)
-        {
-            //Debug.Log("aaaaaaaaaa");
-        }
 
         targetIndicator = SimplePool.Spawn<TargetIndicator>(PoolType.TargetIndicator);
         targetIndicator.SetTarget(indicatorPosition);

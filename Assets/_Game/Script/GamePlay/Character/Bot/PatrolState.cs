@@ -17,7 +17,7 @@ public class PatrolState : IState<Bot>
             Vector3 point;
             if (t.RandomPoint(t.centerPoint.position, t.radiusSphere, out point)) //pass in our centre point and radius of area
             {
-                Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); 
+                //Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); 
                 t.agent.SetDestination(point);
                 
             }

@@ -16,7 +16,7 @@ public class UserData
     public float size;
     //Skin
     public int currentLevel;
-    public int coin;
+    public int coin = 5000;
     //ItemData
     public List<int> weaponList = new();
     public List<int> hatList = new();

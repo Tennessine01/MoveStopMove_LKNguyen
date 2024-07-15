@@ -36,6 +36,8 @@ public class Bot : Character
         LevelManager.Ins.WhenPlayerDie += ChangeMenuState;
         characterName = NameUtilities.GetRandomName();
         targetIndicator.SetName(characterName);
+        //Debug.Log(targetIndicator != null);
+        LevelManager.Ins.OnDespawnLevel += OnDespawn;
 
     }
     public override void InstantiateTargetIndicator()
@@ -45,7 +47,7 @@ public class Bot : Character
     public override void OnDespawn()
     {
         base.OnDespawn();
-        SimplePool.Despawn(targetIndicator);
+        //SimplePool.Despawn(targetIndicator);
         SimplePool.Despawn(this);
         isDespawn = true;
         size = 1;
@@ -55,6 +57,8 @@ public class Bot : Character
 
         ChangeState(new MenuState());
         LevelManager.Ins.WhenPlayerDie -= ChangeMenuState;
+        LevelManager.Ins.OnDespawnLevel -= OnDespawn;
+
     }
 
     public override void Update()
@@ -92,7 +96,7 @@ public class Bot : Character
 
         Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas)) //documentation: https://docs.unity3d.com/ScriptReference/AI.NavMesh.SamplePosition.html
+        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas)) 
         {
             //the 1.0f is the max distance from the random point to a point on the navmesh, might want to increase if radiusSphere is big
             //or add a for loop like in the documentation
@@ -120,7 +124,7 @@ public class Bot : Character
     public override void OnDead()
     {
         base.OnDead();
-        SimplePool.Despawn(this.targetIndicator);
+        SimplePool.Despawn(targetIndicator);
         //OnDespawn();
         //if (attackRange.characterList.Count > 0)
         //{

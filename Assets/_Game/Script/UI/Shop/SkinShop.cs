@@ -28,8 +28,8 @@ public class SkinShop : UICanvas
     [HideInInspector] public int MONEY = 0; // bien chua gia cua item dang chon
     [HideInInspector] public int ITEM_ID = 0; // bien chua id cua item dang chon
 
-    public UnityEvent<int, ShopType> onItemBought = new UnityEvent<int, ShopType>();
-    public UnityEvent<int, ShopType> onItemEquip = new UnityEvent<int, ShopType>();
+    [HideInInspector] public UnityEvent<int, ShopType> onItemBought = new UnityEvent<int, ShopType>();
+    [HideInInspector] public UnityEvent<int, ShopType> onItemEquip = new UnityEvent<int, ShopType>();
 
     private bool isInitialized = false;
 

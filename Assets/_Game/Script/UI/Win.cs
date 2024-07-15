@@ -11,9 +11,13 @@ public class Win : UICanvas
     public override void Open()
     {
         base.Open();
-        reward.text = LevelManager.Ins.currentLevel.GetMaxCoin().ToString();
+        ShowReward();
+    }
+    public void ShowReward()
+    {
+        reward.text = (LevelManager.Ins.currentLevel.maxBot*10).ToString();
         LevelManager.Ins.AddCoinWhenWin();
-        if (UserDataManager.Ins.userData.currentLevel < LevelManager.Ins.levels.Count-1)
+        if (UserDataManager.Ins.userData.currentLevel < LevelManager.Ins.levels.Count - 1)
         {
             UserDataManager.Ins.userData.currentLevel += 1;
         }
