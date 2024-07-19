@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 
 public class Character : GameUnit
@@ -74,14 +73,15 @@ public class Character : GameUnit
 
     //vi tri de mu
     public Transform hatPosition;
-    public List<Character> targetsList = new List<Character>();
+
+    public List<Character> targetsList = new();
     public Character target;
     //vi tri cua muc tieu
     private Vector3 targetPoint;
 
     //
     public List<GameObject> listShields = new List<GameObject>();
-    public List<GameObject> listHats = new List<GameObject>();
+    //public List<GameObject> listHats = new List<GameObject>();
 
 
     public virtual void OnInit()
@@ -91,6 +91,7 @@ public class Character : GameUnit
         target = null;
         hp = 10;
         size = 1;
+        SetSize(size);
         score = 0;
         //attackRange.range = Range;
         TF.localScale = Vector3.one*size;
@@ -156,15 +157,32 @@ public class Character : GameUnit
             case ShopType.Pant:
                 InstantiatePant(id);
                 break;
+            case ShopType.Accessory:
+                ActiveShield(id);
+                break;
             default:
                 break;
         }
 
     }
     //---------------------------------------------------------------
-    
+    public void ActiveShield(int id)
+    {
+        DeActiveShield();
+        if (id > 0)
+        {
+            listShields[id - 1].SetActive(true);
+        }
+    }
+    public void DeActiveShield()
+    {
+        foreach (GameObject shield in listShields)
+        {
+            shield.SetActive(false);
+        }
+    }
     //----------------------------------------------------------------
-    
+
     public void InstantiateWeapon(int weaponID)
     {
         weaponPrefab = EquipemtManager.Ins.InstantiatePrefabById(weaponID, weaponPosition, ShopType.Weapon);
@@ -225,7 +243,14 @@ public class Character : GameUnit
 
         for (int i = 0; i < targetsList.Count; i++)
         {
-            if (targetsList[i] != null && targetsList[i] != this && !targetsList[i].IsDead && targetsList[i] != isDespawn && Vector3.Distance(TF.position, targetsList[i].TF.position) <= Range * size + targetsList[i].size)
+            if (Vector3.Distance(TF.position, targetsList[i].TF.position) > Range * size + targetsList[i].size + 2f)
+            {
+                //Debug.Log("aaaabbb");
+                RemoveTarget(targetsList[i]);
+                return null;
+            }
+            if (targetsList[i] != null && targetsList[i] != this && 
+                !targetsList[i].IsDead && targetsList[i] != isDespawn) 
             {
                 float dis = Vector3.Distance(TF.position, targetsList[i].TF.position);
 
@@ -241,7 +266,6 @@ public class Character : GameUnit
     public virtual void OnAttack()
     {
         target = GetTargetInRange();
-
         if (target != null && !target.IsDead)
         {
             targetPoint = target.TF.position;
@@ -301,6 +325,7 @@ public class Character : GameUnit
     public virtual void AddScore(int value )
     {
         SetScore(score + value);
+        UpSize();
     }
     public virtual void SetScore(int score)
     {
@@ -318,5 +343,8 @@ public class Character : GameUnit
         this.size = size;
         TF.localScale = size * Vector3.one;
     }
-
+    protected virtual void UpSize()
+    {
+        SetSize(1 + this.score * 0.1f);
+    }
 }

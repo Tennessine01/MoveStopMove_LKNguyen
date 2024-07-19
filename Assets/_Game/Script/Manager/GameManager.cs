@@ -26,9 +26,7 @@ public class GameManager : Singleton<GameManager>
         //}
 
         //csv.OnInit();
-        //userData?.OnInitData();
-
-        
+        //userData?.OnInitData();    
     }
     public void Start()
     {

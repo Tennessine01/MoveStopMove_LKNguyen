@@ -1581,11 +1581,14 @@ MonoBehaviour:
   Range: 5
   moveSpeed: 0
   size: 1
+  score: 0
   targetMark: {fileID: 8780808995612078891}
   characterName: 
   indicatorPosition: {fileID: 5742972353133163900}
+  targetIndicator: {fileID: 0}
   pantID: 0
   weaponID: 0
+  shieldID: 0
   hatID: 0
   hatPrefab: {fileID: 0}
   weaponPrefab: {fileID: 0}
@@ -1604,6 +1607,8 @@ MonoBehaviour:
   hatPosition: {fileID: 3128862274614907247}
   targetsList: []
   target: {fileID: 0}
+  listShields: []
+  listHats: []
   agent: {fileID: 8954847631209615012}
   radiusSphere: 20
   centerPoint: {fileID: 0}

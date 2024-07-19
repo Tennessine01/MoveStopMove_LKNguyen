@@ -12,7 +12,6 @@ public class CharacterAttackRange : MonoBehaviour
     //private Character _targetCharacter;
 
     //public float range ;
-
     
     
     //public override void Update()

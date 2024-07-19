@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public enum ItemState { Buy = 0, Bought = 1 , Equipped = 2, Selecting = 3 }
 
-
 public class SkinShopItem : MonoBehaviour
 {
     public GameObject lockIcon;
@@ -20,9 +19,6 @@ public class SkinShopItem : MonoBehaviour
     public int price;
     
     public int id;
-
-    private UnityAction<int, ShopType> onItemBoughtAction;
-    private UnityAction<int, ShopType> onItemEquippedAction;
 
     internal void Setup(ItemData data , ShopType type) 
     {
@@ -43,12 +39,13 @@ public class SkinShopItem : MonoBehaviour
             EquippedItem();
         }
 
-        // create unity action
-        onItemBoughtAction = (itemId, shopType) => OnItemBought(itemId, shopType);
-        onItemEquippedAction = (itemId, shopType) => OnItemEquipped(itemId, shopType);
+        //// create unity action
+        //onItemBoughtAction = (itemId, shopType) => OnItemBought(itemId, shopType);
+        //onItemEquippedAction = (itemId, shopType) => OnItemEquipped(itemId, shopType);
         // subscribe to an event when bought
-        uiskinshop.onItemBought.AddListener(onItemBoughtAction);
-        uiskinshop.onItemEquip.AddListener(onItemEquippedAction);
+
+        uiskinshop.onItemBought.AddListener(OnItemBought);
+        uiskinshop.onItemEquip.AddListener(OnItemEquipped);
     }
 
     public void ChooseItem()
@@ -58,9 +55,9 @@ public class SkinShopItem : MonoBehaviour
 
         LevelManager.Ins.player.InstantiateItem(id, shopType);
 
-        uiskinshop.MONEY = price;
-        uiskinshop.ITEM_ID = id;
-        uiskinshop.SetPriceText(uiskinshop.MONEY);
+        uiskinshop.money = price;
+        uiskinshop.itemID = id;
+        uiskinshop.SetPriceText(uiskinshop.money);
         // close curent
         if (uiskinshop.currentSkinShopItem != null && uiskinshop.currentSkinShopItem != this)
         {
@@ -77,7 +74,7 @@ public class SkinShopItem : MonoBehaviour
     }
     public void CheckItem()
     {
-        uiskinshop.CheckStatecOfChoosenItem(id, shopType);
+        uiskinshop.CheckStateOfChosenItem(id, shopType);
     }
 
     public void UnlockItem()
@@ -97,8 +94,8 @@ public class SkinShopItem : MonoBehaviour
     {
         if (uiskinshop != null)
         {
-            uiskinshop.onItemBought.RemoveListener(onItemBoughtAction);
-            uiskinshop.onItemEquip.RemoveListener(onItemEquippedAction);
+            uiskinshop.onItemBought.RemoveListener(OnItemBought);
+            uiskinshop.onItemEquip.RemoveListener(OnItemEquipped);
         }
     }
 

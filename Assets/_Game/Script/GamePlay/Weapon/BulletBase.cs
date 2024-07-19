@@ -19,15 +19,6 @@ public class BulletBase : GameUnit
         {
             OnDespawn();
         }
-        //if (owner != null)
-        //{
-
-        //    if (owner.isDespawn == true)
-        //    {
-        //        //Debug.Log("--------");
-        //        OnDespawn();
-        //    } 
-        //}
     }
     public void OnInit( float damage)
     {
@@ -37,7 +28,7 @@ public class BulletBase : GameUnit
     }
     public void SetOwnerForBullet(Character character)
     {
-        this.owner = character;
+        owner = character;
     }
 
     public void OnDespawn()
@@ -53,12 +44,13 @@ public class BulletBase : GameUnit
     {
         if(other.CompareTag(Constant.TAG_CHARACTER) || other.CompareTag(Constant.TAG_WALL))
         {
+            Character character = Cache.GetCharacter(other);
+
             if (owner == null) return;
-            if (owner != null) 
+            if (owner != null && character != owner) 
             {
-                if (other != owner)
+                if (character != owner)
                 {
-                    Character character = Cache.GetCharacter(other);
                     if (character == null)
                     {
                         return;
@@ -78,9 +70,9 @@ public class BulletBase : GameUnit
                     OnDespawn();
                 } 
             }
-            else{ 
-                OnDespawn(); 
-            }    
+            //else{ 
+            //    OnDespawn(); 
+            //}    
         }
     }
     

@@ -117,10 +117,7 @@ public class Bot : Character
             ChangeState(new AttackState());
         }
     }
-    public override void OnAttack()
-    {
-        base.OnAttack(); 
-    }
+    
     public override void OnDead()
     {
         base.OnDead();

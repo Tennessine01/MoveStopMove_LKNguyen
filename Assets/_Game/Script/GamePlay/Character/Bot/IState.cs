@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IState<T>
+public interface IState<Bot>
 {
-    void OnEnter(T t);
-    void OnExecute(T t);
-    void OnExit(T t);
+    void OnEnter(Bot t);
+    void OnExecute(Bot t);
+    void OnExit(Bot t);
 }

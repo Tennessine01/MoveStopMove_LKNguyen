@@ -16,8 +16,10 @@ public class Player : Character
 
     private bool isMoving;
     public bool isAttack = true;
-    private bool wasMovingLastFrame = false;
     private Vector3 movementDirection;
+
+    private Coroutine attackCoroutine;
+
     [SerializeField] private int reviveTime;
     public override void OnInit()
     {
@@ -25,7 +27,8 @@ public class Player : Character
 
         base.OnInit();
         InstantiateWeapon(weaponID);
-        ActiveHats(hatID);
+        InstantiateHat(hatID);
+        //ActiveHats(hatID);
         InstantiatePant(pantID);
         ActiveShield(shieldID);
         isMoving = false;
@@ -51,26 +54,11 @@ public class Player : Character
             //CheckClosestEnemy();
         }
     }
-    public override void SetOwnerForBullet()
-    {
-        //Debug.Log("fffffff");
-        shootPoint.SetOwner(this);
-    }
-    public override void SetScore(int score)
-    {
-        base.SetScore(score);
-    }
+    
+    
     //-------------------------------------------------------------------
     public void OnLoadData()
     {
-        //if (UserDataManager.Ins.userData.currentWeapon == 0)
-        //{
-        //    weaponID = 0;
-        //}
-        //else
-        //{
-        //    weaponID = UserDataManager.Ins.userData.currentWeapon;
-        //}
         weaponID = UserDataManager.Ins.userData.currentWeapon;
         shieldID = UserDataManager.Ins.userData.currentAccessory;
         hatID = UserDataManager.Ins.userData.currentHat;
@@ -83,7 +71,12 @@ public class Player : Character
         movementDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized; //chuan hoa ve unit vector
         if (movementDirection.magnitude > 0.1f)
         {
-            StopAllCoroutines();
+            if (attackCoroutine != null)
+            {
+                StopCoroutine(attackCoroutine);
+            }
+
+            //StopAllCoroutines();
             isMoving = true;    
             isAttack = true;
             slotWeaponInHand.SetActive(true);
@@ -131,11 +124,10 @@ public class Player : Character
     //}
     public override void AddTarget(Character target)
     {
-        base.AddTarget(target);
-
+        base.AddTarget(target); 
         if (!target.IsDead && !IsDead)
         {
-            target.SetTargetMark(true);
+            //target.SetTargetMark(true);
             if (isMoving == false && isAttack == true)
             {
                 OnAttack();
@@ -164,21 +156,17 @@ public class Player : Character
     {
         if (isAttack == true)
         {
-            StartCoroutine(CheckAttackFalse());
+            attackCoroutine = StartCoroutine(CheckAttackFalse());
         }
     }
     IEnumerator CheckAttackFalse()
     {
         isAttack = false;
-        //Debug.Log("----");
-        // 
-        //ChangeAnim(Constant.ANIM_ATTACK);
+        
         yield return new WaitForSeconds(0.4f);
         slotWeaponInHand.SetActive(false);
-        //Debug.Log("shoottttt");
         shootPoint.Shoot(weapon.bulletType, size);
         isAttack = false;
-        //Debug.Log(isAttack);
 
         //yield return new WaitForSeconds(0.1f);
         //isAttack = false;
@@ -231,55 +219,21 @@ public class Player : Character
         OnStop();
     }
 
-    public override void InstantiateItem(int id, ShopType type)
-    {
-        switch (type)
-        {
-            case ShopType.Hat:
-                ActiveHats(id);
-                break;
-            case ShopType.Weapon:
-                InstantiateWeapon(id);
-                break;
-            case ShopType.Pant:
-                InstantiatePant(id);
-                break;
-            case ShopType.Accessory:
-                ActiveShield(id);
-                break;
-            default:
-                break;
-        }
-    }
-    public void ActiveShield(int id)
-    {
-        DeActiveShield();
-        if (id > 0)
-        {
-            listShields[id - 1].SetActive(true);
-        }
-    }
-    public void DeActiveShield()
-    {
-        foreach (GameObject shield in listShields)
-        {
-            shield.SetActive(false);
-        }
-    }
+    
 
-    public void ActiveHats(int id)
-    {
-        DeActiveHats();
-        if (id > 0)
-        {
-            listHats[id - 1].SetActive(true);
-        }
-    }
-    public void DeActiveHats()
-    {
-        foreach (GameObject shield in listHats)
-        {
-            shield.SetActive(false);
-        }
-    }
+    //public void ActiveHats(int id)
+    //{
+    //    DeActiveHats();
+    //    if (id > 0)
+    //    {
+    //        listHats[id - 1].SetActive(true);
+    //    }
+    //}
+    //public void DeActiveHats()
+    //{
+    //    foreach (GameObject shield in listHats)
+    //    {
+    //        shield.SetActive(false);
+    //    }
+    //}
 }
